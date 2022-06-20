@@ -155,18 +155,76 @@
   </style>
   <link rel="stylesheet" href="/index.css" />
   
-  
   <script>
   window.MathJax = {
   loader: {load: ['[tex]/physics']},
   tex: {packages: {'[+]': ['physics']}}
   };
 
-  let root = document.documentElement;
-    document.addEventListener("scroll", evt => {
-    root.style.setProperty("--scrolltop", root.scrollTop);
-  });
   </script>
+  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    let height_dict = {};
+    let last_idx;
+    let root = document.documentElement;
+    
+    let update_heights = () => {
+      const elems = Array.from(document.getElementById("TOC").getElementsByTagName("a"));
+      elems.forEach(e => {
+        height_dict[e.id] = window.pageYOffset + document.getElementById(e.id.slice(4)).getBoundingClientRect().top;
+      })
+    }
+    
+    let update_bold = () => {
+      let k = Object.keys(height_dict), v = Object.values(height_dict);
+      let scrollTop = root.scrollTop;
+      if (k.length > 0) {
+        let tmp = v.map(x => scrollTop+30 > x ? (scrollTop - x) : Infinity);
+        const idx = k[tmp.indexOf(Math.min(...tmp))];
+        if (idx !== last_idx) {
+          if (last_idx) {
+            document.getElementById(last_idx).style.fontWeight = 'normal';  
+          }
+          document.getElementById(idx).style.fontWeight = 'bold';
+          last_idx = idx;
+        }
+    }
+    }
+    update_bold = window._.throttle(update_bold, 50);
+    update_heights = window._.throttle(update_heights, 50);
+
+    window.onload = () => {
+      let root = window.location.pathname.split('/')[1];
+      if (root === '') root = 'home';
+      
+      update_heights();
+      document.getElementById("nav-"+root).style.textDecoration = 'underline';
+      document.getElementById("nav-"+root).style.fontWeight = 'bold';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      update_heights();
+      update_bold();
+    }, false);
+
+    window.addEventListener('resize', () => {
+      update_heights();
+      update_bold();
+    });
+
+    
+    document.addEventListener("scroll", evt => {
+      root.style.setProperty("--scrolltop", root.scrollTop);
+      update_bold();
+    });
+  
+</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKD85BYZJD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -176,35 +234,6 @@
     gtag('config', 'G-GKD85BYZJD');
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-<script defer>
-  let elem = null;
-  const bold_item = function() {
-    const hash = window.location.hash.replace('#', '');
-    if (elem) {
-      elem.style.fontWeight = 'normal';
-    }
-    elem = document.getElementById("toc-" + hash);
-    if (elem) {
-      elem.style.fontWeight = 'bold';
-    }
-  }
-
-  window.onload = function() {
-    const root = "notes";
-    document.getElementById("nav-"+root).style.textDecoration = 'underline';
-    document.getElementById("nav-"+root).style.fontWeight = 'bold';
-    bold_item();
-    }
-  
-  window.onhashchange = bold_item;
-  
-</script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-
-
 
 </head>
 <body>
@@ -222,26 +251,134 @@
     <header id="title-block-header">
   <h1 class="title">Notes</h1>
           </header>
-      <div style="display: flex; flex-direction:column">
-      <div style="margin: 0 auto">
+      A collection of notes I’ve taken. The number of errors in these
+      notes probably grows at least polynomially as you go back in time
+      (with italicized notes being taken in high school); please <a
+      href="mailto:andigu@g.harvard.edu">let me know</a> if you catch
+      any of these errors!
+      <div
+      style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
+      <div>
       <table>
       <thead>
-      <tr class="header">
-      <th>Subject Area</th>
-      <th>Links</th>
+      <tr>
+      <th>
+      Subject
+      </th>
+      <th>
+      Links
+      </th>
+      <th>
+      Dated
+      </th>
       </tr>
       </thead>
-      <tbody>
-      <tr class="odd">
-      <td>Physics</td>
-      <td><a href="/notes/tmp.html">Notes</a> <br/> <a
-      href="/notes">Notes</a></td>
+      <tr>
+      <td rowspan="7">
+      Physics
+      </td>
+      <td>
+      <em>Special relativity</em> [<a
+      href="/static/pdf-notes/Special_Relativity.pdf">pdf</a>]
+      </td>
+      <td>
+      Spring 2018
+      </td>
       </tr>
-      <tr class="even">
-      <td>Information theory</td>
-      <td><a href="/notes">Notes</a></td>
+      <tr>
+      <td>
+      <em>Mechanics (rotation)</em> [<a
+      href="/static/pdf-notes/Rotation.pdf">pdf</a>]
+      </td>
+      <td>
+      Spring 2018
+      </td>
       </tr>
-      </tbody>
+      <tr>
+      <td>
+      <em>Mechanics (oscillation)</em> [<a
+      href="/static/pdf-notes/Oscillation.pdf">pdf</a>]
+      </td>
+      <td>
+      Spring 2018
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <em>Light</em> [<a href="/static/pdf-notes/Light.pdf">pdf</a>]
+      </td>
+      <td>
+      Spring 2018
+      </td>
+      </tr>
+      <tr>
+      <td>
+      E&amp;M [<a href="/static/pdf-notes/EM.pdf">pdf</a>]
+      </td>
+      <td>
+      Winter 2019
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Special relativity [<a
+      href="/static/pdf-notes/Special%20Relativity%202.pdf">pdf</a>]
+      </td>
+      <td>
+      Spring 2020
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Condensed matter [<a href="/notes/condensed.html">html</a>, <a
+      href="/notes/condensed.pdf">pdf</a>]
+      </td>
+      <td>
+      Summer 2022
+      </td>
+      </tr>
+      <tr style="border-top: thin solid black;">
+      <td rowspan="1">
+      Computer science and information theory
+      </td>
+      <td>
+      <em>Algorithms</em> [<a
+      href="/static/pdf-notes/Algorithms.pdf">pdf</a>]
+      </td>
+      <td>
+      Spring 2018
+      </td>
+      </tr>
+      <tr style="border-top: thin solid black;">
+      <td rowspan="3">
+      Math
+      </td>
+      <td>
+      Linear algebra (Math 54 at UCB) [<a
+      href="/static/pdf-notes/Math_54.pdf">pdf</a>]
+      </td>
+      <td>
+      Fall 2018
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Linear algebra (Math 110 at UCB) [<a
+      href="/static/pdf-notes/Math_110.pdf">pdf</a>]
+      </td>
+      <td>
+      Fall 2019
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Geometric algebra [<a href="/notes/geometric.html">html</a>, <a
+      href="/notes/geometric.pdf">pdf</a>]
+      </td>
+      <td>
+      Summer 2022
+      </td>
+      </tr>
       </table>
       </div>
       </div>

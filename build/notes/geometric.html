@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Andi Gu" />
+  <meta name="dcterms.date" content="2022-06-20" />
+  <title>Geometric Algebra</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Latin Modern;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: blue!50!black;
+    }
+    a:visited {
+      color: blue!50!black;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <link rel="stylesheet" href="/index.css" />
+  
+  <script>
+  window.MathJax = {
+  loader: {load: ['[tex]/physics']},
+  tex: {packages: {'[+]': ['physics']}}
+  };
+
+  </script>
+  
+
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    let height_dict = {};
+    let last_idx;
+    let root = document.documentElement;
+    
+    let update_heights = () => {
+      const elems = Array.from(document.getElementById("TOC").getElementsByTagName("a"));
+      elems.forEach(e => {
+        height_dict[e.id] = window.pageYOffset + document.getElementById(e.id.slice(4)).getBoundingClientRect().top;
+      })
+    }
+    
+    let update_bold = () => {
+      let k = Object.keys(height_dict), v = Object.values(height_dict);
+      let scrollTop = root.scrollTop;
+      if (k.length > 0) {
+        let tmp = v.map(x => scrollTop+30 > x ? (scrollTop - x) : Infinity);
+        const idx = k[tmp.indexOf(Math.min(...tmp))];
+        if (idx !== last_idx) {
+          if (last_idx) {
+            document.getElementById(last_idx).style.fontWeight = 'normal';  
+          }
+          document.getElementById(idx).style.fontWeight = 'bold';
+          last_idx = idx;
+        }
+    }
+    }
+    update_bold = window._.throttle(update_bold, 50);
+    update_heights = window._.throttle(update_heights, 50);
+
+    window.onload = () => {
+      let root = window.location.pathname.split('/')[1];
+      if (root === '') root = 'home';
+      
+      update_heights();
+      document.getElementById("nav-"+root).style.textDecoration = 'underline';
+      document.getElementById("nav-"+root).style.fontWeight = 'bold';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      update_heights();
+      update_bold();
+    }, false);
+
+    window.addEventListener('resize', () => {
+      update_heights();
+      update_bold();
+    });
+
+    
+    document.addEventListener("scroll", evt => {
+      root.style.setProperty("--scrolltop", root.scrollTop);
+      update_bold();
+    });
+  
+</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKD85BYZJD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-GKD85BYZJD');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="container">
+
+  <div class="nav-container">
+  <nav class="navbar">
+      <a href="/" class="nav-link" id="nav-home">Home</a>
+      <a href="/notes" class="nav-link" id="nav-notes">Notes</a>
+      </nav>
+  </div>
+
+  <div class="content-container">
+    <header id="title-block-header">
+  <h1 class="title">Geometric Algebra</h1>
+      <p class="author">Andi Gu</p>
+      <p class="date">June 20, 2022</p>
+      </header>
+      <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of Contents</h2>
+    <ul>
+    <li><a href="#foundations" id="toc-foundations"><span
+    class="toc-section-number">1</span> Foundations</a></li>
+    <li><a href="#bibliography"
+    id="toc-bibliography">References</a></li>
+    </ul>
+  </nav>
+    <p>This is a collection of notes from my study of the <em>Geometric
+    Algebra for Physicists</em> textbook <span class="citation"
+    data-cites="doran2007">(<a href="#ref-doran2007"
+    role="doc-biblioref">Doran and Lasenby 2007</a>)</span>.</p>
+    <h1 data-number="1" id="foundations"><span
+    class="header-section-number">1</span> Foundations</h1>
+    <p>The entire structure of geometric algebra can be boiled down to
+    the geometric product, which is a binary operation between two
+    vectors <span class="math inline">\(a\)</span> and <span
+    class="math inline">\(b\)</span>. The usual rules of a vector space
+    apply to these vectors, and the usefulness of geometric algebra is
+    in the structure revealed by the product <span
+    class="math inline">\(ab\)</span>. This product satisfies three
+    fairly natural axioms.</p>
+    <ol type="1">
+    <li>It is associative: <span
+    class="math inline">\((ab)c=a(bc)\)</span></li>
+    <li>It distributes over addition: <span
+    class="math inline">\(a(b+c)=ab+ac\)</span></li>
+    <li>The square of any vector is real: <span
+    class="math inline">\(a^2 \in \mathbb{R}\)</span>. We do not make
+    the assumption that <span class="math inline">\(a^2 \geq 0\)</span>
+    to allow for the possibility of spaces with mixed signature (e.g.,
+    Minkowski space).</li>
+    </ol>
+    <p>It is important not to interpret this product <span
+    class="math inline">\(uv\)</span> as another vector. In fact, <span
+    class="math inline">\(uv\)</span> is a sum of a scalar element <span
+    class="math inline">\(u \in \mathbb{R}\)</span> and a ‘bivector’
+    <span class="math inline">\(V\)</span>: <span
+    class="math inline">\(ab=u + V\)</span> – this should be understood
+    as something like a complex number <span
+    class="math inline">\(u+iv\)</span>. In fact, for a vector space of
+    dimension 2, this analogy is exact. In general, the bivector should
+    be pictured as a directed area, or an object like the angular
+    momentum in classical mechanics. This analogy extends further: we
+    can have a trivector, which is an oriented volume, and so on and so
+    forth.</p>
+    <p>However, this geometric product is not so exotic. We can still
+    understand it in terms of some familiar concepts. For one, we
+    observe that <span class="math inline">\((a+b)^2\)</span> is always
+    real, so we must have <span class="math inline">\(a^2+ab+ba+b^2 \in
+    \mathbb{R} \implies ab + ba \in \mathbb{R}\)</span>. We have found
+    that the symmeterized geometric product is a binary relation between
+    vectors that outputs a real number – that is, a dot product! So we
+    define <span class="math display">\[a \cdot b =
+    \frac{(ab+ba)}{2}.\]</span> We define the remaining part of the
+    product as the exterior product (which might be thought of as
+    replacing the role of the cross product): <span
+    class="math display">\[a \wedge b = \frac{ab-ba}{2}.\]</span> This
+    then gives <span class="math inline">\(ab=a \cdot b + a \wedge
+    b\)</span>: a sum of a scalar and a bivector, as promised.</p>
+    <p>Well, technically, not yet: we do not have a good reason to
+    believe we should understand <span class="math inline">\(a \wedge
+    b\)</span> as a bivector (or a directed area) yet. So we define it
+    as such, and show this definition conforms to our intuition later.
+    More precisely, we define exterior product of <span
+    class="math inline">\(r\)</span> vectors as the full
+    anti-symmeterized product over all of them: <span
+    class="math display">\[a_1 \wedge a_2 \wedge \ldots \wedge a_r =
+    \frac{1}{r!}\sum_{\sigma \in \mathbb{S}_r} (-1)^{\sigma}
+    a_{\sigma(1)} a_{\sigma(2)} \ldots a_{\sigma(r)},\]</span> where
+    <span class="math inline">\(\mathbb{S}_r\)</span> is the set of all
+    permutations on <span class="math inline">\(r\)</span> elements and
+    <span class="math inline">\((-1)^\sigma\)</span> is the sign of a
+    permutation. A consequence of this definition is that the product
+    reverses sign under exchange of any two vectors. Then, we see that
+    if any vector is repeated, the exterior product must be zero, which
+    then implies if the vectors are linearly dependent, the exterior
+    product is also zero (this follows simply by distributivity of the
+    geometric product under addition). Therefore, the outer product can
+    be understood to measure the dimensionality of a set of vectors. We
+    say that the outer product of <span class="math inline">\(r\)</span>
+    vectors has grade <span class="math inline">\(r\)</span> (if it does
+    not vanish). A multivector that can be written purely as an outer
+    product is called a blade.</p>
+    <p>We now show that any blade <span class="math inline">\(a_1 \wedge
+    \ldots \wedge a_r\)</span> can be written simply as a product of
+    orthogonal vectors <span class="math inline">\(e_1 \ldots
+    e_r\)</span>. Let <span
+    class="math inline">\(e_1,\ldots,e_r\)</span> be the
+    orthogonalization of <span
+    class="math inline">\(a_1,\ldots,a_r\)</span> using Gram-Schmidt. We
+    show by induction that <span class="math inline">\(e_1 \ldots
+    e_r=a_1 \wedge \ldots \wedge a_r\)</span>. This trivially holds for
+    <span class="math inline">\(r=1\)</span>. Then, let us assume <span
+    class="math inline">\(a_1 \wedge \ldots \wedge a_{r-1}=e_1 \ldots
+    e_{r-1}\)</span>. We make use of two facts. First, <span
+    class="math inline">\(v \equiv e_r - a_r \in
+    \text{span}(a_1,\ldots,a_{r-1})\)</span>, since we used Gram-Schmidt
+    to construct <span class="math inline">\(e_r\)</span>. Also, using
+    the anticommuting property of orthogonal vectors (because <span
+    class="math inline">\(a \cdot b = 0 \implies ab = -ba\)</span>):
+    <span class="math display">\[\begin{align*}
+    e_1 \wedge \ldots \wedge e_{r} &amp;=\frac{1}{r!} \sum_{\sigma \in
+    \mathbb{S}_{r}} (-1)^\sigma e_{\sigma(1)} \ldots e_{\sigma(r)} \\
+    &amp;=\sum_{\sigma \in \mathbb{S}_{r}} (-1)^\sigma (-1)^\sigma e_1
+    \ldots e_{r} \\
+    &amp;=e_1 \ldots e_{r}
+    \end{align*}\]</span> Therefore, <span
+    class="math display">\[\begin{align*}
+    e_1 \ldots e_r &amp;= e_1 \wedge \ldots \wedge e_r \\
+    &amp;= (a_1 \wedge \ldots \wedge a_{r-1}) \wedge e_r \\
+    &amp;= (a_1 \wedge \ldots \wedge a_{r-1}) \wedge (a_r+v) \\
+    &amp;= a_1 \wedge \ldots \wedge a_{r-1} \wedge a_r,
+    \end{align*}\]</span> where the fourth line is due to the fact that
+    <span class="math inline">\(v\)</span> is a linear combination of
+    <span class="math inline">\(a_1, \ldots, a_{r-1}\)</span>.</p>
+    <p>An alternative form of the argument runs with an explicit
+    definition of <span class="math inline">\(e_1,\ldots,e_r\)</span>:
+    <span class="math display">\[e_k = a_k \wedge \ldots \wedge a_1
+    (a_{k-1} \wedge \ldots \wedge a_1)^{-1}.\]</span> Let <span
+    class="math inline">\(\sigma\)</span> be the permutation that
+    reverses <span class="math inline">\(1,2,\ldots,r \rightarrow
+    r,r-1,\ldots,1\)</span>. Observe <span
+    class="math display">\[\begin{align*}
+    e_1 \ldots e_r &amp;= (-1)^\sigma e_r \ldots e_1 \\
+    &amp;= (-1)^\sigma \qty(a_r \wedge \ldots \wedge a_1)(a_{r-1} \wedge
+    \ldots \wedge a_1)^{-1} (a_{r-1} \wedge \ldots \wedge a_1) \ldots \\
+    &amp;= (-1)^\sigma a_r \wedge \ldots \wedge a_1 \\
+    &amp;= (-1)^\sigma (-1)^\sigma a_1 \wedge \ldots \wedge a_r \\
+    &amp;= a_1 \wedge \ldots \wedge a_r
+    \end{align*}\]</span></p>
+    <p>In general, multivectors can be comprised of elements with
+    different grades. We define <span
+    class="math inline">\(\expval{\cdot}_r\)</span> to be the component
+    of a multivector with grade <span class="math inline">\(r\)</span>,
+    so that in general a multivector <span
+    class="math inline">\(A\)</span> in a geometric algebra <span
+    class="math inline">\(\mathcal{G}_n\)</span> (whose underlying
+    vector space has dimension <span class="math inline">\(n\)</span>)
+    can be written <span class="math inline">\(A=\sum_{r=0}^n
+    \expval{A}_r\)</span>. A multivector that satisfies <span
+    class="math inline">\(\expval{A}_r=A\)</span> (for some <span
+    class="math inline">\(r\)</span>) is called homogenous.</p>
+    <p>We denote the subspace of <span
+    class="math inline">\(\mathcal{G}_n\)</span> of grade <span
+    class="math inline">\(r\)</span> as <span
+    class="math inline">\(\mathcal{G}_n^r\)</span>. The dimensionality
+    of <span class="math inline">\(\mathcal{G}_n^r\)</span> is <span
+    class="math inline">\(\binom{n}{r}\)</span>, because the basis of
+    <span class="math inline">\(\mathcal{G}_n^r\)</span> can be formed
+    by choosing <span class="math inline">\(r\)</span> items from the
+    <span class="math inline">\(n\)</span> basis vectors. The overall
+    dimensionality is therefore <span class="math inline">\(\sum_{r=0}^n
+    \binom{n}{r}=2^n\)</span>.</p>
+    <h1 class="unnumbered" id="bibliography">References</h1>
+    <div id="refs" class="references csl-bib-body hanging-indent"
+    role="doc-bibliography">
+    <div id="ref-doran2007" class="csl-entry" role="doc-biblioentry">
+    Doran, Chris, and A. N. Lasenby. 2007. <em>Geometric Algebra for
+    Physicists</em>. 1st ed. Cambridge ; New York: Cambridge University
+    Press.
+    </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

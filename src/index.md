@@ -1,7 +1,6 @@
 ---
 title: Andi Gu
 subtitle: <andi.gu@g.harvard.edu>
-root: home
 ---
 
 I am a first year student PhD student at Harvard University's [Quantum Science and Engineering](https://gsas.harvard.edu/programs-of-study/all/quantum-science-and-engineering) program. 

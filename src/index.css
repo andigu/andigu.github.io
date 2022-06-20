@@ -250,33 +250,39 @@ input.margin-toggle {
     .body-container {
         max-width: 85vw;
     }
+}
 
-    label.margin-toggle:not(.sidenote-number) {
-        display: inline;
-    }
+label.margin-toggle:not(.sidenote-number) {
+    display: inline;
+}
 
-    label.margin-toggle {
-        cursor: pointer;
-    }
+label.margin-toggle {
+    cursor: pointer;
+}
 
-    .sidenote {
-        display: none;
-    }
+.sidenote {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    float: left;
+    clear: both;
+    
+}
 
-    .margin-toggle:checked + .sidenote {
-        display: block;
-        margin: 0.5rem 1.25rem 1rem 0.5rem;
-        float: left;
-        left: 1rem;
-        clear: both;
-        width: 95%;
-    }
+.sidenote > br {
+    display: none;
+}
 
-    /* tweak indentation of sidenote inside a blockquote */
-    blockquote .sidenote {
-        margin-right: -25vw;
-        width: 16vw;
-    }
+.margin-toggle:checked + .sidenote {
+    height: auto;
+    width: 100%;
+    margin: 1em;
+}
+
+/* tweak indentation of sidenote inside a blockquote */
+blockquote .sidenote {
+    margin-right: -25vw;
+    width: 16vw;
 }
 
 .nav-container {

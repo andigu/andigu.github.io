@@ -3,27 +3,13 @@ header-includes:
   - \usepackage{physics}
   - |
     ```{=html}
-    
     <script>
     window.MathJax = {
     loader: {load: ['[tex]/physics']},
     tex: {packages: {'[+]': ['physics']}}
     };
     
-    let root = document.documentElement;
-      document.addEventListener("scroll", evt => {
-      root.style.setProperty("--scrolltop", root.scrollTop);
-    });
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKD85BYZJD"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-GKD85BYZJD');
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     ```
   - |
     ```{=latex}
@@ -48,6 +34,4 @@ citecolor: blue!50!black
 mainfont: Latin Modern
 
 toc-title: Table of Contents
-has-sidenote: false
-root: home
 ---

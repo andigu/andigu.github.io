@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Andi Gu</title>
+  <meta name="author" content="Andi Gu" />
+  <meta name="dcterms.date" content="2022-06-06" />
+  <title>Condensed Matter</title>
   <style>
     html {
       line-height: 1.5;
@@ -152,8 +154,28 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="/index.css" />
+  
   
   <script>
   window.MathJax = {
@@ -161,70 +183,11 @@
   tex: {packages: {'[+]': ['physics']}}
   };
 
-  </script>
-  
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script>
-    let height_dict = {};
-    let last_idx;
-    let root = document.documentElement;
-    
-    let update_heights = () => {
-      const elems = Array.from(document.getElementById("TOC").getElementsByTagName("a"));
-      elems.forEach(e => {
-        height_dict[e.id] = window.pageYOffset + document.getElementById(e.id.slice(4)).getBoundingClientRect().top;
-      })
-    }
-    
-    let update_bold = () => {
-      let k = Object.keys(height_dict), v = Object.values(height_dict);
-      let scrollTop = root.scrollTop;
-      if (k.length > 0) {
-        let tmp = v.map(x => scrollTop+30 > x ? (scrollTop - x) : Infinity);
-        const idx = k[tmp.indexOf(Math.min(...tmp))];
-        if (idx !== last_idx) {
-          if (last_idx) {
-            document.getElementById(last_idx).style.fontWeight = 'normal';  
-          }
-          document.getElementById(idx).style.fontWeight = 'bold';
-          last_idx = idx;
-        }
-    }
-    }
-    update_bold = window._.throttle(update_bold, 50);
-    update_heights = window._.throttle(update_heights, 50);
-
-    window.onload = () => {
-      let root = window.location.pathname.split('/')[1];
-      if (root === '') root = 'home';
-      
-      update_heights();
-      document.getElementById("nav-"+root).style.textDecoration = 'underline';
-      document.getElementById("nav-"+root).style.fontWeight = 'bold';
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      update_heights();
-      update_bold();
-    }, false);
-
-    window.addEventListener('resize', () => {
-      update_heights();
-      update_bold();
-    });
-
-    
+  let root = document.documentElement;
     document.addEventListener("scroll", evt => {
-      root.style.setProperty("--scrolltop", root.scrollTop);
-      update_bold();
-    });
-  
-</script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+    root.style.setProperty("--scrolltop", root.scrollTop);
+  });
+  </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKD85BYZJD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -234,6 +197,40 @@
     gtag('config', 'G-GKD85BYZJD');
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<style>
+  .content-container { 
+    max-width: 52vw; 
+  }
+</style>
+<script defer>
+  let elem = null;
+  const bold_item = function() {
+    const hash = window.location.hash.replace('#', '');
+    if (elem) {
+      elem.style.fontWeight = 'normal';
+    }
+    elem = document.getElementById("toc-" + hash);
+    if (elem) {
+      elem.style.fontWeight = 'bold';
+    }
+  }
+
+  window.onload = function() {
+    const root = "notes";
+    document.getElementById("nav-"+root).style.textDecoration = 'underline';
+    document.getElementById("nav-"+root).style.fontWeight = 'bold';
+    bold_item();
+    }
+  
+  window.onhashchange = bold_item;
+  
+</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+
 
 </head>
 <body>
@@ -249,26 +246,34 @@
 
   <div class="content-container">
     <header id="title-block-header">
-  <h1 class="title">Andi Gu</h1>
-    <p class="subtitle"><a href="mailto:andi.gu@g.harvard.edu"
-class="email">andi.gu@g.harvard.edu</a></p>
-          </header>
-      <p>I am a first year student PhD student at Harvard University’s
-      <a
-      href="https://gsas.harvard.edu/programs-of-study/all/quantum-science-and-engineering">Quantum
-      Science and Engineering</a> program.</p>
-      <p>My primary research interests are quantum information science
-      and quantum computing. My research is driven by the question, “How
-      can we use quantum information processing systems to better
-      understand our models of quantum physics?” This includes problems
-      such as studying the learnability of quantum many-body systems, as
-      well as thinking about the converse direction: how quantum
-      resources can be used to improve even classical statistical
-      learning methods.</p>
-      <p>To see what I’ve done previously, see my <a
-      href="/static/Resume.pdf">CV</a>. I also maintain a series of <a
-      href="/notes">notes</a> on miscellaneous technical subjects I’m
-      interested in.</p>
+  <h1 class="title">Condensed Matter</h1>
+      <p class="author">Andi Gu</p>
+      <p class="date">June 6, 2022</p>
+      </header>
+      <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of Contents</h2>
+    <ul>
+    <li><a href="#introduction" id="toc-introduction"><span
+    class="toc-section-number">1</span> Introduction</a></li>
+    <li><a href="#bibliography"
+    id="toc-bibliography">References</a></li>
+    </ul>
+  </nav>
+    <h1 data-number="1" id="introduction"><span
+    class="header-section-number">1</span> Introduction</h1>
+    <p>This is a collection of notes from my study of <span
+    class="citation" data-cites="simon_solid_2013">(<a
+    href="#ref-simon_solid_2013" role="doc-biblioref">Simon
+    2013</a>)</span>.</p>
+    <h1 class="unnumbered" id="bibliography">References</h1>
+    <div id="refs" class="references csl-bib-body hanging-indent"
+    role="doc-bibliography">
+    <div id="ref-simon_solid_2013" class="csl-entry"
+    role="doc-biblioentry">
+    Simon, Steven H. 2013. <em>The <span>Oxford</span> Solid State
+    Basics</em>. 1st ed. Oxford: Oxford University Press.
+    </div>
+    </div>
   </div>
 
 </div>
