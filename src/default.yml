@@ -31,7 +31,6 @@ eqnos-nameinlink: true
 linkcolor: blue!50!black
 urlcolor: blue!80!black
 citecolor: blue!50!black
-mainfont: Latin Modern
 
 toc-title: Table of Contents
 ---

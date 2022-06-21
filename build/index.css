@@ -22,9 +22,9 @@ a {
     font-style: normal;
     font-weight: normal;
     font-display: swap;
-    src: url('/static/fonts/LM-regular.woff2') format('woff2'),
-    url('/static/fonts/LM-regular.woff') format('woff'),
-    url('/static/fonts/LM-regular.ttf') format('truetype');
+    src: url('../static/fonts/LM-regular.woff2') format('woff2'),
+        url('../static/fonts/LM-regular.woff') format('woff'),
+        url('../static/fonts/LM-regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -32,9 +32,9 @@ a {
     font-style: italic;
     font-weight: normal;
     font-display: swap;
-    src: url('/static/fonts/LM-italic.woff2') format('woff2'),
-    url('/static/fonts/LM-italic.woff') format('woff'),
-    url('/static/fonts/LM-italic.ttf') format('truetype');
+    src: url('../static/fonts/LM-italic.woff2') format('woff2'),
+        url('../static/fonts/LM-italic.woff') format('woff'),
+        url('../static/fonts/LM-italic.ttf') format('truetype');
 }
 
 @font-face {
@@ -42,9 +42,9 @@ a {
     font-style: normal;
     font-weight: bold;
     font-display: swap;
-    src: url('/static/fonts/LM-bold.woff2') format('woff2'),
-    url('/static/fonts/LM-bold.woff') format('woff'),
-    url('/static/fonts/LM-bold.ttf') format('truetype');
+    src: url('../static/fonts/LM-bold.woff2') format('woff2'),
+        url('../static/fonts/LM-bold.woff') format('woff'),
+        url('../static/fonts/LM-bold.ttf') format('truetype');
 }
 
 @font-face {
@@ -52,9 +52,9 @@ a {
     font-style: italic;
     font-weight: bold;
     font-display: swap;
-    src: url('/static/fonts/LM-bold-italic.woff2') format('woff2'),
-    url('/static/fonts/LM-bold-italic.woff') format('woff'),
-    url('/static/fonts/LM-bold-italic.ttf') format('truetype');
+    src: url('../static/fonts/LM-bold-italic.woff2') format('woff2'),
+        url('../static/fonts/LM-bold-italic.woff') format('woff'),
+        url('../static/fonts/LM-bold-italic.ttf') format('truetype');
 }
 
 @font-face {
@@ -62,7 +62,7 @@ a {
     font-style: normal;
     font-weight: normal;
     font-display: swap;
-    src: url('/static/fonts/Libertinus-regular.woff2') format('woff2');
+    src: url('../static/fonts/Libertinus-regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -70,7 +70,7 @@ a {
     font-style: italic;
     font-weight: normal;
     font-display: swap;
-    src: url('/static/fonts/Libertinus-italic.woff2') format('woff2');
+    src: url('../static/fonts/Libertinus-italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -78,7 +78,7 @@ a {
     font-style: normal;
     font-weight: bold;
     font-display: swap;
-    src: url('/static/fonts/Libertinus-bold.woff2') format('woff2');
+    src: url('../static/fonts/Libertinus-bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -86,7 +86,7 @@ a {
     font-style: italic;
     font-weight: bold;
     font-display: swap;
-    src: url('/static/fonts/Libertinus-bold-italic.woff2') format('woff2');
+    src: url('../static/fonts/Libertinus-bold-italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -94,7 +94,7 @@ a {
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url('/static/fonts/Libertinus-semibold.woff2') format('woff2');
+    src: url('../static/fonts/Libertinus-semibold.woff2') format('woff2');
 }
 
 @font-face {
@@ -102,7 +102,7 @@ a {
     font-style: italic;
     font-weight: 600;
     font-display: swap;
-    src: url('/static/fonts/Libertinus-semibold-italic.woff2') format('woff2');
+    src: url('../static/fonts/Libertinus-semibold-italic.woff2') format('woff2');
 }
 
 
@@ -133,7 +133,7 @@ a {
 }
 
 /* add number in front of the sidenote */
-.sidenote-number ~ .sidenote::before {
+.sidenote-number~.sidenote::before {
     content: counter(sidenote-counter) ' ';
     font-size: 0.7rem;
     top: -0.5rem;
@@ -206,14 +206,14 @@ input.margin-toggle {
         flex-direction: row;
         gap: 2.5vw;
     }
-    
+
     .nav-container {
         flex: 3;
         max-width: 20vw;
         padding-left: 1.5em;
         padding-top: 20vh;
     }
-    
+
     .content-container {
         flex: 11;
     }
@@ -224,11 +224,11 @@ input.margin-toggle {
         gap: 0.5em;
     }
 
-    
+
 }
 
 
-@media (max-width: 800px) {    
+@media (max-width: 800px) {
     .nav-container {
         position: absolute;
         top: 0;
@@ -266,17 +266,18 @@ label.margin-toggle {
     overflow: hidden;
     float: left;
     clear: both;
-    
+
 }
 
-.sidenote > br {
+.sidenote>br {
     display: none;
 }
 
-.margin-toggle:checked + .sidenote {
+.margin-toggle:checked+.sidenote {
     height: auto;
     width: 100%;
-    margin: 1em;
+    margin: 0.3em;
+    padding: 0.5em;
 }
 
 /* tweak indentation of sidenote inside a blockquote */
@@ -294,11 +295,21 @@ blockquote .sidenote {
     -o-transition: color .2s ease-in;
     -webkit-transition: color .2s ease-in;
     transition: color .2s ease-in;
-    color:black;
+    color: black;
     text-decoration: none;
     font-size: x-large;
 }
 
 .nav-link:hover {
     color: hsl(0, 0%, 60%)
+}
+
+figure > img {
+    display: block;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+figure > figcaption {
+    text-align: center;
 }

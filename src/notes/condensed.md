@@ -8,7 +8,7 @@ This is a collection of notes from my study of the *Oxford Solid State* textbook
 
 # Crude Materials Models
 
-We begin by exploring some of the most rudimentary models for materials first developed in the early 1900s.
+We begin by exploring some of the most rudimentary models for materials first developed in the early 1900s. These models do not account for any microscopic structure within the material -- they simply posit the elementary components are oscillators that are independent of other components (whether these components are individual atoms or phonon modes).
 
 ## Einstein's Model
 
@@ -48,6 +48,8 @@ To remedy this, Debye proposed there could only be as many oscillation modes as 
 \end{align}
 This gives a heat capacity (per atom) $C = 3$, as expected.
 
+
+
 ## Bonds
 
 There are three general categories of atomic bonds: ionic, covalent, and Van der Waals. Ionic bonding can be understood classically. On the other hand, covalent bonding requires a somewhat more quantum understanding. The simplest model might be the particle-in-a-box model. Specifically, take two hydrogen atoms, each of which we model as a infinite square well with length $L$. The electrons in each well has energy $\frac{\hbar^2 \pi^2}{2m L^2}$. However, when we bring the two wells together, the wells combine to form a well of length $2L$, so the energy falls to $\frac{\hbar^2 \pi^2}{2m (2L)^2}$, a reduction in energy. This is energetically preferable, explaining dihydrogen bonds. However, when the two lowest energy eigenstates (two because a spin up and spin down state can fit in the ground state), the next highest energy state is $\frac{\hbar^2 \pi^2}{2m L^2}$, which is no different than the original eigenenergies. It turns out that when the nuclear and electronic repulsion energies are considered, this bonding situation is energetically unfavorable (which explains why helium does not bond to helium).
@@ -66,3 +68,68 @@ $$
 \frac{1}{1-\abs{\braket{1}{2}}^2} \mqty[(1-\abs{\braket{1}{2}}^2)(V+\epsilon_0) + \braket{1}{2} t^* & -t \\ -t^* & (1-\abs{\braket{1}{2}}^2)(V+\epsilon_0) + \braket{2}{1} t] v = Ev
 $$
 The eigenenergies of this equation are $\epsilon_0 + V_{cross} + \frac{\Re(t \braket{1}{2}) \pm \sqrt{\Im((t \braket{1}{2})^2) + \abs{t}^2}}{1-\abs{\braket{1}{2}^2}}$. When the two orbitals are orthonormal (which is not the case as the atoms get close), we have $\braket{1}{2}=0$, so the energies reduce to $\epsilon_0 + V_{cross} \pm \abs{t}$ and the eigenvectors reduce to $\frac{1}{\sqrt{2}}\qty(\ket{0}\pm \ket{1})$. The $t$ term is known as a `hopping' term, because it roughly corresponds to the likelihood that the electron hops from one orbital to the other.
+
+# Materials Models in One Dimension
+
+# Monatomic System
+
+We now begin to account for the structure of our materials. We no longer pretend the atoms are all independent of one another, and model them as attached to their neighbours with some spring that has a spring constant $\kappa$. Furthermore, we restrict ourselves to one dimension. This spring model is a good approximation when the atoms are sitting at the bottom of the potential well, and the neighborhood of the well that is accessible is well-described by a parabola. Anharmonic terms will enter if we escape this regime.
+
+Let the position of the $n$th atom in our chain be $x_n$. The equilibrium position has each of these atoms separated by some distance $a$. In this case, the potential energy of the system is: $$V = \frac{1}{2}\sum_{n} \kappa (x_n-x_{n-1})^2.$$ The force on each individual atom is then $$F_n=\kappa (x_{n+1}-2x_n+x_{n-1}) =\kappa(\delta x_{n+1} - 2\delta x_n + \delta x_{n-1}),$$ where $\delta x_n = x_n - na$ is the deviation of the $n$th atom from its equilibrium position. This gives us a set of coupled differential equations: $$\ddot{\delta x_n} = \frac{\kappa}{m} (\delta x_{n+1}-2\delta x_n + \delta x_{n-1}).$$ Plugging in an ansatz $\delta x_n=e^{i (\omega t - k n a)}$, this gives: 
+\begin{align*}
+-\omega^2 &= \frac{\kappa}{m} (e^{ika} - 2 + e^{-ika}) \\ 
+\omega &= 2\sqrt{\frac{\kappa}{m}} \abs{\sin(\frac{ka}{2})}
+\end{align*}
+This is a first exposure to a nonlinear dispersion function (compare this with Debye's assumption that $\omega = vk$). We observe a few features. First, for small $k$ (long wavelength), the dispersion remains linear. However, close to $k=2\pi/a$, the dispersion relation becomes flat. Secondly, this dispersion is periodic under shifts of $2\pi/a$. This is a simple consequence of the fact that the atoms are spaced by $a$, so wavelengths less than $a$ will be aliased. Thus, we define the first Brillouin zone to be $-\pi/a \leq k \leq \pi/a$. In momentum space, we can define a lattice just like the lattice of atoms $x_n = na \Leftrightarrow G_n = n \frac{2\pi}{a}$.This leads to the concept of *crystal momentum*, which is just momentum modulo factors of $\frac{2\pi}{a}$. It turns out that, while momentum $k$ is not necessarily conserved, crystal momentum *is* conserved. This can be understood by Noether's theorem, which implies that translational invariance leads to conservation of momentum. However, we have *discrete* translational invariance here, which leads to the conservation of crystal momentum alone.
+
+One further restriction we might make is to attach boundary conditions to our chain. For periodic conditions, we will have the constraint $e^{i \omega t} = e^{i \omega t - ikL} \implies k=n \frac{2\pi}{L}$. Therefore, in $k$ space, the momentum modes are separated by $\frac{2\pi}{L}$. Coupled with the fact that all momentum modes lie in $[-\pi/a,\pi/a]$ (modulo $2\pi/a$), there are $\frac{2\pi/a}{2\pi/L}=\frac{L}{a}=N$ unique normal modes. This justifies Debye's assumption.
+
+Now, there is a principle known as the quantum correspondence principle, which says that if a classical harmonic system has a normal oscillation mode at frequency $\omega$, the corresponding quantum system has eigenstates of energy $\hbar \omega (n+1/2)$. Therefore, in the quantum picture of our system, we have quanta of vibration known as phonons that each have energy $\hbar \omega$. The average number of these occupying a given mode will be $\frac{1}{\exp(\beta \hbar \omega)-1}$ (with a $-1$ rather than $+1$ because phonons are not subject to some exclusion principle -- that is, they are bosons). The energy, and therefore heat capacity, can then all be calculated in a straightforward way[^2] with $$U=\sum_{k} \frac{\hbar \omega(k)}{\exp(\beta \hbar \omega(k))-1} \approx \frac{L}{2\pi}\int_{-\pi/a}^{\pi/a} \frac{\hbar \omega(k)}{\exp(\beta \hbar \omega(k))-1} \dd{k}.$$ 
+
+[^2]: We have dropped the zero-point energy corresponding to the $\frac{1}{2}$ constant in the SHO energy.
+
+```{.py2image caption="This is an image, created by **Python**."}
+import matplotlib
+matplotlib.use('Agg')
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+plt.rcParams.update({
+    "text.usetex": True,
+    "font.family": ["CMU Serif"],
+    })
+
+plt.plot([1,2,3], [1,2,3])
+plt.xlabel('abc $abcdef$')
+plt.savefig("$DESTINATION$", format="$FORMAT$")
+```
+
+```{.tikz caption="This is an image, created by **TikZ i.e. LaTeX**."
+     additionalPackages="\usepackage{pgfplots}"}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines = left,
+    xlabel = \(x\),
+    ylabel = {$f(x)$ is a function},
+]
+%Below the red parabola is defined
+\addplot [
+    domain=-10:10, 
+    samples=100, 
+    color=red,
+]
+{x^2 - 2*x - 1};
+\addlegendentry{\(x^2 - 2x - 1\)}
+%Here the blue parabola is defined
+\addplot [
+    domain=-10:10, 
+    samples=100, 
+    color=blue,
+    ]
+    {x^2 + 2*x + 1};
+\addlegendentry{\(x^2 + 2x + 1\)}
+
+\end{axis}
+\end{tikzpicture}
+```
+
