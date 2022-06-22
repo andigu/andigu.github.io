@@ -313,3 +313,10 @@ figure > img {
 figure > figcaption {
     text-align: center;
 }
+
+.content-container > table {
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    display: table;
+}

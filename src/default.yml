@@ -1,6 +1,8 @@
 ---
 header-includes:
   - \usepackage{physics}
+  - \usepackage[labelfont=bf]{caption}
+  - \usepackage[margin=1in]{geometry}
   - |
     ```{=html}
     <script>
@@ -18,11 +20,25 @@ header-includes:
     ```
   
 document-css: true
-xnos-cleveref: true
-xnos-capitalise: true
-number-sections: true
-xnos-warning-level: false
-eqnos-number-by-section: true
+
+cref: true
+numberSections: true
+linkReferences: true
+nameInLink: true
+figPrefix:
+  - "Figure"
+  - "Figures"
+eqnPrefix:
+  - "Equation"
+  - "Equations"
+tblPrefix:
+  - "Table"
+  - "Tables"
+
+figureTemplate: "**$$figureTitle$$ $$i$$**$$titleDelim$$ $$t$$"
+equationNumberTeX: \\tag
+eqnIndexTemplate: $$i$$
+
 reference-section-title: References
 link-citations: true
 link-bibliography: true

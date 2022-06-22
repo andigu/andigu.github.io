@@ -71,65 +71,33 @@ The eigenenergies of this equation are $\epsilon_0 + V_{cross} + \frac{\Re(t \br
 
 # Materials Models in One Dimension
 
-# Monatomic System
+## Monatomic System
 
 We now begin to account for the structure of our materials. We no longer pretend the atoms are all independent of one another, and model them as attached to their neighbours with some spring that has a spring constant $\kappa$. Furthermore, we restrict ourselves to one dimension. This spring model is a good approximation when the atoms are sitting at the bottom of the potential well, and the neighborhood of the well that is accessible is well-described by a parabola. Anharmonic terms will enter if we escape this regime.
 
-Let the position of the $n$th atom in our chain be $x_n$. The equilibrium position has each of these atoms separated by some distance $a$. In this case, the potential energy of the system is: $$V = \frac{1}{2}\sum_{n} \kappa (x_n-x_{n-1})^2.$$ The force on each individual atom is then $$F_n=\kappa (x_{n+1}-2x_n+x_{n-1}) =\kappa(\delta x_{n+1} - 2\delta x_n + \delta x_{n-1}),$$ where $\delta x_n = x_n - na$ is the deviation of the $n$th atom from its equilibrium position. This gives us a set of coupled differential equations: $$\ddot{\delta x_n} = \frac{\kappa}{m} (\delta x_{n+1}-2\delta x_n + \delta x_{n-1}).$$ Plugging in an ansatz $\delta x_n=e^{i (\omega t - k n a)}$, this gives: 
-\begin{align*}
--\omega^2 &= \frac{\kappa}{m} (e^{ika} - 2 + e^{-ika}) \\ 
-\omega &= 2\sqrt{\frac{\kappa}{m}} \abs{\sin(\frac{ka}{2})}
-\end{align*}
-This is a first exposure to a nonlinear dispersion function (compare this with Debye's assumption that $\omega = vk$). We observe a few features. First, for small $k$ (long wavelength), the dispersion remains linear. However, close to $k=2\pi/a$, the dispersion relation becomes flat. Secondly, this dispersion is periodic under shifts of $2\pi/a$. This is a simple consequence of the fact that the atoms are spaced by $a$, so wavelengths less than $a$ will be aliased. Thus, we define the first Brillouin zone to be $-\pi/a \leq k \leq \pi/a$. In momentum space, we can define a lattice just like the lattice of atoms $x_n = na \Leftrightarrow G_n = n \frac{2\pi}{a}$.This leads to the concept of *crystal momentum*, which is just momentum modulo factors of $\frac{2\pi}{a}$. It turns out that, while momentum $k$ is not necessarily conserved, crystal momentum *is* conserved. This can be understood by Noether's theorem, which implies that translational invariance leads to conservation of momentum. However, we have *discrete* translational invariance here, which leads to the conservation of crystal momentum alone.
+Let the position of the $n$th atom in our chain be $x_n$. The equilibrium position has each of these atoms separated by some distance $a$. In this case, the potential energy of the system is: $$V = \frac{1}{2}\sum_{n} \kappa (x_n-x_{n-1})^2.$$ The force on each individual atom is then $$F_n=\kappa (x_{n+1}-2x_n+x_{n-1}) =\kappa(\delta x_{n+1} - 2\delta x_n + \delta x_{n-1}),$$ where $\delta x_n = x_n - na$ is the deviation of the $n$th atom from its equilibrium position. This gives us a set of coupled differential equations: $$\ddot{\delta x_n} = \frac{\kappa}{m} (\delta x_{n+1}-2\delta x_n + \delta x_{n-1}).$$ Plugging in an ansatz $\delta x_n=e^{i (\omega t - k n a)}$, this gives $-\omega^2 = \frac{\kappa}{m} (e^{ika} - 2 + e^{-ika})$, so: 
+$$\omega = 2\sqrt{\frac{\kappa}{m}} \abs{\sin(\frac{ka}{2})}$$ {#eq:1d-dispersion}
+
+```{#fig:1d-dispersion .py2image caption="Dispersion function for monoatomic one-dimensional system"}
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+k = np.linspace(-np.pi, np.pi, 251, endpoint=True)
+plt.plot(k, 2*np.abs(np.sin(k/2)))
+plt.xlabel(r'Wavenumber $k$ (in units of $a^{-1}$)')
+plt.ylabel(r'Frequency $\omega$, in units of $(\kappa/m)^{1/2}$')
+plt.savefig("$DESTINATION$", format="$FORMAT$", transparent=True)
+```
+
+In @fig:1d-dispersion, we plot the dispersion relation @eq:1d-dispersion. This is a first exposure to a nonlinear dispersion function (compare this with Debye's assumption that $\omega = vk$). We observe a few features. First, for small $k$ (long wavelength), the dispersion remains linear. However, close to $k=2\pi/a$, the dispersion relation becomes flat. Secondly, this dispersion is periodic under shifts of $2\pi/a$. This is a simple consequence of the fact that the atoms are spaced by $a$, so wavelengths less than $a$ will be aliased. Thus, we define the first Brillouin zone to be $-\pi/a \leq k \leq \pi/a$. In momentum space, we can define a lattice just like the lattice of atoms $x_n = na \Leftrightarrow G_n = n \frac{2\pi}{a}$. This leads to the concept of *crystal momentum*, which is just momentum modulo factors of $\frac{2\pi}{a}$. It turns out that, while momentum $k$ is not necessarily conserved, crystal momentum *is* conserved. This can be understood by Noether's theorem, which implies that translational invariance leads to conservation of momentum. However, we have *discrete* translational invariance here, which leads to the conservation of crystal momentum alone.
 
 One further restriction we might make is to attach boundary conditions to our chain. For periodic conditions, we will have the constraint $e^{i \omega t} = e^{i \omega t - ikL} \implies k=n \frac{2\pi}{L}$. Therefore, in $k$ space, the momentum modes are separated by $\frac{2\pi}{L}$. Coupled with the fact that all momentum modes lie in $[-\pi/a,\pi/a]$ (modulo $2\pi/a$), there are $\frac{2\pi/a}{2\pi/L}=\frac{L}{a}=N$ unique normal modes. This justifies Debye's assumption.
 
-Now, there is a principle known as the quantum correspondence principle, which says that if a classical harmonic system has a normal oscillation mode at frequency $\omega$, the corresponding quantum system has eigenstates of energy $\hbar \omega (n+1/2)$. Therefore, in the quantum picture of our system, we have quanta of vibration known as phonons that each have energy $\hbar \omega$. The average number of these occupying a given mode will be $\frac{1}{\exp(\beta \hbar \omega)-1}$ (with a $-1$ rather than $+1$ because phonons are not subject to some exclusion principle -- that is, they are bosons). The energy, and therefore heat capacity, can then all be calculated in a straightforward way[^2] with $$U=\sum_{k} \frac{\hbar \omega(k)}{\exp(\beta \hbar \omega(k))-1} \approx \frac{L}{2\pi}\int_{-\pi/a}^{\pi/a} \frac{\hbar \omega(k)}{\exp(\beta \hbar \omega(k))-1} \dd{k}.$$ 
+Now, there is a principle known as the quantum correspondence principle, which says that if a classical harmonic system has a normal oscillation mode at frequency $\omega$, the corresponding quantum system has eigenstates of energy $\hbar \omega (n+1/2)$. Therefore, in the quantum picture of our system, we have quanta of vibration known as phonons that each have energy $\hbar \omega$. The average number of these occupying a given mode will be $\frac{1}{\exp(\beta \hbar \omega)-1}$ (with a $-1$ rather than $+1$ because phonons are not subject to some exclusion principle -- that is, they are bosons). The energy, and therefore heat capacity, can then all be calculated in a straightforward way[^2] with $$U=\sum_{k} \frac{\hbar \omega(k)}{\exp(\beta \hbar \omega(k))-1} \approx \frac{L}{2\pi}\int_{-\pi/a}^{\pi/a} \frac{\hbar \omega(k)}{\exp(\beta \hbar \omega(k))-1} \dd{k}.$$ Notice this again retains the expected behavior $C = \frac{L}{a}=N$ at high temperatures.
 
 [^2]: We have dropped the zero-point energy corresponding to the $\frac{1}{2}$ constant in the SHO energy.
 
-```{.py2image caption="This is an image, created by **Python**."}
-import matplotlib
-matplotlib.use('Agg')
-import sys
-import numpy as np
-import matplotlib.pyplot as plt
-plt.rcParams.update({
-    "text.usetex": True,
-    "font.family": ["CMU Serif"],
-    })
-
-plt.plot([1,2,3], [1,2,3])
-plt.xlabel('abc $abcdef$')
-plt.savefig("$DESTINATION$", format="$FORMAT$")
-```
-
-```{.tikz caption="This is an image, created by **TikZ i.e. LaTeX**."
-     additionalPackages="\usepackage{pgfplots}"}
-\begin{tikzpicture}
-\begin{axis}[
-    axis lines = left,
-    xlabel = \(x\),
-    ylabel = {$f(x)$ is a function},
-]
-%Below the red parabola is defined
-\addplot [
-    domain=-10:10, 
-    samples=100, 
-    color=red,
-]
-{x^2 - 2*x - 1};
-\addlegendentry{\(x^2 - 2x - 1\)}
-%Here the blue parabola is defined
-\addplot [
-    domain=-10:10, 
-    samples=100, 
-    color=blue,
-    ]
-    {x^2 + 2*x + 1};
-\addlegendentry{\(x^2 + 2x + 1\)}
-
-\end{axis}
-\end{tikzpicture}
-```
-
+## Diatomic System
+We now complicate the situation somewhat by introducing another atom of different weight. Say the connections between a

@@ -1,0 +1,7 @@
+font.family:  serif
+font.serif: Libertinus Serif, DejaVu Serif, serif
+font.sans-serif: Libertinus Sans, DejaVu Sans, sans-serif
+font.size: 14
+figure.autolayout: True
+figure.dpi: 300
+mathtext.fontset: cm
