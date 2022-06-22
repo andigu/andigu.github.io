@@ -100,4 +100,52 @@ Now, there is a principle known as the quantum correspondence principle, which s
 [^2]: We have dropped the zero-point energy corresponding to the $\frac{1}{2}$ constant in the SHO energy.
 
 ## Diatomic System
-We now complicate the situation somewhat by introducing another atom of different weight. Say the connections between a
+We now complicate the situation somewhat by introducing another atom of different weight. Say the connections between atoms varies with $\ldots A \xleftrightarrow{\kappa_1} B \xleftrightarrow{\kappa_2} A \xleftrightarrow{\kappa_1} B \ldots$, where $\xleftrightarrow{\kappa_1}$ represents a spring with spring constant $\kappa_1$, and $A,B$ represent two different species of atoms (with different masses). This type of configuration might be conceivable as a toy model of a material that has covalent bonding within molecules (comprised of one $A$ and one $B$ atom) and Van der waals bonding from molecule to molecule. 
+
+We group our substance into $n$ molecules $(A,B)$, with the displacement of $A$ and $B$ from their equilibrium position in the $n$th molecule denoted $x_n$ and $y_n$, respectively. We immediately find the equations of motion:
+\begin{align*}
+\ddot{x}_n &= \frac{\kappa_1 (y_n-x_n) - \kappa_2 (x_n-y_{n-1})}{m_1} \\
+\ddot{y}_n &= \frac{\kappa_2 (x_{n+1}-y_n) - \kappa_1 (y_n-x_n)}{m_2}
+\end{align*}
+We let the equilibrium position of $A$ in the $n$th molecule be $na$. Then, plugging in the ansatz $x_n=A_x e^{i (\omega t - k n a)}$ (with a similar ansatz for $y_n$), we get an eigenvalue equation:
+$$
+\mqty[\frac{\kappa_1+\kappa_2}{m_1} & -\frac{\kappa_1 + \kappa_2 e^{ika}}{m_1} \\ -\frac{\kappa_1 + \kappa_2 e^{-ika}}{m_2} & \frac{\kappa_1 + \kappa_2}{m_2}] \mqty[A_x \\ A_y] = \omega^2 \mqty[A_x \\ A_y]
+$$
+This is solved by:
+\begin{align*}
+0 &= \qty(\frac{\kappa_1+\kappa_2}{m_1}- \omega^2)\qty(\frac{\kappa_1+\kappa_2}{m_2}-\omega^2) - \frac{\kappa_1+\kappa_2 e^{ika}}{m_1} \frac{\kappa_1+\kappa_2 e^{-ika}}{m_2} \\
+&= m_1 m_2 \omega^4 - (\kappa_1+\kappa_2)(m_1+m_2)\omega^2 + 2 \kappa_1 \kappa_2 \qty(1-\cos(ka))
+\end{align*}
+Defining the reduced mass $\mu=\frac{m_1m_2}{m_1+m_2}$, we find that the roots of the above are given by:
+$$
+\omega^2 = \frac{\kappa_1+\kappa_2}{2\mu} \qty(1 \pm \sqrt{1 - \frac{16m_1 m_2 \kappa_1 \kappa_2 \sin^2(ka/2)}{(\kappa_1+\kappa_2)^2(m_1+m_2)^2}})
+$$ {#eq:1d-dispersion-diatomic}
+We define the parameter $\alpha \equiv 16\frac{m_1 m_2 \kappa_1 \kappa_2}{(\kappa_1+\kappa_2)^2 (m_1+m_2)^2}$. Observe that $0 \leq \alpha \leq 1$, and in some sense measures how similar the two atoms are: when $\kappa_1=\kappa_2$ and $m_1=m_2$, $\alpha=1$. The qualitative behavior of the dispersion relation (up to the factor $\frac{\kappa_1+\kappa_2}{2\mu}$) is determined by this parameter $\alpha$. In @fig:1d-dispersion-diatom, we plot this dispersion relation as a function of $\alpha$. If we extend into the second Brillouin zone by evaluating the $+$ branch of $\omega$ (@eq:1d-dispersion-diatomic) for $\abs{ka} \in [\pi, 2\pi]$, we find striking behavior. For $\alpha=1$, we recover the monatomic dispersion function (@fig:1d-dispersion), as expected. However, as we move away from $\alpha=1$, we get a gap that widens as $\alpha \rightarrow 0$.
+
+```{#fig:1d-dispersion-diatom .py2image caption="Dispersion function for diatomic one-dimensional system at various $\alpha$. The dashed lines represent an extension of the dispersion into the second Brillouin zone."}
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+x = np.linspace(-np.pi, np.pi, endpoint=True, num=51)[:,None]
+y = np.linspace(-2*np.pi, -np.pi, endpoint=True)[:,None]
+alpha = np.linspace(0.5, 1, 9)[None,:]
+omega = np.sqrt((1 - np.sqrt(1-alpha*np.sin(x/2)**2)))
+omega2 = np.sqrt((1 + np.sqrt(1-alpha*np.sin(y/2)**2)))
+omega3 = np.sqrt((1 + np.sqrt(1-alpha*np.sin(x/2)**2)))
+colors = plt.get_cmap('jet')(np.linspace(0,1,num=len(alpha.squeeze())))
+for i in range(len(colors)):
+    plt.plot(x,omega[:,i], c=colors[i], label=alpha[0,i]);
+    plt.plot(y,omega2[:,i], color=colors[i], ls='--', alpha=0.8, lw=0.9);
+    plt.plot(-y,omega2[:,i], color=colors[i], ls='--', alpha=0.8, lw=0.9);
+    plt.plot(x, omega3[:,i], c=colors[i])
+plt.axvline(-np.pi, c='black', ls='-.')
+plt.axvline(np.pi, c='black', ls='-.')
+plt.legend(title=r'$\alpha$')
+plt.ylabel(r'$\omega$, in units of $(\kappa_1+\kappa_2)^{1/2}/(2\mu)^{1/2}$')
+plt.xlabel(r'$k$ (in units of $a^{-1}$)')
+plt.savefig("$DESTINATION$", format="$FORMAT$", transparent=True)
+```
+
+The upper branch of the dispersion relation is known as the optical branch, because it couples more strongly with visible light than the bottom branch, known as the acoustic branch. We gain some insight into these names by seeing what happens at $k \rightarrow 0$ (long wavelength limit). Here, the two modes will have $A_x=A_y=1$ (acoustic mode) and $A_x=-\frac{m_2}{m_1}, A_y=1$ (optical mode). In the acoustic mode, this is essentially a synchronized oscillation of every atom in the material, which agrees with the picture of sound as long wavelength compressions. On the other hand, in the optical mode, the two atoms in any molecule will oscillate out-of-sync with each other by 180 degrees (when $m_2=m_1$).

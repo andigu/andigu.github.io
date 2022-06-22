@@ -3,21 +3,9 @@ header-includes:
   - \usepackage{physics}
   - \usepackage[labelfont=bf]{caption}
   - \usepackage[margin=1in]{geometry}
-  - |
-    ```{=html}
-    <script>
-    window.MathJax = {
-    loader: {load: ['[tex]/physics']},
-    tex: {packages: {'[+]': ['physics']}}
-    };
-    
-    </script>
-    ```
-  - |
-    ```{=latex}
-    \usepackage{hyperref}
-    \definecolor{00007f}{HTML}{00007f}
-    ```
+  - \usepackage{mathtools}
+  - \usepackage{hyperref}
+  - \definecolor{00007f}{HTML}{00007f}
   
 document-css: true
 
