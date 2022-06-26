@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <base href="https://andigu.github.io">
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="author" content="Andi Gu" />
+      <meta name="dcterms.date" content="2022-06-20" />
+        <meta name="description" content="Condensed matter notes from the Oxford Solid State textbook." />
+    
+  <link rel="author" href="https://scholar.google.com/citations?user=XGTtMs8AAAAJ"/>
+
+  <title>Condensed Matter</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: blue!50!black;
+    }
+    a:visited {
+      color: blue!50!black;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+    <link rel="stylesheet" href="index.css" />
+      
+    
+    
+    
+    
+    
+  
+  <script>
+    window.MathJax = {
+    loader: {load: ['[tex]/physics', '[tex]/mathtools']},
+    tex: {packages: {'[+]': ['physics', 'mathtools']}}
+    };
+    
+    </script>
+
+    <script
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+    type="text/javascript"></script>
+    
+    
+  <script>
+    function throttle (callback, limit) {
+    var waiting = false;                      // Initially, we're not waiting
+    return function () {                      // We return a throttled function
+        if (!waiting) {                       // If we're not waiting
+            callback.apply(this, arguments);  // Execute users function
+            waiting = true;                   // Prevent future invocations
+            setTimeout(function () {          // After a period of time
+                waiting = false;              // And allow future invocations
+            }, limit);
+        }
+    }
+  }
+    let height_dict = {};
+    let last_idx;
+    let root = document.documentElement;
+
+    let update_heights = () => {
+      if (document.getElementById("TOC")) {
+        const elems = Array.from(document.getElementById("TOC").getElementsByTagName("a"));
+        elems.forEach(e => {
+          height_dict[e.id] = window.pageYOffset + document.getElementById(e.id.slice(4)).getBoundingClientRect().top;
+        })
+      }
+    }
+
+    let update_bold = () => {
+      let k = Object.keys(height_dict), v = Object.values(height_dict);
+      let scrollTop = root.scrollTop;
+      if (k.length > 0) {
+        let tmp = v.map(x => scrollTop + 30 > x ? (scrollTop - x) : Infinity);
+        const idx = k[tmp.indexOf(Math.min(...tmp))];
+        if (idx !== last_idx) {
+          if (last_idx) {
+            document.getElementById(last_idx).style.fontWeight = 'normal';
+          }
+          document.getElementById(idx).style.fontWeight = 'bold';
+          last_idx = idx;
+        }
+      }
+    }
+    update_bold = throttle(update_bold, 50);
+    update_heights = throttle(update_heights, 50);
+
+    window.onload = () => {
+      let root = window.location.pathname.split('/')[1];
+      if (root === '') root = 'home';
+
+      update_heights();
+      document.getElementById("nav-" + root).style.textDecoration = 'underline';
+      document.getElementById("nav-" + root).style.fontWeight = 'bold';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      update_heights();
+      update_bold();
+    }, false);
+
+    window.addEventListener('resize', () => {
+      update_heights();
+      update_bold();
+    });
+
+
+    document.addEventListener("scroll", evt => {
+      root.style.setProperty("--scrolltop", root.scrollTop);
+      update_bold();
+    });
+
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKD85BYZJD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-GKD85BYZJD');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  
+  <div class="container">
+
+    <div class="nav-container">
+      <nav class="navbar">
+        <a href="/" class="nav-link" id="nav-home">Home</a>
+        <a href="/notes" class="nav-link" id="nav-notes">Notes</a>
+      </nav>
+    </div>
+
+    <div class="content-container">
+            <header id="title-block-header">
+        <h1 class="title">Condensed Matter</h1>
+                        <p class="author">Andi Gu</p>
+                
+              </header>
+                  <nav id="TOC" role="doc-toc">
+                <h2 id="toc-title">Table of Contents</h2>
+                <ul>
+                <li><a href="#crude-materials-models"
+                id="toc-crude-materials-models"><span
+                class="toc-section-number">1</span> Crude Materials
+                Models</a>
+                <ul>
+                <li><a href="#einsteins-model"
+                id="toc-einsteins-model"><span
+                class="toc-section-number">1.1</span> Einstein’s
+                Model</a></li>
+                <li><a href="#debyes-model" id="toc-debyes-model"><span
+                class="toc-section-number">1.2</span> Debye’s
+                Model</a></li>
+                <li><a href="#bonds" id="toc-bonds"><span
+                class="toc-section-number">1.3</span> Bonds</a></li>
+                </ul></li>
+                <li><a href="#materials-models-in-one-dimension"
+                id="toc-materials-models-in-one-dimension"><span
+                class="toc-section-number">2</span> Materials Models in
+                One Dimension</a>
+                <ul>
+                <li><a href="#monatomic-system"
+                id="toc-monatomic-system"><span
+                class="toc-section-number">2.1</span> Monatomic
+                System</a></li>
+                <li><a href="#diatomic-system"
+                id="toc-diatomic-system"><span
+                class="toc-section-number">2.2</span> Diatomic
+                System</a></li>
+                </ul></li>
+                <li><a href="#bibliography"
+                id="toc-bibliography">References</a></li>
+                </ul>
+      </nav>
+            <p>This is a collection of notes from my study of the
+            <em>Oxford Solid State</em> textbook <span class="citation"
+            data-cites="simon_solid_2013">(<a
+            href="#ref-simon_solid_2013" role="doc-biblioref">Simon
+            2013</a>)</span>.</p>
+            <h1 data-number="1" id="crude-materials-models"><span
+            class="header-section-number">1</span> Crude Materials
+            Models</h1>
+            <p>We begin by exploring some of the most rudimentary models
+            for materials first developed in the early 1900s. These
+            models do not account for any microscopic structure within
+            the material – they simply posit the elementary components
+            are oscillators that are independent of other components
+            (whether these components are individual atoms or phonon
+            modes).</p>
+            <h2 data-number="1.1" id="einsteins-model"><span
+            class="header-section-number">1.1</span> Einstein’s
+            Model</h2>
+            <p>The simplest (nontrivial) model for a monatomic crystal
+            is to say each atom sits in a non-interacting 3D simple
+            harmonic well with a frequency <span
+            class="math inline">\(\omega\)</span>, so that the energy
+            levels are <span class="math inline">\(E_{n_x,n_y,n_z} =
+            \hbar \omega (n_x+n_y+n_z+3/2)\)</span>. The partition
+            function of one atom is then <span
+            class="math display">\[Z=\sum_{(n_z,n_y,n_z) \geq 0}
+            \exp(-\beta E_{n_x,n_y,n_z})=\frac{e^{-3\beta \hbar
+            \omega/2}}{(1-e^{-\beta \hbar \omega})^3}.\]</span> From,
+            this we can calculate the energy: <span
+            class="math display">\[\expval{E}=-\pdv{\ln Z}{\beta} =
+            3\hbar \omega/2 + 3\frac{\hbar\omega e^{-\beta \hbar
+            \omega}}{1-e^{-\beta \hbar \omega}}.\]</span> This results
+            in a heat capacity <span class="math display">\[C =
+            \pdv{\expval{E}}{\tau}=3(\beta \hbar \omega)^2
+            \frac{e^{\beta \hbar \omega}}{(e^{\beta \hbar
+            \omega}-1)^2}.\]</span> The limiting behavior of this heat
+            capacity at high temperature is simple, as we can then
+            approximate <span class="math inline">\(e^{\beta \hbar
+            \omega}=1+\beta \hbar \omega\)</span> and find <span
+            class="math inline">\(C\approx 3\)</span>.<span
+            class="sidenote-wrapper"><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle"/><span
+            class="sidenote">It is important to note we are working in
+            units where <span class="math inline">\(k_B=1\)</span>. In
+            conventional units, this simply says <span
+            class="math inline">\(C=3k_B\)</span>, which is a well-known
+            result obtainable by applying classical analysis.<br />
+            <br />
+            </span></span> However, at small temperature, <span
+            class="math inline">\(C \approx 3\frac{(\beta \hbar
+            \omega)^2}{e^{\beta \hbar \omega}}.\)</span> This is an
+            exponential surpression, which, as it turns out, is too
+            fast. The known experimental behavior is that <span
+            class="math inline">\(C \sim \frac{1}{\beta^3}\)</span>,
+            which this model is unable to reproduce. Another weakness of
+            this model is that it leaves a free parameter <span
+            class="math inline">\(\omega\)</span>, which is typically
+            fit to experimental data.</p>
+            <h2 data-number="1.2" id="debyes-model"><span
+            class="header-section-number">1.2</span> Debye’s Model</h2>
+            <p>Debye’s model took a different approach to Einstein.
+            Debye still used the idea that the energy of a solid is
+            stored in vibrations that permeate the solid – however, he
+            allowed these vibrations to have different frequencies,
+            rather than the uniform frequency <span
+            class="math inline">\(\omega\)</span> used by Einstein. More
+            specifically, he used a fairly typical assumption, that the
+            dispersion relationship in the solid is that of free space:
+            <span class="math inline">\(\omega(\vec{k})=v
+            \abs{\vec{k}}\)</span>, where <span
+            class="math inline">\(v\)</span> is the speed of sound in
+            the solid. Now, the wavenumber <span
+            class="math inline">\(\vec{k}\)</span> could not just be
+            anything: Debye required that sound waves in the solid obey
+            a periodic boundary condition, so that each component of
+            <span class="math inline">\(\vec{k}\)</span> had to be an
+            integer multiple of <span
+            class="math inline">\(\frac{2\pi}{L}\)</span> (assuming a
+            cubic solid with side length <span
+            class="math inline">\(L\)</span>). This periodic boundary
+            condition may seem somewhat artificial (and indeed it is),
+            but it is reasonable to assume that what happens inside the
+            bulk of the material ought to be independent of the
+            conditions we oppose far away at the boundary. It is
+            important to understand that in this picture, each
+            individual wave (i.e., one setting of <span
+            class="math inline">\(\vec{k}\)</span>) can be occupied up
+            to <span class="math inline">\(n\)</span> times. That is,
+            there are quanta of vibration known as `phonons’, which are
+            like photons, except that they have discrete values of <span
+            class="math inline">\(\omega\)</span>. Classically, this
+            corresponds to an increasing vibration amplitude at the
+            wavenumber <span class="math inline">\(\vec{k}\)</span>.</p>
+            <p>We now calculate the partition, where we use the trick of
+            approximating a sum over discrete configurations <span
+            class="math inline">\(\vec{k}\)</span> with an integral over
+            <span class="math inline">\(\vec{k}\)</span> (which is exact
+            in the limit <span class="math inline">\(L \rightarrow
+            \infty\)</span>). The cube is due to the fact that there are
+            three independent modes of oscillation (two transverse and
+            one longitudinal). <span
+            class="math display">\[\begin{align*}
+                Z &amp;= \qty(\prod_{\vec{k}} \sum_{n \geq 0}
+            \exp(-(n+1/2) \beta \hbar \omega(\vec{k})))^3 \\
+                &amp;= \qty(\prod_{\vec{k}} \frac{\exp(-\beta \hbar
+            \omega(\vec{k})/2)}{1-\exp(-\beta \hbar \omega(\vec{k}))})^3
+            \end{align*}\]</span> Therefore, the energy is: <span
+            class="math display">\[\begin{align*}
+                \expval{E} &amp;= -3 \sum_{\vec{k}} \pdv{\beta}
+            \ln(\frac{\exp(-\beta \hbar
+            \omega(\vec{k})/2)}{1-\exp(-\beta \hbar \omega(\vec{k}))})
+            \\
+                &amp;= \frac{3L^3}{(2\pi)^3} \int \hbar \omega(\vec{k})
+            \qty(\frac{1}{\exp(\beta \hbar
+            \omega(\vec{k}))-1}+\frac{1}{2}) \dd{\vec{k}} \\
+                &amp;= \frac{3L^3}{(2\pi)^3} \int_0^\infty 4\pi k^2
+            \hbar v k \qty(\frac{1}{\exp(\beta \hbar v
+            k)-1}+\frac{1}{2}) \dd{k}
+            \end{align*}\]</span> We drop the zero-point energy
+            corresponding to the constant <span
+            class="math inline">\(\frac{1}{2}\)</span>. Then,
+            calculating the integral, we find: <span
+            class="math display">\[\begin{align*}
+                \expval{E} &amp;= \frac{3L^3}{(2\pi)^3} (4\pi \hbar v)
+            \int_0^\infty \frac{k^3}{\exp(\beta \hbar v k) - 1} \dd{k}
+            \\
+                &amp;= \frac{3L^3}{(2\pi)^3} \frac{(4\pi \hbar
+            v)}{(\beta \hbar v)^3} \int_0^\infty \frac{u^3}{e^u - 1}
+            \dd{u} \\
+                &amp;= \frac{3L^3}{(2\pi)^3} \frac{(4\pi \hbar
+            v)}{(\beta \hbar v)^4} \frac{\pi^4}{15} \\
+                &amp;= \frac{3L^3}{2\pi^2 \hbar^3 v^3} \frac{\pi^4}{15}
+            T^4
+            \end{align*}\]</span> We see that <span
+            class="math inline">\(\expval{E} \sim T^4\)</span>, which
+            correctly recovers <span class="math inline">\(C \sim
+            T^3\)</span>, as desired. However, this expression indicates
+            that the <span class="math inline">\(C \sim T^3\)</span>
+            rule holds for all temperatures, which we know cannot be the
+            case.</p>
+            <p>To remedy this, Debye proposed there could only be as
+            many oscillation modes as the number of atoms. That is,
+            <span class="math inline">\(3N=3\frac{4\pi k_{max}^3}{3}
+            \frac{L^3}{(2\pi)^3} \implies k_{max}^3=6\pi^2
+            \frac{N}{L^3}\)</span>. This replaces the integral <span
+            class="math inline">\(\int_0^\infty \frac{u^3}{e^u - 1}
+            \dd{u}\)</span> with <span
+            class="math inline">\(\int_0^{k_{max} \beta \hbar v}
+            \frac{u^3}{e^u - 1} \dd{u}\)</span>. Note that the mass of
+            this integral is concentrated near <span
+            class="math inline">\(u \sim \order{1}\)</span>, so for low
+            temperature (high <span
+            class="math inline">\(\beta\)</span>), it is valid to
+            approximate this integral as extending to infinity. The
+            validity of this approximation depends on <span
+            class="math inline">\(k_{max} \gg \frac{1}{\beta \hbar
+            v}\implies \frac{N}{L^3} \gtrsim \frac{T^2}{(\hbar
+            v)^2}\)</span>. On the other hand, for high temperature, we
+            are better off approximating the integral using <span
+            class="math inline">\(\frac{u^3}{e^u-1} \approx u^2\)</span>
+            for small <span class="math inline">\(u\)</span>, in which
+            case we get <span class="math inline">\(\int_0^{k_{max}
+            \beta \hbar v} \frac{u^3}{e^u - 1} \dd{u} \approx
+            \frac{(k_{max} \beta \hbar v)^3}{3}\)</span>. Plugging this
+            back into our expression for energy, we find <span
+            class="math display">\[\begin{align}
+            \expval{E} &amp;= \frac{3L^3}{2\pi^2 \hbar^3 v^3}
+            \frac{(k_{max} \beta \hbar v)^3}{3} T^4 \\
+            &amp;= \frac{L^3}{2\pi^2} \frac{6N\pi^2}{L^3} T \\
+            &amp;= 3N T
+            \end{align}\]</span> This gives a heat capacity (per atom)
+            <span class="math inline">\(C = 3\)</span>, as expected.</p>
+            <h2 data-number="1.3" id="bonds"><span
+            class="header-section-number">1.3</span> Bonds</h2>
+            <p>There are three general categories of atomic bonds:
+            ionic, covalent, and Van der Waals. Ionic bonding can be
+            understood classically. On the other hand, covalent bonding
+            requires a somewhat more quantum understanding. The simplest
+            model might be the particle-in-a-box model. Specifically,
+            take two hydrogen atoms, each of which we model as a
+            infinite square well with length <span
+            class="math inline">\(L\)</span>. The electrons in each well
+            has energy <span class="math inline">\(\frac{\hbar^2
+            \pi^2}{2m L^2}\)</span>. However, when we bring the two
+            wells together, the wells combine to form a well of length
+            <span class="math inline">\(2L\)</span>, so the energy falls
+            to <span class="math inline">\(\frac{\hbar^2 \pi^2}{2m
+            (2L)^2}\)</span>, a reduction in energy. This is
+            energetically preferable, explaining dihydrogen bonds.
+            However, when the two lowest energy eigenstates (two because
+            a spin up and spin down state can fit in the ground state),
+            the next highest energy state is <span
+            class="math inline">\(\frac{\hbar^2 \pi^2}{2m L^2}\)</span>,
+            which is no different than the original eigenenergies. It
+            turns out that when the nuclear and electronic repulsion
+            energies are considered, this bonding situation is
+            energetically unfavorable (which explains why helium does
+            not bond to helium).</p>
+            <p>A more precise description might be as follows. Consider
+            two hydrogen atoms a fixed distance apart, and a single
+            electron orbiting the two. The Hamiltonian is given by <span
+            class="math display">\[H = \frac{p^2}{2m} + V_1 +
+            V_2\]</span>, where <span
+            class="math inline">\(V_1,V_2\)</span> represent the Coulomb
+            potential of the electron due to the first and second
+            nuclei, respectively. The nuclear repulsion is omitted
+            because this does not affect the electron. We now propose a
+            variational ansatz <span
+            class="math inline">\(\ket{\psi}=\alpha \ket{1} + \beta
+            \ket{2}\)</span>, where <span
+            class="math inline">\(\ket{1}\)</span> and <span
+            class="math inline">\(\ket{2}\)</span> are the electronic
+            orbitals for the first and second atom <em>alone</em>. This
+            is known as the tight binding model because these electronic
+            orbitals are closely bound to each respective nuclei. We
+            define <span class="math inline">\(\epsilon_0\)</span> to be
+            the energy of <span class="math inline">\(\ket{1}\)</span>
+            when the second nucleus is not present, that is: <span
+            class="math inline">\((K+V_i) \ket{i}=\epsilon_0
+            \ket{i}\)</span>. Now, the time independent Schrodinger
+            equation reads <span class="math inline">\(\alpha H \ket{1}
+            + \beta H \ket{2} = E \qty(\alpha \ket{1} + \beta
+            \ket{2})\)</span>. We hit this on the left with <span
+            class="math inline">\(\bra{1}\)</span> and <span
+            class="math inline">\(\bra{2}\)</span> to find: <span
+            class="math display">\[\begin{align*}
+            \alpha H_{11} + \beta H_{12} &amp;= E (\alpha + \beta
+            \braket{1}{2}) \\
+            \alpha H_{21} + \beta H_{22} &amp;= E (\beta + \alpha
+            \braket{2}{1})
+            \end{align*}\]</span> In matrix form, letting <span
+            class="math inline">\(v \equiv \mqty[\alpha \\
+            \beta]\)</span>: <span class="math display">\[
+            \mqty[H_{11} &amp; H_{12} \\ H_{21} &amp; H_{22}] v = E
+            \mqty[1 &amp; \braket{1}{2} \\ \braket{2}{1} &amp; 1] v.
+            \]</span> Now, we define <span
+            class="math inline">\(V_{cross}\)</span> with <span
+            class="math inline">\(H_{11}=H_{22}=\epsilon_0 +
+            \expval{V_2}{1}=\epsilon_0 + V_{cross}\)</span>, and <span
+            class="math inline">\(H_{12}=\mel{1}{H}{2}=(\epsilon_0+V_{cross})
+            \braket{1}{2} + \mel{1}{V_1}{2}=\epsilon_0 \braket{1}{2} -
+            t\)</span>. The eigenenergies of this equation are <span
+            class="math inline">\(E=\epsilon_0 + V_{cross} + \frac{\Re(t
+            \braket{1}{2}) \pm \sqrt{\Im((t \braket{1}{2})^2) +
+            \abs{t}^2}}{1-\abs{\braket{1}{2}^2}}\)</span>. When the two
+            orbitals are orthonormal (which is not the case as the atoms
+            get close), we have <span
+            class="math inline">\(\braket{1}{2}=0\)</span>, so the
+            energies reduce to <span class="math inline">\(\epsilon_0 +
+            V_{cross} \pm \abs{t}\)</span> and the eigenvectors reduce
+            to <span
+            class="math inline">\(\frac{1}{\sqrt{2}}\qty(\ket{0}\pm
+            \ket{1})\)</span>. The <span
+            class="math inline">\(t\)</span> term is known as a
+            `hopping’ term, because it roughly corresponds to the
+            likelihood that the electron hops from one orbital to the
+            other.</p>
+            <h1 data-number="2"
+            id="materials-models-in-one-dimension"><span
+            class="header-section-number">2</span> Materials Models in
+            One Dimension</h1>
+            <h2 data-number="2.1" id="monatomic-system"><span
+            class="header-section-number">2.1</span> Monatomic
+            System</h2>
+            <p>We now begin to account for the structure of our
+            materials. We no longer pretend the atoms are all
+            independent of one another, and model them as attached to
+            their neighbours with some spring that has a spring constant
+            <span class="math inline">\(\kappa\)</span>. Furthermore, we
+            restrict ourselves to one dimension. This spring model is a
+            good approximation when the atoms are sitting at the bottom
+            of the potential well, and the neighborhood of the well that
+            is accessible is well-described by a parabola. Anharmonic
+            terms will enter if we escape this regime.</p>
+            <p>Let the position of the <span
+            class="math inline">\(n\)</span>th atom in our chain be
+            <span class="math inline">\(x_n\)</span>. The equilibrium
+            position has each of these atoms separated by some distance
+            <span class="math inline">\(a\)</span>. In this case, the
+            potential energy of the system is: <span
+            class="math display">\[V = \frac{1}{2}\sum_{n} \kappa
+            (x_n-x_{n-1})^2.\]</span> The force on each individual atom
+            is then <span class="math display">\[F_n=\kappa
+            (x_{n+1}-2x_n+x_{n-1}) =\kappa(\delta x_{n+1} - 2\delta x_n
+            + \delta x_{n-1}),\]</span> where <span
+            class="math inline">\(\delta x_n = x_n - na\)</span> is the
+            deviation of the <span class="math inline">\(n\)</span>th
+            atom from its equilibrium position. This gives us a set of
+            coupled differential equations: <span
+            class="math display">\[\ddot{\delta x_n} = \frac{\kappa}{m}
+            (\delta x_{n+1}-2\delta x_n + \delta x_{n-1}).\]</span>
+            Plugging in an ansatz <span class="math inline">\(\delta
+            x_n=e^{i (\omega t - k n a)}\)</span>, this gives <span
+            class="math inline">\(-\omega^2 = \frac{\kappa}{m} (e^{ika}
+            - 2 + e^{-ika})\)</span>, so: <span
+            id="eq:1d-dispersion"><span class="math display">\[\omega =
+            2\sqrt{\frac{\kappa}{m}}
+            \abs{\sin(\frac{ka}{2})}\tag{1}\]</span></span></p>
+            <figure>
+            <img
+            src="static/img/generated/9e467b22afa3464326aebfa9d8d8b471e8061e39.svg"
+            id="fig:1d-dispersion"
+            alt="Figure 1: Dispersion function for monoatomic one-dimensional system" />
+            <figcaption aria-hidden="true"><strong>Figure 1</strong>:
+            Dispersion function for monoatomic one-dimensional
+            system</figcaption>
+            </figure>
+            <p>In <a href="#fig:1d-dispersion">Figure 1</a>, we plot the
+            dispersion relation <a
+            href="#eq:1d-dispersion">Equation 1</a>. This is a first
+            exposure to a nonlinear dispersion function (compare this
+            with Debye’s assumption that <span
+            class="math inline">\(\omega = vk\)</span>). We observe a
+            few features. First, for small <span
+            class="math inline">\(k\)</span> (long wavelength), the
+            dispersion remains linear. However, close to <span
+            class="math inline">\(k=2\pi/a\)</span>, the dispersion
+            relation becomes flat. Secondly, this dispersion is periodic
+            under shifts of <span class="math inline">\(2\pi/a\)</span>.
+            This is a simple consequence of the fact that the atoms are
+            spaced by <span class="math inline">\(a\)</span>, so
+            wavelengths less than <span class="math inline">\(a\)</span>
+            will be aliased. Thus, we define the first Brillouin zone to
+            be <span class="math inline">\(-\pi/a \leq k \leq
+            \pi/a\)</span>. In momentum space, we can define a lattice
+            just like the lattice of atoms <span
+            class="math inline">\(x_n = na \Leftrightarrow G_n = n
+            \frac{2\pi}{a}\)</span>. This leads to the concept of
+            <em>crystal momentum</em>, which is just momentum modulo
+            factors of <span
+            class="math inline">\(\frac{2\pi}{a}\)</span>. It turns out
+            that, while momentum <span class="math inline">\(k\)</span>
+            is not necessarily conserved, crystal momentum <em>is</em>
+            conserved. This can be understood by Noether’s theorem,
+            which implies that translational invariance leads to
+            conservation of momentum. However, we have <em>discrete</em>
+            translational invariance here, which leads to the
+            conservation of crystal momentum alone.</p>
+            <p>One further restriction we might make is to attach
+            boundary conditions to our chain. For periodic conditions,
+            we will have the constraint <span class="math inline">\(e^{i
+            \omega t} = e^{i \omega t - ikL} \implies k=n
+            \frac{2\pi}{L}\)</span>. Therefore, in <span
+            class="math inline">\(k\)</span> space, the momentum modes
+            are separated by <span
+            class="math inline">\(\frac{2\pi}{L}\)</span>. Coupled with
+            the fact that all momentum modes lie in <span
+            class="math inline">\([-\pi/a,\pi/a]\)</span> (modulo <span
+            class="math inline">\(2\pi/a\)</span>), there are <span
+            class="math inline">\(\frac{2\pi/a}{2\pi/L}=\frac{L}{a}=N\)</span>
+            unique normal modes. This justifies Debye’s assumption.</p>
+            <p>Now, there is a principle known as the quantum
+            correspondence principle, which says that if a classical
+            harmonic system has a normal oscillation mode at frequency
+            <span class="math inline">\(\omega\)</span>, the
+            corresponding quantum system has eigenstates of energy <span
+            class="math inline">\(\hbar \omega (n+1/2)\)</span>.
+            Therefore, in the quantum picture of our system, we have
+            quanta of vibration known as phonons that each have energy
+            <span class="math inline">\(\hbar \omega\)</span>. The
+            average number of these occupying a given mode will be <span
+            class="math inline">\(\frac{1}{\exp(\beta \hbar
+            \omega)-1}\)</span> (with a <span
+            class="math inline">\(-1\)</span> rather than <span
+            class="math inline">\(+1\)</span> because phonons are not
+            subject to some exclusion principle – that is, they are
+            bosons). The energy, and therefore heat capacity, can then
+            all be calculated in a straightforward way<span
+            class="sidenote-wrapper"><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle"/><span
+            class="sidenote">We have dropped the zero-point energy
+            corresponding to the <span
+            class="math inline">\(\frac{1}{2}\)</span> constant in the
+            SHO energy.<br />
+            <br />
+            </span></span> with <span class="math display">\[U=\sum_{k}
+            \frac{\hbar \omega(k)}{\exp(\beta \hbar \omega(k))-1}
+            \approx \frac{L}{2\pi}\int_{-\pi/a}^{\pi/a} \frac{\hbar
+            \omega(k)}{\exp(\beta \hbar \omega(k))-1} \dd{k}.\]</span>
+            Notice this again retains the expected behavior <span
+            class="math inline">\(C = \frac{L}{a}=N\)</span> at high
+            temperatures.</p>
+            <h2 data-number="2.2" id="diatomic-system"><span
+            class="header-section-number">2.2</span> Diatomic
+            System</h2>
+            <p>We now complicate the situation somewhat by introducing
+            another atom of different weight. Say the connections
+            between atoms varies with <span class="math inline">\(\ldots
+            A \xleftrightarrow{\kappa_1} B \xleftrightarrow{\kappa_2} A
+            \xleftrightarrow{\kappa_1} B \ldots\)</span>, where <span
+            class="math inline">\(\xleftrightarrow{\kappa_1}\)</span>
+            represents a spring with spring constant <span
+            class="math inline">\(\kappa_1\)</span>, and <span
+            class="math inline">\(A,B\)</span> represent two different
+            species of atoms (with different masses). This type of
+            configuration might be conceivable as a toy model of a
+            material that has covalent bonding within molecules
+            (comprised of one <span class="math inline">\(A\)</span> and
+            one <span class="math inline">\(B\)</span> atom) and Van der
+            waals bonding from molecule to molecule.</p>
+            <p>We group our substance into <span
+            class="math inline">\(n\)</span> molecules <span
+            class="math inline">\((A,B)\)</span>, with the displacement
+            of <span class="math inline">\(A\)</span> and <span
+            class="math inline">\(B\)</span> from their equilibrium
+            position in the <span class="math inline">\(n\)</span>th
+            molecule denoted <span class="math inline">\(x_n\)</span>
+            and <span class="math inline">\(y_n\)</span>, respectively.
+            We immediately find the equations of motion: <span
+            class="math display">\[\begin{align*}
+            \ddot{x}_n &amp;= \frac{\kappa_1 (y_n-x_n) - \kappa_2
+            (x_n-y_{n-1})}{m_1} \\
+            \ddot{y}_n &amp;= \frac{\kappa_2 (x_{n+1}-y_n) - \kappa_1
+            (y_n-x_n)}{m_2}
+            \end{align*}\]</span> We let the equilibrium position of
+            <span class="math inline">\(A\)</span> in the <span
+            class="math inline">\(n\)</span>th molecule be <span
+            class="math inline">\(na\)</span>. Then, plugging in the
+            ansatz <span class="math inline">\(x_n=A_x e^{i (\omega t -
+            k n a)}\)</span> (with a similar ansatz for <span
+            class="math inline">\(y_n\)</span>), we get an eigenvalue
+            equation: <span class="math display">\[
+            \mqty[\frac{\kappa_1+\kappa_2}{m_1} &amp; -\frac{\kappa_1 +
+            \kappa_2 e^{ika}}{m_1} \\ -\frac{\kappa_1 + \kappa_2
+            e^{-ika}}{m_2} &amp; \frac{\kappa_1 + \kappa_2}{m_2}]
+            \mqty[A_x \\ A_y] = \omega^2 \mqty[A_x \\ A_y]
+            \]</span> This is solved by: <span
+            class="math display">\[\begin{align*}
+            0 &amp;= \qty(\frac{\kappa_1+\kappa_2}{m_1}-
+            \omega^2)\qty(\frac{\kappa_1+\kappa_2}{m_2}-\omega^2) -
+            \frac{\kappa_1+\kappa_2 e^{ika}}{m_1}
+            \frac{\kappa_1+\kappa_2 e^{-ika}}{m_2} \\
+            &amp;= m_1 m_2 \omega^4 -
+            (\kappa_1+\kappa_2)(m_1+m_2)\omega^2 + 2 \kappa_1 \kappa_2
+            \qty(1-\cos(ka))
+            \end{align*}\]</span> Defining the reduced mass <span
+            class="math inline">\(\mu=\frac{m_1m_2}{m_1+m_2}\)</span>,
+            we find that the roots of the above are given by: <span
+            id="eq:1d-dispersion-diatomic"><span class="math display">\[
+            \omega^2 = \frac{\kappa_1+\kappa_2}{2\mu} \qty(1 \pm \sqrt{1
+            - \frac{16m_1 m_2 \kappa_1 \kappa_2
+            \sin^2(ka/2)}{(\kappa_1+\kappa_2)^2(m_1+m_2)^2}})
+            \tag{2}\]</span></span> We define the parameter <span
+            class="math inline">\(\alpha \equiv 16\frac{m_1 m_2 \kappa_1
+            \kappa_2}{(\kappa_1+\kappa_2)^2 (m_1+m_2)^2}\)</span>.
+            Observe that <span class="math inline">\(0 \leq \alpha \leq
+            1\)</span>, and in some sense measures how similar the two
+            atoms are: when <span
+            class="math inline">\(\kappa_1=\kappa_2\)</span> and <span
+            class="math inline">\(m_1=m_2\)</span>, <span
+            class="math inline">\(\alpha=1\)</span>. The qualitative
+            behavior of the dispersion relation (up to the factor <span
+            class="math inline">\(\frac{\kappa_1+\kappa_2}{2\mu}\)</span>)
+            is determined by this parameter <span
+            class="math inline">\(\alpha\)</span>. In <a
+            href="#fig:1d-dispersion-diatom">Figure 2</a>, we plot this
+            dispersion relation as a function of <span
+            class="math inline">\(\alpha\)</span>. If we extend into the
+            second Brillouin zone by evaluating the <span
+            class="math inline">\(+\)</span> branch of <span
+            class="math inline">\(\omega\)</span> (<a
+            href="#eq:1d-dispersion-diatomic">Equation 2</a>) for <span
+            class="math inline">\(\abs{ka} \in [\pi, 2\pi]\)</span>, we
+            find striking behavior. For <span
+            class="math inline">\(\alpha=1\)</span>, we recover the
+            monatomic dispersion function (<a
+            href="#fig:1d-dispersion">Figure 1</a>), as expected.
+            However, as we move away from <span
+            class="math inline">\(\alpha=1\)</span>, we get a gap that
+            widens as <span class="math inline">\(\alpha \rightarrow
+            0\)</span>.</p>
+            <figure>
+            <img
+            src="static/img/generated/59ddd4ceb0d8e4a4ec37800bc96044d477b118e9.svg"
+            id="fig:1d-dispersion-diatom"
+            alt="Figure 2: Dispersion function for diatomic one-dimensional system at various \alpha. The dashed lines represent an extension of the dispersion into the second Brillouin zone." />
+            <figcaption aria-hidden="true"><strong>Figure 2</strong>:
+            Dispersion function for diatomic one-dimensional system at
+            various <span class="math inline">\(\alpha\)</span>. The
+            dashed lines represent an extension of the dispersion into
+            the second Brillouin zone.</figcaption>
+            </figure>
+            <p>The upper branch of the dispersion relation is known as
+            the optical branch, because it couples more strongly with
+            visible light than the bottom branch, known as the acoustic
+            branch. We gain some insight into these names by seeing what
+            happens at <span class="math inline">\(k \rightarrow
+            0\)</span> (long wavelength limit). Here, the two modes will
+            have <span class="math inline">\(A_x=A_y=1\)</span>
+            (acoustic mode) and <span
+            class="math inline">\(A_x=-\frac{m_2}{m_1}, A_y=1\)</span>
+            (optical mode). In the acoustic mode, this is essentially a
+            synchronized oscillation of every atom in the material,
+            which agrees with the picture of sound as long wavelength
+            compressions. On the other hand, in the optical mode, the
+            two atoms in any molecule will oscillate out-of-sync with
+            each other by 180 degrees (when <span
+            class="math inline">\(m_2=m_1\)</span>).</p>
+            <h1 class="unnumbered" id="bibliography">References</h1>
+            <div id="refs"
+            class="references csl-bib-body hanging-indent"
+            role="doc-bibliography">
+            <div id="ref-simon_solid_2013" class="csl-entry"
+            role="doc-biblioentry">
+            Simon, Steven H. 2013. <em>The <span>Oxford</span> Solid
+            State Basics</em>. 1st ed. Oxford: Oxford University Press.
+            </div>
+            </div>
+      
+      <div>
+                <hr style="margin: 1em 0.2em 1em 60%"/>
+        
+            <p class="date">Last modified: June 20, 2022</p>
+                </div>
+    </div>
+    
+  </div>
+
+</body>
+
+</html>

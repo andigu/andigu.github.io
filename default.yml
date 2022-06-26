@@ -1,0 +1,42 @@
+---
+header-includes:
+  - \usepackage{physics}
+  - \usepackage[labelfont=bf]{caption}
+  - \usepackage[margin=1in]{geometry}
+  - \usepackage{mathtools}
+  - \usepackage{hyperref}
+  - \definecolor{00007f}{HTML}{00007f}
+  
+document-css: true
+
+cref: true
+numberSections: true
+linkReferences: true
+nameInLink: true
+figPrefix:
+  - "Figure"
+  - "Figures"
+eqnPrefix:
+  - "Equation"
+  - "Equations"
+tblPrefix:
+  - "Table"
+  - "Tables"
+
+figureTemplate: "**$$figureTitle$$ $$i$$**$$titleDelim$$ $$t$$"
+equationNumberTeX: \\tag
+eqnIndexTemplate: $$i$$
+
+reference-section-title: References
+link-citations: true
+link-bibliography: true
+eqnos-eqref: true
+eqnos-nameinlink: true
+linkcolor: blue!50!black
+urlcolor: blue!80!black
+citecolor: blue!50!black
+
+toc-title: Table of Contents
+lang: en
+base-url: http://localhost:8000
+---
