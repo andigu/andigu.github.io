@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
   <meta charset="UTF-8">
-  <base href="https://andigu.github.io">
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="author" content="Andi Gu" />
@@ -179,7 +178,7 @@
       margin-left: 2em;
     }
   </style>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="/index.css" />
       
     
     
@@ -244,16 +243,12 @@
     update_bold = throttle(update_bold, 50);
     update_heights = throttle(update_heights, 50);
 
-    window.onload = () => {
-      let root = window.location.pathname.split('/')[1];
-      if (root === '') root = 'home';
-
-      update_heights();
-      document.getElementById("nav-" + root).style.textDecoration = 'underline';
-      document.getElementById("nav-" + root).style.fontWeight = 'bold';
-    }
 
     document.addEventListener('DOMContentLoaded', () => {
+      let root = window.location.pathname.split('/')[1];
+      if (root === '') root = 'home';
+      document.getElementById("nav-" + root).style.textDecoration = 'underline';
+      document.getElementById("nav-" + root).style.fontWeight = 'bold';
       update_heights();
       update_bold();
     }, false);
@@ -637,7 +632,7 @@
             \abs{\sin(\frac{ka}{2})}\tag{1}\]</span></span></p>
             <figure>
             <img
-            src="static/img/generated/9e467b22afa3464326aebfa9d8d8b471e8061e39.svg"
+            src="/static/img/generated/484b7e9370b03500f56b7eee25032a522e323527.svg"
             id="fig:1d-dispersion"
             alt="Figure 1: Dispersion function for monoatomic one-dimensional system" />
             <figcaption aria-hidden="true"><strong>Figure 1</strong>:
@@ -809,7 +804,7 @@
             0\)</span>.</p>
             <figure>
             <img
-            src="static/img/generated/59ddd4ceb0d8e4a4ec37800bc96044d477b118e9.svg"
+            src="/static/img/generated/84a21560ef7124381118e227a9c1ca2749a2f51f.svg"
             id="fig:1d-dispersion-diatom"
             alt="Figure 2: Dispersion function for diatomic one-dimensional system at various \alpha. The dashed lines represent an extension of the dispersion into the second Brillouin zone." />
             <figcaption aria-hidden="true"><strong>Figure 2</strong>:
