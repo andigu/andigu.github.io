@@ -12,33 +12,33 @@ A collection of notes I've taken. The number of errors in these notes probably g
      - Dated
 
    * - []{rowspan=7} Physics
-     - *Special relativity* \[[pdf](/static/pdf-notes/Special_Relativity.pdf)\]
+     - *Special relativity* \[[pdf](/static/pdf/Special_Relativity.pdf)\]
      - []{rowspan=4} Spring 2018
 
-   * - *Mechanics (rotation)* \[[pdf](/static/pdf-notes/Rotation.pdf)\]
+   * - *Mechanics (rotation)* \[[pdf](/static/pdf/Rotation.pdf)\]
    
-   * - *Mechanics (oscillation)* \[[pdf](/static/pdf-notes/Oscillation.pdf)\]
+   * - *Mechanics (oscillation)* \[[pdf](/static/pdf/Oscillation.pdf)\]
 
-   * - *Light* \[[pdf](/static/pdf-notes/Light.pdf)\]
+   * - *Light* \[[pdf](/static/pdf/Light.pdf)\]
    
-   * - E&M \[[pdf](/static/pdf-notes/EM.pdf)\]
+   * - E&M \[[pdf](/static/pdf/EM.pdf)\]
      - Winter 2019
    
-   * - Special relativity \[[pdf](/static/pdf-notes/Special%20Relativity%202.pdf)\]
+   * - Special relativity \[[pdf](/static/pdf/Special%20Relativity%202.pdf)\]
      - Spring 2020
 
    * - Condensed matter \[[html](/notes/condensed.html), [pdf](/notes/condensed.pdf)\]
      - Summer 2022
 
    * - Computer science and information theory
-     - *Algorithms* \[[pdf](/static/pdf-notes/Algorithms.pdf)\]
+     - *Algorithms* \[[pdf](/static/pdf/Algorithms.pdf)\]
      - Spring 2018
   
    * - []{rowspan=3} Math
-     - Linear algebra (Math 54 at UCB) \[[pdf](/static/pdf-notes/Math_54.pdf)\]
+     - Linear algebra (Math 54 at UCB) \[[pdf](/static/pdf/Math_54.pdf)\]
      - Fall 2018
      
-   * - Linear algebra (Math 110 at UCB) \[[pdf](/static/pdf-notes/Math_110.pdf)\]
+   * - Linear algebra (Math 110 at UCB) \[[pdf](/static/pdf/Math_110.pdf)\]
      - Fall 2019
   
    * - Geometric algebra \[[html](/notes/geometric.html), [pdf](/notes/geometric.pdf)\]
