@@ -199,72 +199,7 @@
     type="text/javascript"></script>
     
     
-  <script>
-    function throttle (callback, limit) {
-    var waiting = false;                      // Initially, we're not waiting
-    return function () {                      // We return a throttled function
-        if (!waiting) {                       // If we're not waiting
-            callback.apply(this, arguments);  // Execute users function
-            waiting = true;                   // Prevent future invocations
-            setTimeout(function () {          // After a period of time
-                waiting = false;              // And allow future invocations
-            }, limit);
-        }
-    }
-  }
-    let height_dict = {};
-    let last_idx;
-    let root = document.documentElement;
-
-    let update_heights = () => {
-      if (document.getElementById("TOC")) {
-        const elems = Array.from(document.getElementById("TOC").getElementsByTagName("a"));
-        elems.forEach(e => {
-          height_dict[e.id] = window.pageYOffset + document.getElementById(e.id.slice(4)).getBoundingClientRect().top;
-        })
-      }
-    }
-
-    let update_bold = () => {
-      let k = Object.keys(height_dict), v = Object.values(height_dict);
-      let scrollTop = root.scrollTop;
-      if (k.length > 0) {
-        let tmp = v.map(x => scrollTop + 30 > x ? (scrollTop - x) : Infinity);
-        const idx = k[tmp.indexOf(Math.min(...tmp))];
-        if (idx !== last_idx) {
-          if (last_idx) {
-            document.getElementById(last_idx).style.fontWeight = 'normal';
-          }
-          document.getElementById(idx).style.fontWeight = 'bold';
-          last_idx = idx;
-        }
-      }
-    }
-    update_bold = throttle(update_bold, 50);
-    update_heights = throttle(update_heights, 50);
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-      let root = window.location.pathname.split('/')[1];
-      if (root === '') root = 'home';
-      document.getElementById("nav-" + root).style.textDecoration = 'underline';
-      document.getElementById("nav-" + root).style.fontWeight = 'bold';
-      update_heights();
-      update_bold();
-    }, false);
-
-    window.addEventListener('resize', () => {
-      update_heights();
-      update_bold();
-    });
-
-
-    document.addEventListener("scroll", evt => {
-      root.style.setProperty("--scrolltop", root.scrollTop);
-      update_bold();
-    });
-
-  </script>
+  <script src="/script.js" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -328,6 +263,10 @@
                 id="toc-diatomic-system"><span
                 class="toc-section-number">2.2</span> Diatomic
                 System</a></li>
+                <li><a href="#tight-binding-models"
+                id="toc-tight-binding-models"><span
+                class="toc-section-number">2.3</span> Tight Binding
+                Models</a></li>
                 </ul></li>
                 <li><a href="#bibliography"
                 id="toc-bibliography">References</a></li>
@@ -632,7 +571,7 @@
             \abs{\sin(\frac{ka}{2})}\tag{1}\]</span></span></p>
             <figure>
             <img
-            src="/static/img/generated/93318a795f617fb03d6da6e2e9fba2a5a754e1c9.svg"
+            src="/static/img/generated/64b52dd83999c99612bfd9be10648301dd513a79.svg"
             id="fig:1d-dispersion"
             alt="Figure 1: Dispersion function for monoatomic one-dimensional system" />
             <figcaption aria-hidden="true"><strong>Figure 1</strong>:
@@ -804,7 +743,7 @@
             0\)</span>.</p>
             <figure>
             <img
-            src="/static/img/generated/c8469dbc503b82e883455c75b86438a90ebf5839.svg"
+            src="/static/img/generated/d9aa2f56d51dbe637c487ae3aef3c605eae6cd66.svg"
             id="fig:1d-dispersion-diatom"
             alt="Figure 2: Dispersion function for diatomic one-dimensional system at various \alpha. The dashed lines represent an extension of the dispersion into the second Brillouin zone." />
             <figcaption aria-hidden="true"><strong>Figure 2</strong>:
@@ -829,6 +768,97 @@
             two atoms in any molecule will oscillate out-of-sync with
             each other by 180 degrees (when <span
             class="math inline">\(m_2=m_1\)</span>).</p>
+            <h2 data-number="2.3" id="tight-binding-models"><span
+            class="header-section-number">2.3</span> Tight Binding
+            Models</h2>
+            <p>The previous two models have been attempts to describe
+            oscillations of atoms in a material. We turn now to
+            electrons, and will work within the ‘tight-binding’ model.
+            This assumes that the full electronic wavefunction can be
+            described as a linear combination of the unperturbed
+            electronic orbitals. More precisely, let our chain of atoms
+            be identified as <span class="math inline">\(1, \ldots,
+            N\)</span>. Then, let <span
+            class="math inline">\(\ket{j}\)</span> be the wavefunction
+            for the valence electron on the <span
+            class="math inline">\(j\)</span>th atom. The tight binding
+            model says that the ground state of electrons, when the
+            atoms are brought together, is well approximated by <span
+            class="math inline">\(\sum_j c_j \ket{j}\)</span>. We
+            further assume for convenience that <span
+            class="math inline">\(\braket{j}{\ell}=\delta_{j,\ell}\)</span>.</p>
+            <p>Our model is as follows. The Hamiltonian for one electron
+            will be <span class="math inline">\(H = \frac{p^2}{2m} +
+            \sum_j V_j\)</span>, where <span
+            class="math inline">\(V_j\)</span> is the Coulomb potential
+            due to the <span class="math inline">\(i\)</span>th atom.
+            Then <span class="math display">\[\mel{j}{H}{\ell} =
+            \epsilon_{atomic} \delta_{j,\ell} + \sum_{m \neq \ell}
+            \mel{j}{V_m}{\ell}.\]</span> We assume that <span
+            class="math inline">\(\sum_{m \neq \ell}
+            \mel{j}{V_m}{\ell}=V_0 \delta{j,\ell} - t \delta_{j-1,\ell}
+            - t \delta_{j+1,\ell}\)</span>. The <span
+            class="math inline">\(V_0\)</span> term is simply a shift in
+            energy due to the introduction of other nearby Coulomb
+            potentials. The <span class="math inline">\(t \delta_{j \pm
+            1, \ell}\)</span> term expresses the fact that an electron
+            on orbital <span class="math inline">\(\ket{\ell}\)</span>
+            can only be transferred to another orbital <span
+            class="math inline">\(\ket{j}\)</span> if <span
+            class="math inline">\(j\)</span> and <span
+            class="math inline">\(\ell\)</span> are close (here, if
+            <span class="math inline">\(\abs{j-\ell}=1\)</span>). Here,
+            <span class="math inline">\(t\)</span> is known as a hopping
+            strength because the larger the <span
+            class="math inline">\(t\)</span>, the larger the probability
+            of a transfer. The overall matrix element is then <span
+            class="math display">\[\mel{j}{H}{\ell} = \epsilon_0
+            \delta_{j,\ell} - t(\delta_{j + 1, \ell} +
+            \delta_{j-1,\ell}).\]</span></p>
+            <p>With this framework, we complicate things somewhat by
+            bringing some atoms closer and moving some further like so:
+            <span class="math inline">\(A-A=A-A=A-\ldots\)</span>, where
+            <span class="math inline">\(=\)</span> denotes a smaller
+            distance. This changes the hopping strength so that <span
+            class="math display">\[\mel{j}{H}{\ell} = \epsilon_0
+            \delta_{j,\ell} - t((1 \pm \Delta)\delta_{j + 1, \ell} + (1
+            \mp \Delta)\delta_{j-1,\ell}),\]</span> where the <span
+            class="math inline">\(\pm\)</span> depends on the parity of
+            <span class="math inline">\(\ell\)</span>, and <span
+            class="math inline">\(\Delta\)</span> is a parameter
+            measuring how unequal the <span
+            class="math inline">\(-\)</span> and <span
+            class="math inline">\(=\)</span> distances are. This is
+            known as the Peierls distortion. To solve for the ground
+            state of this Hamiltonian, we substitute an ansatz (up to a
+            constant factor) <span class="math inline">\(\ket{\psi} =
+            \sum_{\ell} A_\ell e^{-i k \ell a} \ket{\ell}\)</span>,
+            where <span
+            class="math inline">\(A_0=A_2=A_4=\ldots\)</span> and <span
+            class="math inline">\(A_1=A_3=A_5=\ldots\)</span>. Solving
+            the Schrodinger equation yields: <span
+            class="math display">\[
+            \mqty[\epsilon_0 &amp; -2t (\cos(ka) - i \Delta \sin(ka)) \\
+            -2t (\cos(ka) + i \Delta \sin(ka)) &amp; \epsilon_0]
+            \mqty[A_0 \\ A_1] = E \mqty[A_0 \\ A_1]
+            \]</span> Diagonalizing, we find <span
+            class="math inline">\(E = \epsilon_0 \pm 2t\sqrt{\cos^2(ka)
+            + \Delta^2 \sin^2(ka)}\)</span>. This is similar in form to
+            the previously derived dispersion relation in <a
+            href="#eq:1d-dispersion-diatomic">Equation 2</a>, except it
+            is now an equation involving <span
+            class="math inline">\(\omega\)</span> rather than <span
+            class="math inline">\(\omega^2\)</span>. There is again the
+            appearance of a widening gap as <span
+            class="math inline">\(\Delta\)</span> increases.</p>
+            <figure>
+            <img
+            src="/static/img/generated/c5e5868d6520e512fd88d3e0bef91d0beb04cbf7.svg"
+            id="fig:1d-dispersion-peierls"
+            alt="Figure 3: Dispersion function for the Peierls distortion." />
+            <figcaption aria-hidden="true"><strong>Figure 3</strong>:
+            Dispersion function for the Peierls distortion.</figcaption>
+            </figure>
             <h1 class="unnumbered" id="bibliography">References</h1>
             <div id="refs"
             class="references csl-bib-body hanging-indent"

@@ -5,7 +5,7 @@ EXPORTED_DOCS=\
  $(SOURCE_DOCS:.md=.pdf) \
 
 PANDOC=/usr/local/bin/pandoc
-PANDOC_OPTIONS=--standalone -N --toc default.yml --lua-filter=diagram-generator.lua --lua-filter=list-table.lua --filter pandoc-crossref --citeproc --bibliography=papers.bib  --extract-media=static/img/generated
+PANDOC_OPTIONS=--standalone -N --toc default.yml --lua-filter=diagram-generator.lua --lua-filter=list-table.lua --filter pandoc-crossref --citeproc --bibliography=papers.bib  --extract-media=static/img/generated --lua-filter statement.lua
 PANDOC_HTML_OPTIONS=--css /index.css --mathjax --to html5 --filter pandoc-sidenote --template template.html --lua-filter paths.lua
 PANDOC_PDF_OPTIONS=
 RM=/bin/rm

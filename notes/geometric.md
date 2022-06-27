@@ -21,30 +21,26 @@ However, this geometric product is not so exotic. We can still understand it in 
 
 Well, technically, not yet: we do not have a good reason to believe we should understand $a \wedge b$ as a bivector (or a directed area) yet. So we define it as such, and show this definition conforms to our intuition later. More precisely, we define exterior product of $r$ vectors as the full anti-symmeterized product over all of them: $$a_1 \wedge a_2 \wedge \ldots \wedge a_r = \frac{1}{r!}\sum_{\sigma \in \mathbb{S}_r} (-1)^{\sigma} a_{\sigma(1)} a_{\sigma(2)} \ldots a_{\sigma(r)},$$ where $\mathbb{S}_r$ is the set of all permutations on $r$ elements and $(-1)^\sigma$ is the sign of a permutation. A consequence of this definition is that the product reverses sign under exchange of any two vectors. Then, we see that if any vector is repeated, the exterior product must be zero, which then implies if the vectors are linearly dependent, the exterior product is also zero (this follows simply by distributivity of the geometric product under addition). Therefore, the outer product can be understood to measure the dimensionality of a set of vectors. We say that the outer product of $r$ vectors has grade $r$ (if it does not vanish). A multivector that can be written purely as an outer product is called a blade.
 
-We now show that any blade $a_1 \wedge \ldots \wedge a_r$ can be written simply as a product of orthogonal vectors $e_1 \ldots e_r$. Let $e_1,\ldots,e_r$ be the orthogonalization of $a_1,\ldots,a_r$ using Gram-Schmidt. We show by induction that $e_1 \ldots e_r=a_1 \wedge \ldots \wedge a_r$. This trivially holds for $r=1$. Then, let us assume $a_1 \wedge \ldots \wedge a_{r-1}=e_1 \ldots e_{r-1}$. We make use of two facts. First, $v \equiv e_r - a_r \in \text{span}(a_1,\ldots,a_{r-1})$, since we used Gram-Schmidt to construct $e_r$. Also, using the anticommuting property of orthogonal vectors (because $a \cdot b = 0 \implies ab = -ba$):
-\begin{align*}
-e_1 \wedge \ldots \wedge e_{r} &=\frac{1}{r!} \sum_{\sigma \in \mathbb{S}_{r}} (-1)^\sigma e_{\sigma(1)} \ldots e_{\sigma(r)} \\
-&=\sum_{\sigma \in \mathbb{S}_{r}} (-1)^\sigma (-1)^\sigma e_1 \ldots e_{r} \\
-&=e_1 \ldots e_{r}
-\end{align*}
-Therefore, 
-\begin{align*}
-e_1 \ldots e_r &= e_1 \wedge \ldots \wedge e_r \\
-&= (a_1 \wedge \ldots \wedge a_{r-1}) \wedge e_r \\
-&= (a_1 \wedge \ldots \wedge a_{r-1}) \wedge (a_r+v) \\
-&= a_1 \wedge \ldots \wedge a_{r-1} \wedge a_r,
-\end{align*}
-where the fourth line is due to the fact that $v$ is a linear combination of $a_1, \ldots, a_{r-1}$.
+::: lemma
+Any blade $a_1 \wedge \ldots \wedge a_r$ can be written simply as a product of orthogonal vectors $e_1 \ldots e_r$. This justifies our idea that a blade with $r$ vectors can be interpreted as a directed area for $r=2$, volume for $r=3$, and so on. 
+:::
 
-An alternative form of the argument runs with an explicit definition of $e_1,\ldots,e_r$:
-$$e_k = a_k \wedge \ldots \wedge a_1 (a_{k-1} \wedge \ldots \wedge a_1)^{-1}.$$ Let $\sigma$ be the permutation that reverses $1,2,\ldots,r \rightarrow r,r-1,\ldots,1$. Observe
+::: proof
+Let $A_{i,j}=a_i \cdot a_j$. Since $A_{i,j}$ is a symmetric matrix, it can be diagonalized with $P^T D P$, where $P$ is orthogonal. Letting $e_i= P_{i,k} a_k$, we see that $e_i \cdot e_j = P_{i,k} P_{j,\ell} a_k \cdot a_\ell = P_{i,k} A_{k,\ell} (P^T)_{\ell,j} = D_{i,j}$. Therefore, these vectors obey $e_i e_j = -e_j e_i$ for $i \neq j$. Finally, since $e_i = P_{i,k} a_k \implies a_k = P_{i,k} e_i$:
+$$
+a_1 \wedge \ldots \wedge a_r = \frac{1}{r!}\sum_{\sigma \in \mathbb{S}_r} (-1)^\sigma P_{i_1,\sigma(1)} P_{i_2,\sigma(2)} \ldots P_{i_r,\sigma(r)} e_{i_1} e_{i_2} \ldots e_{i_r}
+$$
+Note that we have the restriction $i_1 \neq i_2 \neq \ldots \neq i_r$ due to the antisymmeterization of the sum. Therefore, we can rewrite as:
 \begin{align*}
-e_1 \ldots e_r &= (-1)^\sigma e_r \ldots e_1 \\
-&= (-1)^\sigma \qty(a_r \wedge \ldots \wedge a_1)(a_{r-1} \wedge \ldots \wedge a_1)^{-1} (a_{r-1} \wedge \ldots \wedge a_1) \ldots \\
-&= (-1)^\sigma a_r \wedge \ldots \wedge a_1 \\
-&= (-1)^\sigma (-1)^\sigma a_1 \wedge \ldots \wedge a_r \\
-&= a_1 \wedge \ldots \wedge a_r
+a_1 \wedge \ldots \wedge a_r &= \frac{1}{r!}\sum_{\rho,\sigma \in \mathbb{S}_r} (-1)^\sigma P_{\rho(1),\sigma(1)} P_{\rho(2),\sigma(2)} \ldots P_{\rho(r),\sigma(r)} e_{\rho(1)} e_{\rho(2)} \ldots e_{\rho(r)} \\
+&= \frac{1}{r!}\sum_{\rho,\sigma \in \mathbb{S}_r} (-1)^{\rho^{-1}}(-1)^\sigma P_{1,\sigma(\rho^{-1}(1))} P_{2,\sigma(\rho^{-1}(2))} \ldots P_{r,\sigma(\rho^{-1}(r))} e_{1} e_{2} \ldots e_{r} \\
+&= \sum_{\alpha \in \mathbb{S}_r} (-1)^{\alpha} P_{1,\alpha(1)} P_{2,\alpha(2)} \ldots P_{r,\alpha(r)} e_{1} e_{2} \ldots e_{r} \\
+&= \det(P) e_1 \ldots e_r
 \end{align*}
+In the second line, the factor $(-1)^{\rho^{-1}}$ comes from unshuffling $e_{\rho(1)} \ldots e_{\rho(r)} \rightarrow e_1 \ldots e_r$, and in the third line, we use the fact that for any function $f$ that depends only on $\sigma \circ \rho^{-1}$: $\sum_{\rho, \sigma \in \mathbb{S}_r} f(\sigma \circ \rho^{-1}) = r! \sum_{\alpha \in \mathbb{S}_r} f(\alpha)$, where $\alpha$ plays the role of $\sigma \circ \rho^{-1}$. Now, observe that $\det(P)= \pm 1$, and in the case where $\det(P)=-1$, we can simply reorder $e_1,
+\ldots,e_r$ to get rid of the negative sign.
+:::
+
 
 In general, multivectors can be comprised of elements with different grades. We define $\expval{\cdot}_r$ to be the component of a multivector with grade $r$, so that in general a multivector $A$ in a geometric algebra $\mathcal{G}_n$ (whose underlying vector space has dimension $n$) can be written $A=\sum_{r=0}^n \expval{A}_r$. A multivector that satisfies $\expval{A}_r=A$ (for some $r$) is called homogenous.
 

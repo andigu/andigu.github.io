@@ -127,7 +127,7 @@ import matplotlib.pyplot as plt
 
 x = np.linspace(-np.pi, np.pi, endpoint=True, num=51)[:,None]
 y = np.linspace(-2*np.pi, -np.pi, endpoint=True)[:,None]
-alpha = np.linspace(0.5, 1, 9)[None,:]
+alpha = np.linspace(0.9, 1, 3)[None,:]
 omega = np.sqrt((1 - np.sqrt(1-alpha*np.sin(x/2)**2)))
 omega2 = np.sqrt((1 + np.sqrt(1-alpha*np.sin(y/2)**2)))
 omega3 = np.sqrt((1 + np.sqrt(1-alpha*np.sin(x/2)**2)))
@@ -146,3 +146,37 @@ plt.savefig("$DESTINATION$", format="$FORMAT$", transparent=True)
 ```
 
 The upper branch of the dispersion relation is known as the optical branch, because it couples more strongly with visible light than the bottom branch, known as the acoustic branch. We gain some insight into these names by seeing what happens at $k \rightarrow 0$ (long wavelength limit). Here, the two modes will have $A_x=A_y=1$ (acoustic mode) and $A_x=-\frac{m_2}{m_1}, A_y=1$ (optical mode). In the acoustic mode, this is essentially a synchronized oscillation of every atom in the material, which agrees with the picture of sound as long wavelength compressions. On the other hand, in the optical mode, the two atoms in any molecule will oscillate out-of-sync with each other by 180 degrees (when $m_2=m_1$).
+
+## Tight Binding Models
+
+The previous two models have been attempts to describe oscillations of atoms in a material. We turn now to electrons, and will work within the 'tight-binding' model. This assumes that the full electronic wavefunction can be described as a linear combination of the unperturbed electronic orbitals. More precisely, let our chain of atoms be identified as $1, \ldots, N$. Then, let $\ket{j}$ be the wavefunction for the valence electron on the $j$th atom. The tight binding model says that the ground state of electrons, when the atoms are brought together, is well approximated by $\sum_j c_j \ket{j}$. We further assume for convenience that $\braket{j}{\ell}=\delta_{j,\ell}$. 
+
+Our model is as follows. The Hamiltonian for one electron will be $H = \frac{p^2}{2m} + \sum_j V_j$, where $V_j$ is the Coulomb potential due to the $i$th atom. Then $$\mel{j}{H}{\ell} = \epsilon_{atomic} \delta_{j,\ell} + \sum_{m \neq \ell} \mel{j}{V_m}{\ell}.$$ We assume that $\sum_{m \neq \ell} \mel{j}{V_m}{\ell}=V_0 \delta{j,\ell} - t \delta_{j-1,\ell} - t \delta_{j+1,\ell}$. The $V_0$ term is simply a shift in energy due to the introduction of other nearby Coulomb potentials. The $t \delta_{j \pm 1, \ell}$ term expresses the fact that an electron on orbital $\ket{\ell}$ can only be transferred to another orbital $\ket{j}$ if $j$ and $\ell$ are close (here, if $\abs{j-\ell}=1$). Here, $t$ is known as a hopping strength because the larger the $t$, the larger the probability of a transfer. The overall matrix element is then $$\mel{j}{H}{\ell} = \epsilon_0 \delta_{j,\ell} - t(\delta_{j + 1, \ell} + \delta_{j-1,\ell}).$$
+
+With this framework, we complicate things somewhat by bringing some atoms closer and moving some further like so: $A-A=A-A=A-\ldots$, where $=$ denotes a smaller distance. This changes the hopping strength so that $$\mel{j}{H}{\ell} = \epsilon_0 \delta_{j,\ell} - t((1 \pm \Delta)\delta_{j + 1, \ell} + (1 \mp \Delta)\delta_{j-1,\ell}),$$ where the $\pm$ depends on the parity of $\ell$, and $\Delta$ is a parameter measuring how unequal the $-$ and $=$ distances are. This is known as the Peierls distortion. To solve for the ground state of this Hamiltonian, we substitute an ansatz (up to a constant factor) $\ket{\psi} = \sum_{\ell} A_\ell e^{-i k \ell a} \ket{\ell}$, where $A_0=A_2=A_4=\ldots$ and $A_1=A_3=A_5=\ldots$. Solving the Schrodinger equation yields:
+$$
+\mqty[\epsilon_0 & -2t (\cos(ka) - i \Delta \sin(ka)) \\ -2t (\cos(ka) + i \Delta \sin(ka)) & \epsilon_0] \mqty[A_0 \\ A_1] = E \mqty[A_0 \\ A_1]
+$$
+Diagonalizing, we find $E = \epsilon_0 \pm 2t\sqrt{\cos^2(ka) + \Delta^2 \sin^2(ka)}$. This is similar in form to the previously derived dispersion relation in @eq:1d-dispersion-diatomic, except it is now an equation involving $\omega$ rather than $\omega^2$. There is again the appearance of a widening gap as $\Delta$ increases.
+
+```{#fig:1d-dispersion-peierls .py2image caption="Dispersion function for the Peierls distortion."}
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+x = np.linspace(-np.pi/2, np.pi/2, endpoint=True, num=500)[:,None]
+y = np.linspace(-np.pi, -np.pi/2, endpoint=True, num=500)[:,None]
+alpha = np.linspace(0, 0.2, 3)[None,:]
+E = -2*np.sqrt(np.cos(x)**2 + alpha**2 * np.sin(x)**2)
+E2 = 2*np.sqrt(np.cos(y)**2 + alpha**2 * np.sin(y)**2)
+colors = plt.get_cmap('jet')(np.linspace(0,1,num=len(alpha.squeeze())))
+for i in range(len(colors)):
+    plt.plot(x,E[:,i], c=colors[i], label=alpha[0,i]);
+    plt.plot(y,E2[:,i], c=colors[i]);
+    plt.plot(-y,E2[:,i], c=colors[i]);
+plt.legend(title=r'$\Delta$')
+plt.ylabel(r'$E-\epsilon_0$, in units of $t$')
+plt.xlabel(r'$k$ (in units of $a^{-1}$)')
+plt.savefig("$DESTINATION$", format="$FORMAT$", transparent=True)
+```

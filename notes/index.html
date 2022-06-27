@@ -179,72 +179,7 @@
     type="text/javascript"></script>
     
     
-  <script>
-    function throttle (callback, limit) {
-    var waiting = false;                      // Initially, we're not waiting
-    return function () {                      // We return a throttled function
-        if (!waiting) {                       // If we're not waiting
-            callback.apply(this, arguments);  // Execute users function
-            waiting = true;                   // Prevent future invocations
-            setTimeout(function () {          // After a period of time
-                waiting = false;              // And allow future invocations
-            }, limit);
-        }
-    }
-  }
-    let height_dict = {};
-    let last_idx;
-    let root = document.documentElement;
-
-    let update_heights = () => {
-      if (document.getElementById("TOC")) {
-        const elems = Array.from(document.getElementById("TOC").getElementsByTagName("a"));
-        elems.forEach(e => {
-          height_dict[e.id] = window.pageYOffset + document.getElementById(e.id.slice(4)).getBoundingClientRect().top;
-        })
-      }
-    }
-
-    let update_bold = () => {
-      let k = Object.keys(height_dict), v = Object.values(height_dict);
-      let scrollTop = root.scrollTop;
-      if (k.length > 0) {
-        let tmp = v.map(x => scrollTop + 30 > x ? (scrollTop - x) : Infinity);
-        const idx = k[tmp.indexOf(Math.min(...tmp))];
-        if (idx !== last_idx) {
-          if (last_idx) {
-            document.getElementById(last_idx).style.fontWeight = 'normal';
-          }
-          document.getElementById(idx).style.fontWeight = 'bold';
-          last_idx = idx;
-        }
-      }
-    }
-    update_bold = throttle(update_bold, 50);
-    update_heights = throttle(update_heights, 50);
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-      let root = window.location.pathname.split('/')[1];
-      if (root === '') root = 'home';
-      document.getElementById("nav-" + root).style.textDecoration = 'underline';
-      document.getElementById("nav-" + root).style.fontWeight = 'bold';
-      update_heights();
-      update_bold();
-    }, false);
-
-    window.addEventListener('resize', () => {
-      update_heights();
-      update_bold();
-    });
-
-
-    document.addEventListener("scroll", evt => {
-      root.style.setProperty("--scrolltop", root.scrollTop);
-      update_bold();
-    });
-
-  </script>
+  <script src="/script.js" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->

@@ -304,17 +304,17 @@ blockquote .sidenote {
     color: hsl(0, 0%, 60%)
 }
 
-figure > img {
+figure>img {
     display: block;
     margin-left: auto;
-    margin-right:auto;
+    margin-right: auto;
 }
 
-figure > figcaption {
+figure>figcaption {
     text-align: center;
 }
 
-.content-container > table {
+.content-container>table {
     margin-left: auto;
     margin-right: auto;
     width: auto;
@@ -324,4 +324,33 @@ figure > figcaption {
 .date {
     text-align: right;
     font-size: 14px;
+}
+
+.lemma >p::before, .theorem > p::before {
+    content: '\25B6 ';
+    display: inline-block;
+    margin-right: 7px;
+    margin-left: 3px;
+    transition: transform 0.2s ease-out;
+}
+
+.lemma.active > p::before, .theorem.active > p::before {
+    transform: rotate(90deg);
+} 
+
+.lemma:hover,.theorem:hover {
+    cursor: pointer;
+}
+
+.proof {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.proof > p::after {
+    content: '\220E';
+    text-align: right;
+    float:right;
+    margin-right: 10px;
 }

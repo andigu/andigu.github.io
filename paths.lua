@@ -9,7 +9,6 @@ end
 function Image (img)
   
   if files[img.src] then
-    print(img.src)
     img.src = '/static/img/generated/' .. img.src
   end
   return img
