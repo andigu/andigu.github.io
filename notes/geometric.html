@@ -507,9 +507,10 @@ physics" />
             \mathcal{G}_n^r\)</span>, <span class="math inline">\(\qty(a
             B_r - (-1)^r B_r a)\)</span> is a homogenous multivector
             with grade <span class="math inline">\(r-1\)</span>. This
-            motivates the definition <span class="math display">\[
+            motivates the definition <span id="eq:dot"><span
+            class="math display">\[
             a \cdot B_r \coloneqq \frac{1}{2} (aB_r - (-1)^r B_r),
-            \]</span> since now <span
+            \tag{1}\]</span></span> since now <span
             class="math inline">\(\cdot\)</span> lowers grade by <span
             class="math inline">\(1\)</span>.</p>
             </div>
@@ -530,16 +531,16 @@ physics" />
             e_r\)</span>. We can repeatedly do this, shifting <span
             class="math inline">\(a\)</span> further back in the chain,
             to get: <span class="math display">\[
-            aB_r = 2 \sum_{k=1}^r (a \cdot e_k) (e_1 \ldots \check{e}_k
-            \ldots e_r) + (-1)^r B_r a,
+            aB_r = 2 \sum_{k=1}^r (-1)^{k+1} (a \cdot e_k) (e_1 \ldots
+            \check{e}_k \ldots e_r) + (-1)^r B_r a,
             \]</span> where <span
             class="math inline">\(\check{e}_k\)</span> denotes the fact
             that <span class="math inline">\(e_k\)</span> is omitted
             from the product (i.e. <span class="math inline">\(e_1
             \check{e}_2 e_3 = e_1 e_3\)</span>). A simple rearrangement
             gives: <span class="math display">\[
-            \frac{1}{2} \qty(aB_r - (-1)^r B_r a) = \sum_{k=1}^r (a
-            \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r)
+            \frac{1}{2} \qty(aB_r - (-1)^r B_r a) = \sum_{k=1}^r
+            (-1)^{k+1} (a \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r)
             \]</span> Note that in the sum, <span
             class="math inline">\(e_1 \ldots \check{e}_k \ldots
             e_r\)</span> is grade <span
@@ -655,13 +656,13 @@ physics" />
             class="statement-spah"> </span>For any multivector <span
             class="math inline">\(B_r \in \mathcal{G}_n^r\)</span>, let
             <span class="math inline">\(a \wedge B_r\)</span> be defined
-            by: <span class="math display">\[
+            by: <span id="eq:wedge"><span class="math display">\[
             a \wedge B_r \coloneqq \frac{1}{2} (aB_r + (-1)^r B_r),
-            \]</span> Then, <span class="math inline">\(a \wedge
-            B_r\)</span> is always a homogenous multivector of grade
-            <span class="math inline">\(r+1\)</span>. That is, <span
-            class="math inline">\(\wedge\)</span> raises grade by <span
-            class="math inline">\(1\)</span>.</p>
+            \tag{2}\]</span></span> Then, <span class="math inline">\(a
+            \wedge B_r\)</span> is always a homogenous multivector of
+            grade <span class="math inline">\(r+1\)</span>. That is,
+            <span class="math inline">\(\wedge\)</span> raises grade by
+            <span class="math inline">\(1\)</span>.</p>
             </div>
             <div class="statement proof proof unnumbered">
             <p><span class="statement-heading"><span
@@ -673,6 +674,22 @@ physics" />
             that <span class="math inline">\(a \wedge B_r\)</span> is
             bilinear)</p>
             </div>
+            <p>It follows trivially from the definitions in <a
+            href="#eq:dot">Equation 1</a> and <a
+            href="#eq:wedge">Equation 2</a> that <span
+            class="math inline">\(a B_r=a \cdot B_r + a \wedge
+            B_r\)</span>, which says that the product <span
+            class="math inline">\(aB_r\)</span> is a sum of homogenous
+            multivectors with grade <span class="math inline">\(r \pm
+            1\)</span>. This can be generalized for a general
+            multivector <span class="math inline">\(A_s\)</span>. Since
+            <span class="math inline">\(A_s\)</span> can be written as a
+            linear combination of blades, and each blade can be written
+            as a product of anticommuting (orthogonal) vectors, <span
+            class="math inline">\(A_s B_r\)</span> is composed of
+            multivectors with grades <span
+            class="math inline">\(\abs{r-s}, \abs{r-s}+2, \ldots,
+            r+s\)</span>.</p>
             <h1 class="unnumbered" id="bibliography">References</h1>
             <div id="refs"
             class="references csl-bib-body hanging-indent"

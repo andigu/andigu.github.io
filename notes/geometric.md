@@ -56,18 +56,18 @@ We now study the behavior of $a B_r$, where $a$ is some vector and $B_r$ is a ho
 For any $a \in \mathcal{G}_n^1$ and $B_r \in \mathcal{G}_n^r$, $\qty(a B_r - (-1)^r B_r a)$ is a homogenous multivector with grade $r-1$. This motivates the definition
 $$
 a \cdot B_r \coloneqq \frac{1}{2} (aB_r - (-1)^r B_r),
-$$
+$$ {#eq:dot}
 since now $\cdot$ lowers grade by $1$.
 :::
 
 :::proof
 We assume $B_r$ is a blade, since all of the above statements are linear in $B_r$. That is, it suffices to show that the above statement is true for $B_r=e_1 e_2 \ldots e_r$, for any choice of orthogonal vectors $\qty{e_1,\ldots,e_r}$. We repeatedly apply $ab = 2a \cdot b - ba$. Observe that $aB_r = 2 (a \cdot e_1) e_2 \ldots e_r - e_1 a e_2 \ldots e_r$. We can repeatedly do this, shifting $a$ further back in the chain, to get:
 $$
-aB_r = 2 \sum_{k=1}^r (a \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r) + (-1)^r B_r a,
+aB_r = 2 \sum_{k=1}^r (-1)^{k+1} (a \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r) + (-1)^r B_r a,
 $$
 where $\check{e}_k$ denotes the fact that $e_k$ is omitted from the product (i.e. $e_1 \check{e}_2 e_3 = e_1 e_3$). A simple rearrangement gives:
 $$
-\frac{1}{2} \qty(aB_r - (-1)^r B_r a) = \sum_{k=1}^r (a \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r)
+\frac{1}{2} \qty(aB_r - (-1)^r B_r a) = \sum_{k=1}^r (-1)^{k+1} (a \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r)
 $$
 Note that in the sum, $e_1 \ldots \check{e}_k \ldots e_r$ is grade $r-1$. So, $\frac{1}{2} \qty(aB_r - (-1)^r B_r a)$ is a linear combination of blades, each of which are grade $r-1$ -- so it is on the whole a homogenous multivector of grade $r-1$.
 :::
@@ -115,7 +115,7 @@ as required.
 For any multivector $B_r \in \mathcal{G}_n^r$, let $a \wedge B_r$ be defined by:
 $$
 a \wedge B_r \coloneqq \frac{1}{2} (aB_r + (-1)^r B_r),
-$$
+$$ {#eq:wedge}
 Then, $a \wedge B_r$ is always a homogenous multivector of grade $r+1$. That is, $\wedge$ raises grade by $1$.
 :::
 
@@ -123,3 +123,4 @@ Then, $a \wedge B_r$ is always a homogenous multivector of grade $r+1$. That is,
 This follows simply by decomposing $B_r$ into a linear combination of blades and applying @Pre:wedge to each blade (observing that $a \wedge B_r$ is bilinear)
 :::
 
+It follows trivially from the definitions in @eq:dot and @eq:wedge that $a B_r=a \cdot B_r + a \wedge B_r$, which says that the product $aB_r$ is a sum of homogenous multivectors with grade $r \pm 1$. This can be generalized for a general multivector $A_s$. Since $A_s$ can be written as a linear combination of blades, and each blade can be written as a product of anticommuting (orthogonal) vectors, $A_s B_r$ is composed of multivectors with grades $\abs{r-s}, \abs{r-s}+2, \ldots, r+s$. To further generalize the dot and wedge product notation, when we write $A_s \cdot B_r$, we mean the lowest grade component of $A_s B_r$, and the highest for $A_s \wedge B_r$.

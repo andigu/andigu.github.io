@@ -6,7 +6,8 @@ keywords: Andi Gu, personal website, quantum, quantum computing, research
 date-meta: June 26, 2022
 ---
 
-I'm Andi, a first year student PhD student at Harvard University's [Quantum Science and Engineering](https://gsas.harvard.edu/programs-of-study/all/quantum-science-and-engineering) program.`
+<div class="profile-container"><img src="/static/img/profile.jpeg" class="profile-img"></div>
+I'm Andi, a first year PhD student at Harvard University's [Quantum Science and Engineering](https://gsas.harvard.edu/programs-of-study/all/quantum-science-and-engineering) program.
 
 My primary research interests are quantum information science and quantum computing. My research is driven by the question, "How can we use quantum information processing systems to better understand our models of quantum physics?" This includes problems such as studying the learnability of quantum many-body systems, as well as thinking about the converse direction: how quantum resources can be used to improve even classical statistical learning methods. 
 
