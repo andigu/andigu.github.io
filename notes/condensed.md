@@ -1,8 +1,9 @@
 ---
 title: Condensed Matter
-date: June 20, 2022
+date: June 26, 2022
 author: Andi Gu
 description: Condensed matter notes from the Oxford Solid State textbook.
+keywords: condensed matter, notes, physics, solid state
 ---
 
 This is a collection of notes from my study of the *Oxford Solid State* textbook [@simon_solid_2013].

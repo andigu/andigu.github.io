@@ -1,8 +1,9 @@
 ---
 title: Geometric Algebra
-date: June 20, 2022
+date: June 28, 2022
 author: Andi Gu
 description: Geometric algebra notes from the Geometric Algebra for Physicists textbook.
+keywords: geometric algebra, notes, physics
 ---
 
 This is a collection of notes from my study of the *Geometric Algebra for Physicists* textbook  [@doran2007]. 
@@ -21,7 +22,7 @@ However, this geometric product is not so exotic. We can still understand it in 
 
 Well, technically, not yet: we do not have a good reason to believe we should understand $a \wedge b$ as a bivector (or a directed area) yet. So we define it as such, and show this definition conforms to our intuition later. More precisely, we define exterior product of $r$ vectors as the full anti-symmeterized product over all of them: $$a_1 \wedge a_2 \wedge \ldots \wedge a_r = \frac{1}{r!}\sum_{\sigma \in \mathbb{S}_r} (-1)^{\sigma} a_{\sigma(1)} a_{\sigma(2)} \ldots a_{\sigma(r)},$$ where $\mathbb{S}_r$ is the set of all permutations on $r$ elements and $(-1)^\sigma$ is the sign of a permutation. A consequence of this definition is that the product reverses sign under exchange of any two vectors. Then, we see that if any vector is repeated, the exterior product must be zero, which then implies if the vectors are linearly dependent, the exterior product is also zero (this follows simply by distributivity of the geometric product under addition). Therefore, the outer product can be understood to measure the dimensionality of a set of vectors. We say that the outer product of $r$ vectors has grade $r$ (if it does not vanish). A multivector that can be written purely as an outer product is called a blade.
 
-::: lemma
+::: {.lemma #blade-product}
 Any blade $a_1 \wedge \ldots \wedge a_r$ can be written simply as a product of orthogonal vectors $e_1 \ldots e_r$. This justifies our idea that a blade with $r$ vectors can be interpreted as a directed area for $r=2$, volume for $r=3$, and so on. 
 :::
 
@@ -42,9 +43,83 @@ In the second line, the factor $(-1)^{\rho^{-1}}$ comes from unshuffling $e_{\rh
 :::
 
 
-In general, multivectors can be comprised of elements with different grades. We define $\expval{\cdot}_r$ to be the component of a multivector with grade $r$, so that in general a multivector $A$ in a geometric algebra $\mathcal{G}_n$ (whose underlying vector space has dimension $n$) can be written $A=\sum_{r=0}^n \expval{A}_r$. A multivector that satisfies $\expval{A}_r=A$ (for some $r$) is called homogenous.
+In general, multivectors can be comprised of elements with different grades. For a set of orthogonal vectors, we say that $e_i$ has grade 1, $e_i e_j$ (for $i \neq j$) has grade 2, and so on. We define $\expval{\cdot}_r$ to be the component of a multivector with grade $r$, so that in general a multivector $A$ in a geometric algebra $\mathcal{G}_n$ (whose underlying vector space has dimension $n$) can be written $A=\sum_{r=0}^n \expval{A}_r$. A multivector that satisfies $\expval{A}_r=A$ (for some $r$) is called homogenous.
 
-We denote the subspace of $\mathcal{G}_n$ of grade $r$ as $\mathcal{G}_n^r$. The dimensionality of $\mathcal{G}_n^r$ is $\binom{n}{r}$, because the basis of $\mathcal{G}_n^r$ can be formed by choosing $r$ items from the $n$ basis vectors. The overall dimensionality is therefore $\sum_{r=0}^n \binom{n}{r}=2^n$.
+We denote the subspace of $\mathcal{G}_n$ of grade $r$ as $\mathcal{G}_n^r$. The dimensionality of $\mathcal{G}_n^r$ is $\binom{n}{r}$, because the basis of $\mathcal{G}_n^r$ can be formed by choosing $r$ items from the $n$ basis vectors.[^not-blades] The overall dimensionality is therefore $\sum_{r=0}^n \binom{n}{r}=2^n$.
 
+[^not-blades]: It is important to note that not every multivector in $\mathcal{G}_n^r$ is a blade. The simplest nontrivial example is $e_1 e_2 + e_3 e_4$ in $\mathcal{G}_n^4$ -- there is simply no way to write this as a blade because ${e_1,e_2}$ and ${e_3,e_4}$ are orthogonal to each other. 
 
+## Properties of the Geometric Product
+We now study the behavior of $a B_r$, where $a$ is some vector and $B_r$ is a homogenous multivector of grade $r$. More specifically, we will show that we can define $a \cdot B_r$ and $a \wedge B_r$ in terms of $aB_r$ and $B_r a$ in a way that is similar to the original definition for $\cdot$ and $\wedge$ between two ordinary vectors.
+
+::: {.theorem #dot}
+For any $a \in \mathcal{G}_n^1$ and $B_r \in \mathcal{G}_n^r$, $\qty(a B_r - (-1)^r B_r a)$ is a homogenous multivector with grade $r-1$. This motivates the definition
+$$
+a \cdot B_r \coloneqq \frac{1}{2} (aB_r - (-1)^r B_r),
+$$
+since now $\cdot$ lowers grade by $1$.
+:::
+
+:::proof
+We assume $B_r$ is a blade, since all of the above statements are linear in $B_r$. That is, it suffices to show that the above statement is true for $B_r=e_1 e_2 \ldots e_r$, for any choice of orthogonal vectors $\qty{e_1,\ldots,e_r}$. We repeatedly apply $ab = 2a \cdot b - ba$. Observe that $aB_r = 2 (a \cdot e_1) e_2 \ldots e_r - e_1 a e_2 \ldots e_r$. We can repeatedly do this, shifting $a$ further back in the chain, to get:
+$$
+aB_r = 2 \sum_{k=1}^r (a \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r) + (-1)^r B_r a,
+$$
+where $\check{e}_k$ denotes the fact that $e_k$ is omitted from the product (i.e. $e_1 \check{e}_2 e_3 = e_1 e_3$). A simple rearrangement gives:
+$$
+\frac{1}{2} \qty(aB_r - (-1)^r B_r a) = \sum_{k=1}^r (a \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r)
+$$
+Note that in the sum, $e_1 \ldots \check{e}_k \ldots e_r$ is grade $r-1$. So, $\frac{1}{2} \qty(aB_r - (-1)^r B_r a)$ is a linear combination of blades, each of which are grade $r-1$ -- so it is on the whole a homogenous multivector of grade $r-1$.
+:::
+
+A similar result holds for the wedge product $\wedge$.
+
+::: {.theorem #wedge}
+For any blade $B_r = b_1 \wedge \ldots \wedge b_r$ and any vector $a$:
+$$
+a \wedge b_1 \wedge \ldots \wedge b_r = \frac{1}{2}\qty(a B_r + (-1)^r B_r a)
+$$
+:::
+
+:::proof
+Let $e_1, \ldots e_r$ be an orthogonalization of $b_1, \ldots b_r$ using the same technique as @Pre:blade-product, such that $b_1 \wedge \ldots \wedge b_r = e_1 \ldots e_r$. Then, let $a_\perp = a - \sum_{k=1}^r \beta_k e_k$, where:
+$$
+\beta_k = \begin{cases}
+\frac{a \cdot e_k}{(e_k \cdot e_k)^2} & \qq{if $e_k \cdot e_k \neq 0$} \\
+0 &\qq{otherwise}
+\end{cases}
+$$
+Letting $a_\parallel = \sum_{k=1}^r \beta_k e_k$, we can write $a = a_\parallel + a_\perp$, and it is now simple to see that $a_\perp \cdot e_k = 0$ for all $k=1,\ldots,r$. Furthermore, since each of the $e_k$ are merely linear combinations of $b_k$, $a_\perp \cdot b_k=0$ for all $k=1,\ldots,r$ as well. Therefore, $a \wedge b_1 \wedge \ldots \wedge b_r=a_\perp \wedge b_1 \wedge \ldots \wedge b_r$.
+
+Now, observe that:
+\begin{align*}
+a_\parallel B_r + (-1)^r B_r a_\parallel = \sum_{k=1}^r \beta_k \qty((-1)^{k+1}(e_k)^2 e_1 \ldots \check{e}_k \ldots e_r + (-1)^r (-1)^{r-k} e_1 \ldots \check{e}_k \ldots e_r (e_k)^2) \\
+&= 0
+\end{align*}
+Therefore, using the crucial fact that $a_\perp b_k = -b_k a_\perp$:
+\begin{align*}
+a B_r + (-1)^r B_r a &= a_\perp B_r + (-1)^r B_r a_\perp \\
+&= \frac{1}{r!}\sum_{\sigma \in \mathbb{S}_r} (-1)^{\sigma}\qty(a_\perp b_{\sigma(1)} \ldots b_{\sigma(r)} + (-1)^r b_{\sigma(1)} \ldots b_{\sigma(r)} a_\perp) \\
+&= \frac{2}{r!} \sum_{\sigma \in \mathbb{S}_r} (-1)^\sigma a_\perp b_{\sigma(1)} \ldots b_{\sigma(r)} \\
+&= \frac{2}{(r+1)!} \sum_{k=1}^{r+1} \sum_{\sigma \in \mathbb{S}_r} (-1)^\sigma a_\perp b_{\sigma(1)} \ldots b_{\sigma(r)}
+\end{align*}
+Now, observe that we are free to scramble $a_\perp$ somewhere into the $k$th position of $b_{\sigma(1)} \ldots b_{\sigma(r)}$ -- that is, $a_\perp b_{\sigma(1)} \ldots b_{\sigma(r)}=(-1)^k b_{\sigma(1)} \ldots b_{\sigma(k-1)} a_\perp b_{\sigma(k)} \ldots b_{\sigma(r)}$. But then, viewing $a_\perp$ as the first element of the set $S = [a_\perp, b_1, \ldots, b_r]$, so that we identify $b_0 = a_\perp$ and $S \cong [0, \ldots, r]$, we see that the permutation that sends $S$ to $[b_{\sigma(1)},\ldots,b_{\sigma(k-1)},a_\perp,b_{\sigma(k)},\ldots,b_{\sigma(r)}] \cong [\sigma(1),\ldots,\sigma(k-1),0,\sigma(k),\ldots,\sigma(r)]$ has parity $(-1)^k (-1)^\sigma$! Therefore, the double sum over $\sum_{k=1}^{r+1} \sum_{\sigma \in \mathbb{S}_r}$ can be rewritten as a sum over permutations mapping $[0,\ldots,r]$ onto itself -- that is, $\mathbb{S}_{r+1}$. We are then left with:
+\begin{align*}
+a B_r + (-1)^r B_r a &= \frac{2}{(r+1)!} \sum_{\sigma \in \mathbb{S}_{r+1}} b_{\sigma(0)} \ldots b_{\sigma(r)} \\
+&= 2 a \wedge b_1 \wedge \ldots \wedge b_r,
+\end{align*}
+as required. 
+:::
+
+:::corollary
+For any multivector $B_r \in \mathcal{G}_n^r$, let $a \wedge B_r$ be defined by:
+$$
+a \wedge B_r \coloneqq \frac{1}{2} (aB_r + (-1)^r B_r),
+$$
+Then, $a \wedge B_r$ is always a homogenous multivector of grade $r+1$. That is, $\wedge$ raises grade by $1$.
+:::
+
+:::proof
+This follows simply by decomposing $B_r$ into a linear combination of blades and applying @Pre:wedge to each blade (observing that $a \wedge B_r$ is bilinear)
+:::
 

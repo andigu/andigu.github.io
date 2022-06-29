@@ -1,0 +1,354 @@
+@charset "UTF-8";
+html {
+  scroll-behavior: smooth;
+  font-family: "Libertinus", serif;
+  counter-reset: sidenote-counter;
+}
+
+body {
+  line-height: 1.35;
+}
+
+#TOC a {
+  color: black;
+}
+
+a {
+  color: #00007f;
+}
+
+/* @font-face {
+    font-family: 'Latin Modern';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url('/static/fonts/LM-regular.woff2') format('woff2'),
+        url('/static/fonts/LM-regular.woff') format('woff'),
+        url('/static/fonts/LM-regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Latin Modern';
+    font-style: italic;
+    font-weight: normal;
+    font-display: swap;
+    src: url('/static/fonts/LM-italic.woff2') format('woff2'),
+        url('/static/fonts/LM-italic.woff') format('woff'),
+        url('/static/fonts/LM-italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Latin Modern';
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url('/static/fonts/LM-bold.woff2') format('woff2'),
+        url('/static/fonts/LM-bold.woff') format('woff'),
+        url('/static/fonts/LM-bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Latin Modern';
+    font-style: italic;
+    font-weight: bold;
+    font-display: swap;
+    src: url('/static/fonts/LM-bold-italic.woff2') format('woff2'),
+        url('/static/fonts/LM-bold-italic.woff') format('woff'),
+        url('/static/fonts/LM-bold-italic.ttf') format('truetype');
+} */
+@font-face {
+  font-family: "Libertinus";
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url("/static/fonts/Libertinus-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Libertinus";
+  font-style: italic;
+  font-weight: normal;
+  font-display: swap;
+  src: url("/static/fonts/Libertinus-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Libertinus";
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url("/static/fonts/Libertinus-bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Libertinus";
+  font-style: italic;
+  font-weight: bold;
+  font-display: swap;
+  src: url("/static/fonts/Libertinus-bold-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Libertinus";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/static/fonts/Libertinus-semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Libertinus";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/static/fonts/Libertinus-semibold-italic.woff2") format("woff2");
+}
+/* (WIP) add border when a sidenote is clicked on */
+.sidenote:target {
+  border: hsl(55deg, 55%, 70%) 1.5px solid;
+  padding: 0 0.5rem;
+  scroll-margin-block-start: 10rem;
+}
+
+/* sidenote counter */
+.sidenote-number {
+  counter-increment: sidenote-counter;
+}
+
+.sidenote-number::after,
+.sidenote::before {
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* add number in main content */
+.sidenote-number::after {
+  content: counter(sidenote-counter);
+  font-size: 0.7rem;
+  top: -0.5rem;
+  left: 0.1rem;
+}
+
+/* add number in front of the sidenote */
+.sidenote-number ~ .sidenote::before {
+  content: counter(sidenote-counter) " ";
+  font-size: 0.7rem;
+  top: -0.5rem;
+}
+
+label.margin-toggle:not(.sidenote-number) {
+  display: none;
+}
+
+/* sidenotes inside blockquotes are indented more */
+blockquote .sidenote {
+  margin-right: -24vw;
+  width: 18vw;
+}
+
+label.margin-toggle {
+  display: inline;
+}
+
+input.margin-toggle {
+  display: none;
+}
+
+.sidenote {
+  font-size: 0.8rem;
+  float: right;
+  clear: right;
+  width: 18vw;
+  margin-right: -20vw;
+  margin-bottom: 1em;
+}
+
+:root {
+  --scrolltop: 0;
+}
+
+.container {
+  min-height: 100vh;
+}
+
+/*Body is 55%, sidenote is 20%, nav is ~17em */
+@media (min-width: 800px) {
+  body {
+    padding: 0px;
+    max-width: none;
+  }
+  #TOC {
+    position: fixed;
+    left: 1.5em;
+    top: max(1em, 45vh - var(--scrolltop) * 1px);
+    max-height: calc(100vh - 2em);
+    width: 18vw;
+    overflow: auto;
+    padding: 2px;
+  }
+  .content-container {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 70vw;
+    margin-bottom: 0.7em;
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+    gap: 2.5vw;
+  }
+  .nav-container {
+    flex: 3;
+    max-width: 20vw;
+    padding-left: 1.5em;
+    padding-top: 20vh;
+  }
+  .content-container {
+    flex: 11;
+  }
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+}
+@media (max-width: 800px) {
+  .nav-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.7em 1.5em;
+  }
+  .content-container {
+    max-width: none !important;
+  }
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    gap: 1.25em;
+  }
+  .body-container {
+    max-width: 85vw;
+  }
+}
+label.margin-toggle:not(.sidenote-number) {
+  display: inline;
+}
+
+label.margin-toggle {
+  cursor: pointer;
+}
+
+.sidenote {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  float: left;
+  clear: both;
+}
+
+.sidenote > br {
+  display: none;
+}
+
+.margin-toggle:checked + .sidenote {
+  height: auto;
+  width: 100%;
+  margin: 0.3em;
+  padding: 0.5em;
+}
+
+/* tweak indentation of sidenote inside a blockquote */
+blockquote .sidenote {
+  margin-right: -25vw;
+  width: 16vw;
+}
+
+.nav-container {
+  background-color: #f6f6f6;
+}
+
+.nav-link {
+  transition: color 0.2s ease-out;
+  color: black;
+  text-decoration: none;
+  font-size: x-large;
+}
+
+.nav-link:hover {
+  color: #808080;
+}
+
+figure > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+figure > figcaption {
+  text-align: center;
+}
+
+.content-container > table {
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  display: table;
+}
+
+.date {
+  text-align: right;
+  font-size: 14px;
+}
+
+.hide-before::before {
+  display: none !important;
+}
+
+h1:not(.title),
+h2:not(#toc-title),
+h3,
+h4,
+h5,
+h6 {
+  transition: color 0.2s ease-out;
+}
+h1:not(.title):hover,
+h2:not(#toc-title):hover,
+h3:hover,
+h4:hover,
+h5:hover,
+h6:hover {
+  color: #808080;
+  cursor: pointer;
+}
+
+.has-proof > p > .statement-heading {
+  transition: color 0.2s ease-out;
+}
+.has-proof > p > .statement-heading::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 7px;
+  margin-left: 3px;
+  transition: transform 0.2s ease-out, padding 0.2s ease-out;
+  cursor: pointer;
+}
+.has-proof > p > .statement-heading:hover {
+  cursor: pointer;
+  color: #808080 !important;
+}
+
+.has-proof.active > p > .statement-heading::before {
+  transform: rotate(90deg);
+}
+
+.proof {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+.proof > p::after {
+  content: "∎";
+  text-align: right;
+  float: right;
+  margin-right: 10px;
+}
+
+/*# sourceMappingURL=index.css.map */

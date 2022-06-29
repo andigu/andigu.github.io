@@ -10,7 +10,7 @@ header-includes:
 document-css: true
 
 cref: true
-numberSections: true
+numberSections: false
 linkReferences: true
 nameInLink: true
 figPrefix:
@@ -38,5 +38,21 @@ citecolor: blue!50!black
 
 toc-title: Table of Contents
 lang: en
-base-url: http://localhost:8000
+
+statement:
+  reset-counters-with-headings-level: 1
+  kinds:
+    theorem:
+      label: "Theorem"
+      counter: "self"
+      prefix: thm
+    lemma:
+      label: "Lemma"
+      counter: "theorem"
+      prefix: lem
+    corollary:
+      label: "Corollary"
+      counter: "self"
+      prefix: cor
+    
 ---

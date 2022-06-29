@@ -41,9 +41,9 @@ let update_bold = () => {
 update_proofs = () => {
     let proofs = document.getElementsByClassName('proof');
     for (let i = 0; i < proofs.length; i++) {
-        if (proofs[i].style.maxHeight){
+        if (proofs[i].style.maxHeight) {
             proofs[i].style.maxHeight = proofs[i].scrollHeight + "px";
-          }
+        }
     }
 }
 
@@ -59,23 +59,50 @@ document.addEventListener('DOMContentLoaded', () => {
     update_heights();
     update_bold();
 
-    let coll = document.querySelectorAll(".lemma, .theorem");
-    console.log(coll);
-    for (let i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", () => {
-
-            coll[i].classList.toggle("active");
-            var content = coll[i].nextElementSibling;
-
-            if (Array.from(content.classList).includes('proof')) {
-                if (content.style.maxHeight){
-                    content.style.maxHeight = null;
-                  } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                  }
+    let activeIdx = JSON.parse(Cookies.get('active-statements') || '[]');
+    let statements = Array.from(document.querySelectorAll(".lemma, .theorem, .statement"));
+    for (let elem of statements) {
+        let content = elem.nextElementSibling;
+        if (Array.from(content.classList).includes('proof')) {
+            if (!elem.id) {
+                let idx = elem.querySelector('.statement-label').innerHTML.replace(/\W/g, '_');
+                elem.id = idx;
             }
-        });
+            let hov = elem.querySelector('p>.statement-heading');
+            hov.addEventListener("click", () => {
+                if (activeIdx.includes(elem.id)) {
+                    activeIdx = activeIdx.filter(x => (x !== elem.id));
+                } else {
+                    activeIdx.push(elem.id);
+                }
+                Cookies.set('active-statements', JSON.stringify(activeIdx));
+                elem.classList.toggle("active");
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+            elem.classList.add('has-proof');
+        } else {
+            elem.querySelector('p>.statement-heading').classList.add('hide-before');
+            elem.querySelector('p>.statement-heading').style.cursor = 'auto';
+        }
     }
+
+    activeIdx.forEach(idx => {
+        let elem = document.getElementById(idx)
+        if (elem) {
+            elem.classList.add("active");
+            elem.nextElementSibling.style.maxHeight = elem.nextElementSibling.scrollHeight + "px";
+        }
+    })
+
+    Array.from(document.querySelectorAll('h1:not(.title), h2:not(#toc-title), h3, h4, h5, h6')).forEach(elem => {
+        elem.addEventListener("click", () => {
+            window.location.hash = "#" + elem.id;
+        })
+    })
 }, false);
 
 window.addEventListener('resize', () => {

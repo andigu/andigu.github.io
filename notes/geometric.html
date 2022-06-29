@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
   <meta charset="UTF-8">
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="author" content="Andi Gu" />
-      <meta name="dcterms.date" content="2022-06-20" />
-        <meta name="description" content="Geometric algebra notes from the Geometric Algebra for Physicists textbook." />
-    
-  <link rel="author" href="https://scholar.google.com/citations?user=XGTtMs8AAAAJ"/>
+      <meta name="dcterms.date" content="2022-06-28" />
+      <meta name="keywords" content="geometric algebra, notes,
+physics" />
+      <meta name="description" content="Geometric algebra notes from the Geometric Algebra for Physicists textbook." />
+  
+  <link rel="author" href="https://scholar.google.com/citations?user=XGTtMs8AAAAJ" />
 
   <title>Geometric Algebra</title>
   <style>
@@ -178,7 +181,7 @@
       margin-left: 2em;
     }
   </style>
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="/static/css/index.css" />
       
     
     
@@ -216,18 +219,19 @@
   
   <script>
     window.MathJax = {
-    loader: {load: ['[tex]/physics', '[tex]/mathtools']},
-    tex: {packages: {'[+]': ['physics', 'mathtools']}}
+      loader: { load: ['[tex]/physics', '[tex]/mathtools'] },
+      tex: { packages: { '[+]': ['physics', 'mathtools'] } }
     };
-    
-    </script>
+
+  </script>
 
     <script
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
     type="text/javascript"></script>
-    
-    
-  <script src="/script.js" type="text/javascript"></script>
+    <script type="module" src="/static/js/js.cookie.min.js"></script>
+  <script src="https://kit.fontawesome.com/de9cc10f80.js" crossorigin="anonymous"></script>
+
+  <script src="/static/js/script.js" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -239,7 +243,6 @@
 
     gtag('config', 'G-GKD85BYZJD');
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -258,13 +261,19 @@
             <header id="title-block-header">
         <h1 class="title">Geometric Algebra</h1>
                         <p class="author">Andi Gu</p>
-                
+        
               </header>
                   <nav id="TOC" role="doc-toc">
                 <h2 id="toc-title">Table of Contents</h2>
                 <ul>
                 <li><a href="#foundations" id="toc-foundations"><span
-                class="toc-section-number">1</span> Foundations</a></li>
+                class="toc-section-number">1</span> Foundations</a>
+                <ul>
+                <li><a href="#properties-of-the-geometric-product"
+                id="toc-properties-of-the-geometric-product"><span
+                class="toc-section-number">1.1</span> Properties of the
+                Geometric Product</a></li>
+                </ul></li>
                 <li><a href="#bibliography"
                 id="toc-bibliography">References</a></li>
                 </ul>
@@ -355,7 +364,7 @@
             class="math inline">\(r\)</span> (if it does not vanish). A
             multivector that can be written purely as an outer product
             is called a blade.</p>
-            <div class="statement lemma plain">
+            <div id="blade-product" class="statement lemma plain">
             <p><span class="statement-heading"><span
             class="statement-label">Lemma 1</span>.</span><span
             class="statement-spah"> </span>Any blade <span
@@ -426,7 +435,11 @@
             to get rid of the negative sign.</p>
             </div>
             <p>In general, multivectors can be comprised of elements
-            with different grades. We define <span
+            with different grades. For a set of orthogonal vectors, we
+            say that <span class="math inline">\(e_i\)</span> has grade
+            1, <span class="math inline">\(e_i e_j\)</span> (for <span
+            class="math inline">\(i \neq j\)</span>) has grade 2, and so
+            on. We define <span
             class="math inline">\(\expval{\cdot}_r\)</span> to be the
             component of a multivector with grade <span
             class="math inline">\(r\)</span>, so that in general a
@@ -451,9 +464,215 @@
             class="math inline">\(\mathcal{G}_n^r\)</span> can be formed
             by choosing <span class="math inline">\(r\)</span> items
             from the <span class="math inline">\(n\)</span> basis
-            vectors. The overall dimensionality is therefore <span
+            vectors.<span
+            class="sidenote-wrapper"><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle"/><span
+            class="sidenote">It is important to note that not every
+            multivector in <span
+            class="math inline">\(\mathcal{G}_n^r\)</span> is a blade.
+            The simplest nontrivial example is <span
+            class="math inline">\(e_1 e_2 + e_3 e_4\)</span> in <span
+            class="math inline">\(\mathcal{G}_n^4\)</span> – there is
+            simply no way to write this as a blade because <span
+            class="math inline">\({e_1,e_2}\)</span> and <span
+            class="math inline">\({e_3,e_4}\)</span> are orthogonal to
+            each other.<br />
+            <br />
+            </span></span> The overall dimensionality is therefore <span
             class="math inline">\(\sum_{r=0}^n
             \binom{n}{r}=2^n\)</span>.</p>
+            <h2 data-number="1.1"
+            id="properties-of-the-geometric-product"><span
+            class="header-section-number">1.1</span> Properties of the
+            Geometric Product</h2>
+            <p>We now study the behavior of <span
+            class="math inline">\(a B_r\)</span>, where <span
+            class="math inline">\(a\)</span> is some vector and <span
+            class="math inline">\(B_r\)</span> is a homogenous
+            multivector of grade <span class="math inline">\(r\)</span>.
+            More specifically, we will show that we can define <span
+            class="math inline">\(a \cdot B_r\)</span> and <span
+            class="math inline">\(a \wedge B_r\)</span> in terms of
+            <span class="math inline">\(aB_r\)</span> and <span
+            class="math inline">\(B_r a\)</span> in a way that is
+            similar to the original definition for <span
+            class="math inline">\(\cdot\)</span> and <span
+            class="math inline">\(\wedge\)</span> between two ordinary
+            vectors.</p>
+            <div id="dot" class="statement theorem plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Theorem 2</span>.</span><span
+            class="statement-spah"> </span>For any <span
+            class="math inline">\(a \in \mathcal{G}_n^1\)</span> and
+            <span class="math inline">\(B_r \in
+            \mathcal{G}_n^r\)</span>, <span class="math inline">\(\qty(a
+            B_r - (-1)^r B_r a)\)</span> is a homogenous multivector
+            with grade <span class="math inline">\(r-1\)</span>. This
+            motivates the definition <span class="math display">\[
+            a \cdot B_r \coloneqq \frac{1}{2} (aB_r - (-1)^r B_r),
+            \]</span> since now <span
+            class="math inline">\(\cdot\)</span> lowers grade by <span
+            class="math inline">\(1\)</span>.</p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span>We assume <span
+            class="math inline">\(B_r\)</span> is a blade, since all of
+            the above statements are linear in <span
+            class="math inline">\(B_r\)</span>. That is, it suffices to
+            show that the above statement is true for <span
+            class="math inline">\(B_r=e_1 e_2 \ldots e_r\)</span>, for
+            any choice of orthogonal vectors <span
+            class="math inline">\(\qty{e_1,\ldots,e_r}\)</span>. We
+            repeatedly apply <span class="math inline">\(ab = 2a \cdot b
+            - ba\)</span>. Observe that <span class="math inline">\(aB_r
+            = 2 (a \cdot e_1) e_2 \ldots e_r - e_1 a e_2 \ldots
+            e_r\)</span>. We can repeatedly do this, shifting <span
+            class="math inline">\(a\)</span> further back in the chain,
+            to get: <span class="math display">\[
+            aB_r = 2 \sum_{k=1}^r (a \cdot e_k) (e_1 \ldots \check{e}_k
+            \ldots e_r) + (-1)^r B_r a,
+            \]</span> where <span
+            class="math inline">\(\check{e}_k\)</span> denotes the fact
+            that <span class="math inline">\(e_k\)</span> is omitted
+            from the product (i.e. <span class="math inline">\(e_1
+            \check{e}_2 e_3 = e_1 e_3\)</span>). A simple rearrangement
+            gives: <span class="math display">\[
+            \frac{1}{2} \qty(aB_r - (-1)^r B_r a) = \sum_{k=1}^r (a
+            \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r)
+            \]</span> Note that in the sum, <span
+            class="math inline">\(e_1 \ldots \check{e}_k \ldots
+            e_r\)</span> is grade <span
+            class="math inline">\(r-1\)</span>. So, <span
+            class="math inline">\(\frac{1}{2} \qty(aB_r - (-1)^r B_r
+            a)\)</span> is a linear combination of blades, each of which
+            are grade <span class="math inline">\(r-1\)</span> – so it
+            is on the whole a homogenous multivector of grade <span
+            class="math inline">\(r-1\)</span>.</p>
+            </div>
+            <p>A similar result holds for the wedge product <span
+            class="math inline">\(\wedge\)</span>.</p>
+            <div id="wedge" class="statement theorem plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Theorem 3</span>.</span><span
+            class="statement-spah"> </span>For any blade <span
+            class="math inline">\(B_r = b_1 \wedge \ldots \wedge
+            b_r\)</span> and any vector <span
+            class="math inline">\(a\)</span>: <span
+            class="math display">\[
+            a \wedge b_1 \wedge \ldots \wedge b_r = \frac{1}{2}\qty(a
+            B_r + (-1)^r B_r a)
+            \]</span></p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span>Let <span
+            class="math inline">\(e_1, \ldots e_r\)</span> be an
+            orthogonalization of <span class="math inline">\(b_1, \ldots
+            b_r\)</span> using the same technique as <a
+            href="#blade-product" title="Lemma 1">Lemma 1</a>, such that
+            <span class="math inline">\(b_1 \wedge \ldots \wedge b_r =
+            e_1 \ldots e_r\)</span>. Then, let <span
+            class="math inline">\(a_\perp = a - \sum_{k=1}^r \beta_k
+            e_k\)</span>, where: <span class="math display">\[
+            \beta_k = \begin{cases}
+            \frac{a \cdot e_k}{(e_k \cdot e_k)^2} &amp; \qq{if $e_k
+            \cdot e_k \neq 0$} \\
+            0 &amp;\qq{otherwise}
+            \end{cases}
+            \]</span> Letting <span class="math inline">\(a_\parallel =
+            \sum_{k=1}^r \beta_k e_k\)</span>, we can write <span
+            class="math inline">\(a = a_\parallel + a_\perp\)</span>,
+            and it is now simple to see that <span
+            class="math inline">\(a_\perp \cdot e_k = 0\)</span> for all
+            <span class="math inline">\(k=1,\ldots,r\)</span>.
+            Furthermore, since each of the <span
+            class="math inline">\(e_k\)</span> are merely linear
+            combinations of <span class="math inline">\(b_k\)</span>,
+            <span class="math inline">\(a_\perp \cdot b_k=0\)</span> for
+            all <span class="math inline">\(k=1,\ldots,r\)</span> as
+            well. Therefore, <span class="math inline">\(a \wedge b_1
+            \wedge \ldots \wedge b_r=a_\perp \wedge b_1 \wedge \ldots
+            \wedge b_r\)</span>.</p>
+            <p>Now, observe that: <span
+            class="math display">\[\begin{align*}
+            a_\parallel B_r + (-1)^r B_r a_\parallel = \sum_{k=1}^r
+            \beta_k \qty((-1)^{k+1}(e_k)^2 e_1 \ldots \check{e}_k \ldots
+            e_r + (-1)^r (-1)^{r-k} e_1 \ldots \check{e}_k \ldots e_r
+            (e_k)^2) \\
+            &amp;= 0
+            \end{align*}\]</span> Therefore, using the crucial fact that
+            <span class="math inline">\(a_\perp b_k = -b_k
+            a_\perp\)</span>: <span
+            class="math display">\[\begin{align*}
+            a B_r + (-1)^r B_r a &amp;= a_\perp B_r + (-1)^r B_r a_\perp
+            \\
+            &amp;= \frac{1}{r!}\sum_{\sigma \in \mathbb{S}_r}
+            (-1)^{\sigma}\qty(a_\perp b_{\sigma(1)} \ldots b_{\sigma(r)}
+            + (-1)^r b_{\sigma(1)} \ldots b_{\sigma(r)} a_\perp) \\
+            &amp;= \frac{2}{r!} \sum_{\sigma \in \mathbb{S}_r}
+            (-1)^\sigma a_\perp b_{\sigma(1)} \ldots b_{\sigma(r)} \\
+            &amp;= \frac{2}{(r+1)!} \sum_{k=1}^{r+1} \sum_{\sigma \in
+            \mathbb{S}_r} (-1)^\sigma a_\perp b_{\sigma(1)} \ldots
+            b_{\sigma(r)}
+            \end{align*}\]</span> Now, observe that we are free to
+            scramble <span class="math inline">\(a_\perp\)</span>
+            somewhere into the <span class="math inline">\(k\)</span>th
+            position of <span class="math inline">\(b_{\sigma(1)} \ldots
+            b_{\sigma(r)}\)</span> – that is, <span
+            class="math inline">\(a_\perp b_{\sigma(1)} \ldots
+            b_{\sigma(r)}=(-1)^k b_{\sigma(1)} \ldots b_{\sigma(k-1)}
+            a_\perp b_{\sigma(k)} \ldots b_{\sigma(r)}\)</span>. But
+            then, viewing <span class="math inline">\(a_\perp\)</span>
+            as the first element of the set <span
+            class="math inline">\(S = [a_\perp, b_1, \ldots,
+            b_r]\)</span>, so that we identify <span
+            class="math inline">\(b_0 = a_\perp\)</span> and <span
+            class="math inline">\(S \cong [0, \ldots, r]\)</span>, we
+            see that the permutation that sends <span
+            class="math inline">\(S\)</span> to <span
+            class="math inline">\([b_{\sigma(1)},\ldots,b_{\sigma(k-1)},a_\perp,b_{\sigma(k)},\ldots,b_{\sigma(r)}]
+            \cong
+            [\sigma(1),\ldots,\sigma(k-1),0,\sigma(k),\ldots,\sigma(r)]\)</span>
+            has parity <span class="math inline">\((-1)^k
+            (-1)^\sigma\)</span>! Therefore, the double sum over <span
+            class="math inline">\(\sum_{k=1}^{r+1} \sum_{\sigma \in
+            \mathbb{S}_r}\)</span> can be rewritten as a sum over
+            permutations mapping <span
+            class="math inline">\([0,\ldots,r]\)</span> onto itself –
+            that is, <span
+            class="math inline">\(\mathbb{S}_{r+1}\)</span>. We are then
+            left with: <span class="math display">\[\begin{align*}
+            a B_r + (-1)^r B_r a &amp;= \frac{2}{(r+1)!} \sum_{\sigma
+            \in \mathbb{S}_{r+1}} b_{\sigma(0)} \ldots b_{\sigma(r)} \\
+            &amp;= 2 a \wedge b_1 \wedge \ldots \wedge b_r,
+            \end{align*}\]</span> as required.</p>
+            </div>
+            <div class="statement corollary plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Corollary 1</span>.</span><span
+            class="statement-spah"> </span>For any multivector <span
+            class="math inline">\(B_r \in \mathcal{G}_n^r\)</span>, let
+            <span class="math inline">\(a \wedge B_r\)</span> be defined
+            by: <span class="math display">\[
+            a \wedge B_r \coloneqq \frac{1}{2} (aB_r + (-1)^r B_r),
+            \]</span> Then, <span class="math inline">\(a \wedge
+            B_r\)</span> is always a homogenous multivector of grade
+            <span class="math inline">\(r+1\)</span>. That is, <span
+            class="math inline">\(\wedge\)</span> raises grade by <span
+            class="math inline">\(1\)</span>.</p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span>This follows simply by
+            decomposing <span class="math inline">\(B_r\)</span> into a
+            linear combination of blades and applying <a href="#wedge"
+            title="Theorem 3">Theorem 3</a> to each blade (observing
+            that <span class="math inline">\(a \wedge B_r\)</span> is
+            bilinear)</p>
+            </div>
             <h1 class="unnumbered" id="bibliography">References</h1>
             <div id="refs"
             class="references csl-bib-body hanging-indent"
@@ -467,12 +686,12 @@
             </div>
       
       <div>
-                <hr style="margin: 1em 0.2em 1em 60%"/>
-        
-            <p class="date">Last modified: June 20, 2022</p>
-                </div>
+                <hr style="margin: 1em 0.2em 1em 60%" />
+
+        <p class="date">Last modified: June 28, 2022</p>
+              </div>
     </div>
-    
+
   </div>
 
 </body>

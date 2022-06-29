@@ -1,3 +1,6 @@
+$focus-color: #808080;
+
+
 html {
     scroll-behavior: smooth;
     font-family: "Libertinus", serif;
@@ -22,9 +25,9 @@ a {
     font-style: normal;
     font-weight: normal;
     font-display: swap;
-    src: url('static/fonts/LM-regular.woff2') format('woff2'),
-        url('static/fonts/LM-regular.woff') format('woff'),
-        url('static/fonts/LM-regular.ttf') format('truetype');
+    src: url('/static/fonts/LM-regular.woff2') format('woff2'),
+        url('/static/fonts/LM-regular.woff') format('woff'),
+        url('/static/fonts/LM-regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -32,9 +35,9 @@ a {
     font-style: italic;
     font-weight: normal;
     font-display: swap;
-    src: url('static/fonts/LM-italic.woff2') format('woff2'),
-        url('static/fonts/LM-italic.woff') format('woff'),
-        url('static/fonts/LM-italic.ttf') format('truetype');
+    src: url('/static/fonts/LM-italic.woff2') format('woff2'),
+        url('/static/fonts/LM-italic.woff') format('woff'),
+        url('/static/fonts/LM-italic.ttf') format('truetype');
 }
 
 @font-face {
@@ -42,9 +45,9 @@ a {
     font-style: normal;
     font-weight: bold;
     font-display: swap;
-    src: url('static/fonts/LM-bold.woff2') format('woff2'),
-        url('static/fonts/LM-bold.woff') format('woff'),
-        url('static/fonts/LM-bold.ttf') format('truetype');
+    src: url('/static/fonts/LM-bold.woff2') format('woff2'),
+        url('/static/fonts/LM-bold.woff') format('woff'),
+        url('/static/fonts/LM-bold.ttf') format('truetype');
 }
 
 @font-face {
@@ -52,9 +55,9 @@ a {
     font-style: italic;
     font-weight: bold;
     font-display: swap;
-    src: url('static/fonts/LM-bold-italic.woff2') format('woff2'),
-        url('static/fonts/LM-bold-italic.woff') format('woff'),
-        url('static/fonts/LM-bold-italic.ttf') format('truetype');
+    src: url('/static/fonts/LM-bold-italic.woff2') format('woff2'),
+        url('/static/fonts/LM-bold-italic.woff') format('woff'),
+        url('/static/fonts/LM-bold-italic.ttf') format('truetype');
 } */
 
 @font-face {
@@ -62,7 +65,7 @@ a {
     font-style: normal;
     font-weight: normal;
     font-display: swap;
-    src: url('static/fonts/Libertinus-regular.woff2') format('woff2');
+    src: url('/static/fonts/Libertinus-regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -70,7 +73,7 @@ a {
     font-style: italic;
     font-weight: normal;
     font-display: swap;
-    src: url('static/fonts/Libertinus-italic.woff2') format('woff2');
+    src: url('/static/fonts/Libertinus-italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -78,7 +81,7 @@ a {
     font-style: normal;
     font-weight: bold;
     font-display: swap;
-    src: url('static/fonts/Libertinus-bold.woff2') format('woff2');
+    src: url('/static/fonts/Libertinus-bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -86,7 +89,7 @@ a {
     font-style: italic;
     font-weight: bold;
     font-display: swap;
-    src: url('static/fonts/Libertinus-bold-italic.woff2') format('woff2');
+    src: url('/static/fonts/Libertinus-bold-italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -94,7 +97,7 @@ a {
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url('static/fonts/Libertinus-semibold.woff2') format('woff2');
+    src: url('/static/fonts/Libertinus-semibold.woff2') format('woff2');
 }
 
 @font-face {
@@ -102,7 +105,7 @@ a {
     font-style: italic;
     font-weight: 600;
     font-display: swap;
-    src: url('static/fonts/Libertinus-semibold-italic.woff2') format('woff2');
+    src: url('/static/fonts/Libertinus-semibold-italic.woff2') format('woff2');
 }
 
 
@@ -291,17 +294,14 @@ blockquote .sidenote {
 }
 
 .nav-link {
-    -moz-transition: color .2s ease-in;
-    -o-transition: color .2s ease-in;
-    -webkit-transition: color .2s ease-in;
-    transition: color .2s ease-in;
+    transition: color .2s ease-out;
     color: black;
     text-decoration: none;
     font-size: x-large;
 }
 
 .nav-link:hover {
-    color: hsl(0, 0%, 60%)
+    color: $focus-color
 }
 
 figure>img {
@@ -326,31 +326,57 @@ figure>figcaption {
     font-size: 14px;
 }
 
-.lemma >p::before, .theorem > p::before {
-    content: '\25B6 ';
-    display: inline-block;
-    margin-right: 7px;
-    margin-left: 3px;
-    transition: transform 0.2s ease-out;
+
+
+.hide-before::before {
+    display: none !important;
 }
 
-.lemma.active > p::before, .theorem.active > p::before {
-    transform: rotate(90deg);
-} 
+h1:not(.title),
+h2:not(#toc-title),
+h3,
+h4,
+h5,
+h6 {
+    transition: color .2s ease-out;
 
-.lemma:hover,.theorem:hover {
-    cursor: pointer;
+    &:hover {
+        color: $focus-color;
+        cursor: pointer;
+    }
+}
+
+.has-proof>p>.statement-heading {
+    transition: color .2s ease-out;
+
+    &::before {
+        content: '\25B6';
+        display: inline-block;
+        margin-right: 7px;
+        margin-left: 3px;
+        transition: transform 0.2s ease-out, padding 0.2s ease-out;
+        cursor: pointer;
+    }
+
+    &:hover {
+        cursor: pointer;
+        color: $focus-color  !important;
+    }
+}
+
+.has-proof.active>p>.statement-heading::before {
+    transform: rotate(90deg);
 }
 
 .proof {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 
-.proof > p::after {
-    content: '\220E';
-    text-align: right;
-    float:right;
-    margin-right: 10px;
+    &>p::after {
+        content: '\220E';
+        text-align: right;
+        float: right;
+        margin-right: 10px;
+    }
 }
