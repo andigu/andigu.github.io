@@ -22,9 +22,9 @@
   <link rel="author" href="https://scholar.google.com/citations?user=XGTtMs8AAAAJ" />
 
   <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
-  <style>
+  <!-- <style>
     $styles.html()$
-  </style>
+  </style> -->
   $for(css)$
   <link rel="stylesheet" href="$css$" />
   $endfor$
@@ -119,7 +119,9 @@
     </div>
 
   </div>
-
+  <div style="position: fixed; bottom: 1em; right: 1em">
+    <i class="fa fa-moon-o" aria-hidden="true" id="flip-theme"></i>
+  </div>
 </body>
 
 </html>

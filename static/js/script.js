@@ -52,6 +52,45 @@ update_heights = throttle(update_heights, 50);
 update_proofs = throttle(update_proofs, 50);
 
 document.addEventListener('DOMContentLoaded', () => {
+    let icon = document.getElementById("flip-theme");
+    let is_dark = Cookies.get('theme-dark');
+    let body = document.querySelector("body");
+    let set_dark = () => {
+        body.classList.add("theme-dark");
+        icon.classList.remove("fa-moon-o");
+        icon.classList.add("fa-sun-o");
+        Cookies.set('theme-dark', true);
+
+        Array.from(document.querySelectorAll('img')).forEach(img => {
+            if (img.src.includes("img/generated")) {
+                img.src = img.src.replace(".svg", "") + "-dark.svg"
+            }
+        })
+    }
+    let set_light = () => {
+        body.classList.remove("theme-dark");
+        icon.classList.remove("fa-sun-o");
+        icon.classList.add("fa-moon-o");
+        Cookies.remove('theme-dark');
+        Array.from(document.querySelectorAll('img')).forEach(img => {
+            if (img.src.includes("img/generated")) {
+                img.src = img.src.replace("-dark", "")
+            }
+        })
+    }
+
+    if (is_dark) {
+        set_dark();
+    }
+    icon.addEventListener("click", () => {
+        let body = document.querySelector("body");
+        if (Array.from(body.classList).includes("theme-dark")) {
+            set_light()
+        } else {
+            set_dark();
+        }
+    })
+
     let root = window.location.pathname.split('/')[1];
     if (root === '') root = 'home';
     document.getElementById("nav-" + root).style.textDecoration = 'underline';
@@ -103,6 +142,25 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.hash = "#" + elem.id;
         })
     })
+
+    let TOC = document.getElementById("TOC")
+    let stop, docBody, hasOffset, scrollTop;
+    if (TOC) {
+        stop = TOC.offsetTop - 60,
+            docBody = document.documentElement || document.body.parentNode || document.body,
+            hasOffset = window.pageYOffset !== undefined;
+    }
+    document.addEventListener("scroll", evt => {
+        if (TOC) {
+            scrollTop = hasOffset ? window.pageYOffset : docBody.scrollTop;
+            if (scrollTop >= stop) {
+                TOC.className = 'sticky';
+            } else {
+                TOC.className = '';
+            }
+        }
+        update_bold();
+    });
 }, false);
 
 window.addEventListener('resize', () => {
@@ -111,8 +169,3 @@ window.addEventListener('resize', () => {
     update_proofs();
 });
 
-
-document.addEventListener("scroll", evt => {
-    root.style.setProperty("--scrolltop", root.scrollTop);
-    update_bold();
-});

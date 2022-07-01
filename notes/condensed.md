@@ -77,11 +77,6 @@ Let the position of the $n$th atom in our chain be $x_n$. The equilibrium positi
 $$\omega = 2\sqrt{\frac{\kappa}{m}} \abs{\sin(\frac{ka}{2})}$$ {#eq:1d-dispersion}
 
 ```{#fig:1d-dispersion .py2image caption="Dispersion function for monoatomic one-dimensional system"}
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
 k = np.linspace(-np.pi, np.pi, 251, endpoint=True)
 plt.plot(k, 2*np.abs(np.sin(k/2)))
 plt.xlabel(r'Wavenumber $k$ (in units of $a^{-1}$)')

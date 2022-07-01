@@ -1,5 +1,305 @@
 @charset "UTF-8";
 html {
+  line-height: 1.5;
+  font-family: Georgia, serif;
+  font-size: 20px;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 36em;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  transition: color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+}
+body.theme-dark {
+  background-color: #1D1D2A;
+  color: #e7e5da;
+}
+body.theme-dark tbody {
+  border-top: 1px solid #e7e5da;
+  border-bottom: 1px solid #e7e5da;
+}
+body.theme-dark th {
+  border-top: 1px solid #e7e5da;
+}
+body.theme-dark a {
+  color: #3366BB;
+}
+body.theme-dark hr {
+  background-color: #e7e5da;
+}
+body.theme-dark #TOC a {
+  color: #e7e5da;
+}
+body.theme-dark .nav-container {
+  background-color: #2E2E43;
+}
+body.theme-dark .nav-link {
+  color: #e7e5da;
+}
+body.theme-dark .nav-link:hover {
+  color: #b3b1aa;
+}
+body.theme-dark h1:not(.title):hover, body.theme-dark h2:not(#toc-title):hover, body.theme-dark h3:hover, body.theme-dark h4:hover, body.theme-dark h5:hover, body.theme-dark h6:hover {
+  color: #b3b1aa;
+}
+body.theme-dark .has-proof > p > .statement-heading:hover {
+  color: #b3b1aa !important;
+}
+body.theme-dark #flip-theme:hover {
+  color: #b3b1aa;
+}
+body:not(.theme-dark) {
+  color: #1a1a1a;
+  background-color: #fdfdfd;
+}
+body:not(.theme-dark) tbody {
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+}
+body:not(.theme-dark) th {
+  border-top: 1px solid #1a1a1a;
+}
+body:not(.theme-dark) a {
+  color: #00007f;
+}
+body:not(.theme-dark) hr {
+  background-color: #1a1a1a;
+}
+body:not(.theme-dark) #TOC a {
+  color: #1a1a1a;
+}
+body:not(.theme-dark) .nav-container {
+  background-color: #f6f6f6;
+}
+body:not(.theme-dark) .nav-link {
+  color: #1a1a1a;
+}
+body:not(.theme-dark) .nav-link:hover {
+  color: #808080;
+}
+body:not(.theme-dark) h1:not(.title):hover, body:not(.theme-dark) h2:not(#toc-title):hover, body:not(.theme-dark) h3:hover, body:not(.theme-dark) h4:hover, body:not(.theme-dark) h5:hover, body:not(.theme-dark) h6:hover {
+  color: #808080;
+}
+body:not(.theme-dark) .has-proof > p > .statement-heading:hover {
+  color: #808080 !important;
+}
+body:not(.theme-dark) #flip-theme:hover {
+  color: #808080;
+}
+body .nav-container {
+  transition: background-color 0.3s ease-out;
+}
+
+tbody {
+  margin-top: 0.5em;
+}
+
+th {
+  padding: 0.25em 0.5em 0.25em 0.5em;
+}
+
+#flip-theme:hover {
+  cursor: pointer;
+  transition: color 0.2s ease-out;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9em;
+    padding: 1em;
+  }
+  h1 {
+    font-size: 1.8em;
+  }
+}
+@media print {
+  body {
+    background-color: transparent;
+    font-size: 12pt;
+  }
+  p,
+h2,
+h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+h3,
+h4 {
+    page-break-after: avoid;
+  }
+}
+p {
+  margin: 1em 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 1.4em;
+}
+
+h5,
+h6 {
+  font-size: 1em;
+  font-style: italic;
+}
+
+h6 {
+  font-weight: normal;
+}
+
+ol,
+ul {
+  padding-left: 1.7em;
+  margin-top: 1em;
+}
+
+li > ol,
+li > ul {
+  margin-top: 0;
+}
+
+blockquote {
+  margin: 1em 0 1em 1.7em;
+  padding-left: 1em;
+  border-left: 2px solid #e6e6e6;
+  color: #606060;
+}
+
+code {
+  font-family: Menlo, Monaco, "Lucida Console", Consolas, monospace;
+  font-size: 85%;
+  margin: 0;
+}
+
+pre {
+  margin: 1em 0;
+  overflow: auto;
+}
+
+pre code {
+  padding: 0;
+  overflow: visible;
+  overflow-wrap: normal;
+}
+
+.sourceCode {
+  background-color: transparent;
+  overflow: visible;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  margin: 1em 0;
+}
+
+table {
+  margin: 1em 0;
+  border-collapse: collapse;
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+table caption {
+  margin-bottom: 0.75em;
+}
+
+td {
+  padding: 0.125em 0.5em 0.25em 0.5em;
+}
+
+header {
+  margin-bottom: 4em;
+  text-align: center;
+}
+
+#TOC li {
+  list-style: none;
+}
+
+#TOC ul {
+  padding-left: 1.3em;
+}
+
+#TOC > ul {
+  padding-left: 0;
+}
+
+#TOC a:not(:hover) {
+  text-decoration: none;
+}
+
+code {
+  white-space: pre-wrap;
+}
+
+span.smallcaps {
+  font-variant: small-caps;
+}
+
+span.underline {
+  text-decoration: underline;
+}
+
+div.column {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+}
+
+div.hanging-indent {
+  margin-left: 1.5em;
+  text-indent: -1.5em;
+}
+
+ul.task-list {
+  list-style: none;
+}
+
+div.csl-entry {
+  clear: both;
+}
+
+.hanging div.csl-entry {
+  margin-left: 2em;
+  text-indent: -2em;
+}
+
+div.csl-left-margin {
+  min-width: 2em;
+  float: left;
+}
+
+div.csl-right-inline {
+  margin-left: 2em;
+  padding-left: 1em;
+}
+
+div.csl-indent {
+  margin-left: 2em;
+}
+
+html {
   scroll-behavior: smooth;
   font-family: "Libertinus", serif;
   counter-reset: sidenote-counter;
@@ -7,14 +307,6 @@ html {
 
 body {
   line-height: 1.35;
-}
-
-#TOC a {
-  color: black;
-}
-
-a {
-  color: #00007f;
 }
 
 /* @font-face {
@@ -173,13 +465,17 @@ input.margin-toggle {
     max-width: none;
   }
   #TOC {
-    position: fixed;
+    position: absolute;
     left: 1.5em;
-    top: max(1em, 45vh - var(--scrolltop) * 1px);
+    top: 45vh;
     max-height: calc(100vh - 2em);
     width: 18vw;
     overflow: auto;
     padding: 2px;
+  }
+  #TOC.sticky {
+    position: fixed;
+    top: 1em;
   }
   .content-container {
     padding-left: 0;
@@ -260,19 +556,10 @@ blockquote .sidenote {
   width: 16vw;
 }
 
-.nav-container {
-  background-color: #f6f6f6;
-}
-
 .nav-link {
   transition: color 0.2s ease-out;
-  color: black;
   text-decoration: none;
   font-size: x-large;
-}
-
-.nav-link:hover {
-  color: #808080;
 }
 
 figure > img {
@@ -315,7 +602,6 @@ h3:hover,
 h4:hover,
 h5:hover,
 h6:hover {
-  color: #808080;
   cursor: pointer;
 }
 
@@ -332,7 +618,6 @@ h6:hover {
 }
 .has-proof > p > .statement-heading:hover {
   cursor: pointer;
-  color: #808080 !important;
 }
 
 .has-proof.active > p > .statement-heading::before {

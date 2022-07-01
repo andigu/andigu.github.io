@@ -5,3 +5,4 @@ font.size: 14
 figure.autolayout: True
 figure.dpi: 300
 mathtext.fontset: cm
+legend.framealpha: 0.2
