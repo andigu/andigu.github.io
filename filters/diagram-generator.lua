@@ -333,7 +333,7 @@ function CodeBlock(block)
 
       local success, img = pcall(img_converter, block.text,
         filetype, true) -- set dark true
-      local hashed = pandoc.sha1(img)
+      local hashed = pandoc.sha1(block.text)
       fname = hashed .. "-dark." .. filetype
       pandoc.mediabag.insert(fname, mimetype, img)
 

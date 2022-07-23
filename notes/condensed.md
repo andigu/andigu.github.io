@@ -116,11 +116,6 @@ $$ {#eq:1d-dispersion-diatomic}
 We define the parameter $\alpha \equiv 16\frac{m_1 m_2 \kappa_1 \kappa_2}{(\kappa_1+\kappa_2)^2 (m_1+m_2)^2}$. Observe that $0 \leq \alpha \leq 1$, and in some sense measures how similar the two atoms are: when $\kappa_1=\kappa_2$ and $m_1=m_2$, $\alpha=1$. The qualitative behavior of the dispersion relation (up to the factor $\frac{\kappa_1+\kappa_2}{2\mu}$) is determined by this parameter $\alpha$. In @fig:1d-dispersion-diatom, we plot this dispersion relation as a function of $\alpha$. If we extend into the second Brillouin zone by evaluating the $+$ branch of $\omega$ (@eq:1d-dispersion-diatomic) for $\abs{ka} \in [\pi, 2\pi]$, we find striking behavior. For $\alpha=1$, we recover the monatomic dispersion function (@fig:1d-dispersion), as expected. However, as we move away from $\alpha=1$, we get a gap that widens as $\alpha \rightarrow 0$.
 
 ```{#fig:1d-dispersion-diatom .py2image caption="Dispersion function for diatomic one-dimensional system at various $\alpha$. The dashed lines represent an extension of the dispersion into the second Brillouin zone."}
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
 x = np.linspace(-np.pi, np.pi, endpoint=True, num=51)[:,None]
 y = np.linspace(-2*np.pi, -np.pi, endpoint=True)[:,None]
 alpha = np.linspace(0.9, 1, 3)[None,:]
@@ -156,11 +151,6 @@ $$
 Diagonalizing, we find $E = \epsilon_0 \pm 2t\sqrt{\cos^2(ka) + \Delta^2 \sin^2(ka)}$. This is similar in form to the previously derived dispersion relation in @eq:1d-dispersion-diatomic, except it is now an equation involving $\omega$ rather than $\omega^2$. There is again the appearance of a widening gap as $\Delta$ increases.
 
 ```{#fig:1d-dispersion-peierls .py2image caption="Dispersion function for the Peierls distortion."}
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
 x = np.linspace(-np.pi/2, np.pi/2, endpoint=True, num=500)[:,None]
 y = np.linspace(-np.pi, -np.pi/2, endpoint=True, num=500)[:,None]
 alpha = np.linspace(0, 0.2, 3)[None,:]
@@ -176,3 +166,4 @@ plt.ylabel(r'$E-\epsilon_0$, in units of $t$')
 plt.xlabel(r'$k$ (in units of $a^{-1}$)')
 plt.savefig("$DESTINATION$", format="$FORMAT$", transparent=True)
 ```
+

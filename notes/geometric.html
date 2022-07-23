@@ -272,10 +272,20 @@ physics" />
                 <li><a href="#foundations" id="toc-foundations"><span
                 class="toc-section-number">1</span> Foundations</a>
                 <ul>
-                <li><a href="#properties-of-the-geometric-product"
-                id="toc-properties-of-the-geometric-product"><span
-                class="toc-section-number">1.1</span> Properties of the
-                Geometric Product</a></li>
+                <li><a href="#the-dot-and-wedge-product"
+                id="toc-the-dot-and-wedge-product"><span
+                class="toc-section-number">1.1</span> The Dot and Wedge
+                Product</a></li>
+                <li><a href="#a-few-additional-operations"
+                id="toc-a-few-additional-operations"><span
+                class="toc-section-number">1.2</span> A Few Additional
+                Operations</a></li>
+                <li><a href="#rotations-and-reflections"
+                id="toc-rotations-and-reflections"><span
+                class="toc-section-number">1.3</span> Rotations and
+                Reflections</a></li>
+                <li><a href="#frames" id="toc-frames"><span
+                class="toc-section-number">1.4</span> Frames</a></li>
                 </ul></li>
                 <li><a href="#bibliography"
                 id="toc-bibliography">References</a></li>
@@ -483,10 +493,9 @@ physics" />
             </span></span> The overall dimensionality is therefore <span
             class="math inline">\(\sum_{r=0}^n
             \binom{n}{r}=2^n\)</span>.</p>
-            <h2 data-number="1.1"
-            id="properties-of-the-geometric-product"><span
-            class="header-section-number">1.1</span> Properties of the
-            Geometric Product</h2>
+            <h2 data-number="1.1" id="the-dot-and-wedge-product"><span
+            class="header-section-number">1.1</span> The Dot and Wedge
+            Product</h2>
             <p>We now study the behavior of <span
             class="math inline">\(a B_r\)</span>, where <span
             class="math inline">\(a\)</span> is some vector and <span
@@ -512,10 +521,10 @@ physics" />
             with grade <span class="math inline">\(r-1\)</span>. This
             motivates the definition <span id="eq:dot"><span
             class="math display">\[
-            a \cdot B_r \coloneqq \frac{1}{2} (aB_r - (-1)^r B_r),
-            \tag{1}\]</span></span> since now <span
-            class="math inline">\(\cdot\)</span> lowers grade by <span
-            class="math inline">\(1\)</span>.</p>
+            a \cdot B_r \coloneqq \frac{1}{2} (aB_r - (-1)^r B_r a),
+            \tag{1}\]</span></span> so that <span
+            class="math inline">\(\cdot\)</span> is a grade-lowering
+            operation.</p>
             </div>
             <div class="statement proof proof unnumbered">
             <p><span class="statement-heading"><span
@@ -541,10 +550,11 @@ physics" />
             that <span class="math inline">\(e_k\)</span> is omitted
             from the product (i.e. <span class="math inline">\(e_1
             \check{e}_2 e_3 = e_1 e_3\)</span>). A simple rearrangement
-            gives: <span class="math display">\[
+            gives: <span id="eq:dot-expansion"><span
+            class="math display">\[
             \frac{1}{2} \qty(aB_r - (-1)^r B_r a) = \sum_{k=1}^r
             (-1)^{k+1} (a \cdot e_k) (e_1 \ldots \check{e}_k \ldots e_r)
-            \]</span> Note that in the sum, <span
+            \tag{2}\]</span></span> Note that in the sum, <span
             class="math inline">\(e_1 \ldots \check{e}_k \ldots
             e_r\)</span> is grade <span
             class="math inline">\(r-1\)</span>. So, <span
@@ -660,12 +670,13 @@ physics" />
             class="math inline">\(B_r \in \mathcal{G}_n^r\)</span>, let
             <span class="math inline">\(a \wedge B_r\)</span> be defined
             by: <span id="eq:wedge"><span class="math display">\[
-            a \wedge B_r \coloneqq \frac{1}{2} (aB_r + (-1)^r B_r),
-            \tag{2}\]</span></span> Then, <span class="math inline">\(a
-            \wedge B_r\)</span> is always a homogenous multivector of
-            grade <span class="math inline">\(r+1\)</span>. That is,
-            <span class="math inline">\(\wedge\)</span> raises grade by
-            <span class="math inline">\(1\)</span>.</p>
+            a \wedge B_r \coloneqq \frac{1}{2} (aB_r + (-1)^r B_r a),
+            \tag{3}\]</span></span> so that <span
+            class="math inline">\(a \wedge B_r\)</span> is always a
+            homogenous multivector of grade <span
+            class="math inline">\(r+1\)</span>. That is, <span
+            class="math inline">\(\wedge\)</span> raises grade by <span
+            class="math inline">\(1\)</span>.</p>
             </div>
             <div class="statement proof proof unnumbered">
             <p><span class="statement-heading"><span
@@ -679,7 +690,7 @@ physics" />
             </div>
             <p>It follows trivially from the definitions in <a
             href="#eq:dot">Equation 1</a> and <a
-            href="#eq:wedge">Equation 2</a> that <span
+            href="#eq:wedge">Equation 3</a> that <span
             class="math inline">\(a B_r=a \cdot B_r + a \wedge
             B_r\)</span>, which says that the product <span
             class="math inline">\(aB_r\)</span> is a sum of homogenous
@@ -697,7 +708,451 @@ physics" />
             class="math inline">\(A_s \cdot B_r\)</span>, we mean the
             lowest grade component of <span class="math inline">\(A_s
             B_r\)</span>, and the highest for <span
-            class="math inline">\(A_s \wedge B_r\)</span>.</p>
+            class="math inline">\(A_s \wedge B_r\)</span>: <span
+            class="math display">\[\begin{align}
+            A_s \cdot B_r &amp;= \expval{A_s B_r}_{\abs{s-r}} \\
+            A_s \wedge B_r &amp;= \expval{A_s B_r}_{s+r}
+            \end{align}\]</span> We also define a scalar product <span
+            class="math inline">\(\expval{A_1 A_2 \ldots A_k}\)</span>
+            to be the grade 0 (i.e., scalar) component of the product
+            <span class="math inline">\(A_1 A_2 \ldots A_k\)</span>.</p>
+            <div id="wedge-associative" class="statement lemma plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Lemma 4</span>.</span><span
+            class="statement-spah"> </span>The wedge product is
+            associative: <span class="math display">\[
+            (A_r \wedge B_s) \wedge C_t = A_r \wedge (B_s \wedge C_t),
+            \]</span> so we can write <span class="math inline">\(A_r
+            \wedge B_s \wedge C_t\)</span> unambiguously.</p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span>Recall that we can expand
+            <span class="math display">\[A_r B_s = \expval{A_r
+            B_s}_{r+s} + \expval{A_r B_s}_{r+s-2} + \ldots + \expval{A_r
+            B_s}_{\abs{r-s}}.\]</span> Since <span
+            class="math inline">\((A_r \wedge B_s) \wedge C_t =
+            \expval{A_r B_s}_{r+s} \wedge C_t\)</span>: <span
+            class="math display">\[\begin{align*}
+            \expval{A_r B_s}_{r+s} C_t &amp;= \qty(\expval{A_r
+            B_s}_{r+s} C_t)_{r+s+t} + \qty(\expval{A_r B_s}_{r+s}
+            C_t)_{r+s+t-2} + \ldots \\
+            &amp;= \expval{(A_r B_s) C_t}_{r+s+t} + \ldots,
+            \end{align*}\]</span> where the <span
+            class="math inline">\(\ldots\)</span> means all remaining
+            terms have lower grade. Therefore, <span
+            class="math inline">\((A_r \wedge B_s) \wedge
+            C_t=\expval{(A_r B_s) C_t}_{r+s+t}\)</span>. Finally, by
+            associativity of the geometric product (recall, this is one
+            of the axioms), <span class="math inline">\(\expval{(A_r
+            B_s) C_t}_{r+s+t}=\expval{A_r (B_s C_t)}_{r+s+t}=A_r \wedge
+            (B_s \wedge C_t)\)</span>.</p>
+            </div>
+            <div id="trip-prod" class="statement lemma plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Lemma 5</span>.</span><span
+            class="statement-spah"> </span>For any vectors <span
+            class="math inline">\(a\)</span>, <span
+            class="math inline">\(b_1,\ldots,b_r\)</span>: <span
+            class="math display">\[
+            a \cdot (b_1 \wedge \ldots \wedge b_r) = \sum_{k=1}^r
+            (-1)^{k+1} (a \cdot b_k) b_1 \ldots \check{b}_k \ldots b_r.
+            \]</span></p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span>Since <span
+            class="math display">\[
+            a \cdot (b_1 \ldots b_r) = a \cdot \expval{b_1 \ldots b_r}_r
+            + a \cdot \expval{b_1 \ldots b_r}_{r-2} + \ldots,
+            \]</span> by taking the <span
+            class="math inline">\(r-1\)</span>th component of each side,
+            we find: <span class="math display">\[
+            \expval{a \cdot (b_1 \ldots b_r)}_{r-1} = a \cdot
+            \expval{b_1 \ldots b_r}_r,
+            \]</span> and since <span class="math inline">\(\expval{b_1
+            \ldots b_r}_r=b_1 \wedge \ldots \wedge b_r\)</span>: <span
+            class="math display">\[
+            a \cdot (b_1 \wedge \ldots \wedge b_r) =
+            \frac{1}{2}\expval{a b_1 \ldots b_r - (-1)^r b_1 \ldots b_r
+            a}_{r-1}
+            \]</span> Repeatedly applying the identity <span
+            class="math inline">\(ab = 2 (a \cdot b) - ba\)</span>:
+            <span class="math display">\[\begin{align*}
+            a \cdot (b_1 \wedge \ldots \wedge b_r) &amp;=
+            \expval{\sum_{k=1}^r (-1)^{k+1} (a \cdot b_k) b_1 \ldots
+            \check{b}_k \ldots b_r}_{r-1} \\
+            &amp;= \sum_{k=1}^r (-1)^{k+1} (a \cdot b_k) b_1 \ldots
+            \check{b}_k \ldots b_r
+            \end{align*}\]</span></p>
+            </div>
+            <div class="statement remark plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Remark 1</span>.</span><span
+            class="statement-spah"> </span>The above result (<a
+            href="#trip-prod" title="Lemma 5">Lemma 5</a>) is a
+            generalization of the vector triple product identity in
+            <span class="math inline">\(\mathbb{R}^3\)</span> which says
+            <span class="math inline">\(a \cross (b \cross c)=(a \cdot
+            c)b - (a \cdot b)c\)</span>. The analogy is <em>not</em>
+            with <span class="math inline">\(a \cdot (b \cross
+            c)\)</span>, because in three dimensions, cross product
+            between a vector and a pseudovector <span
+            class="math inline">\(b \cross c\)</span> is actually a dot
+            product the language of geometric algebra. This fact
+            originates in the fact that the pseudovector <span
+            class="math inline">\(b \cross c\)</span> is really a
+            bivector, and ordinary vector algebra lacks the language the
+            make this fact clear. We discuss this further below.</p>
+            </div>
+            <h2 data-number="1.2" id="a-few-additional-operations"><span
+            class="header-section-number">1.2</span> A Few Additional
+            Operations</h2>
+            <p>We define the reverse of a product of vectors to be <span
+            class="math display">\[
+            (a_1 \ldots a_r)^\dagger = a_r \ldots a_1.
+            \]</span> Therefore, for an arbitrary blade <span
+            class="math inline">\(A_r\)</span>, by writing <span
+            class="math inline">\(A_r=e_1 \ldots e_r\)</span>, we see
+            that <span class="math inline">\(A_r^\dagger=(-1)^{r(r-1)/2}
+            A_r\)</span>, since <span
+            class="math inline">\(r(r-1)/2\)</span> swaps occur in order
+            for a complete reversion <span class="math inline">\(e_1
+            \ldots e_r \rightarrow e_r \ldots e_1\)</span>. If we
+            enforce <span class="math inline">\((A + B)^\dagger =
+            A^\dagger + B^\dagger\)</span>, we can easily see that for
+            <em>any</em> homogenous multivector <span
+            class="math inline">\(A\)</span> of grade <span
+            class="math inline">\(r\)</span> (not just blades), <span
+            class="math inline">\(A^\dagger = (-1)^{r(r-1)/2}
+            A\)</span>.</p>
+            <div class="statement lemma plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Lemma 6</span>.</span><span
+            class="statement-spah"> </span>The scalar product is
+            invariant under cyclic permutation: <span
+            class="math display">\[
+            \expval{A_1 A_2 \ldots A_k} = \expval{A_2 A_3 \ldots A_k
+            A_1} = \ldots = \expval{A_k A_1 \ldots A_{k-1}}
+            \]</span> We sometimes write <span class="math inline">\(A *
+            B = \expval{AB}\)</span>.</p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span>For any <span
+            class="math inline">\(A,B\)</span>, we have <span
+            class="math inline">\(\expval{AB}=\expval{AB}^\dagger\)</span>
+            since the grade of <span
+            class="math inline">\(\expval{AB}\)</span> is <span
+            class="math inline">\(r=0\)</span>, so <span
+            class="math inline">\((-1)^{r(r-1)/2}=1\)</span>. By the
+            linearity of the reversion operator, <span
+            class="math inline">\(\expval{AB}^\dagger=\expval{(AB)^\dagger}\)</span>.
+            This can be seen by writing <span
+            class="math inline">\(AB\)</span> as a sum of homogenous
+            multivectors, and applying <span
+            class="math inline">\(^\dagger\)</span> to both sides. Since
+            <span class="math inline">\((AB)^\dagger=B^\dagger
+            A^\dagger\)</span>, we have <span
+            class="math inline">\(\expval{AB}=\expval{B^\dagger
+            A^\dagger}\)</span>. Finally, we observe that if the grade
+            of <span class="math inline">\(A\)</span> and <span
+            class="math inline">\(B\)</span> is <span
+            class="math inline">\(r\)</span> and <span
+            class="math inline">\(s\)</span> respectively, the lowest
+            grade component of <span class="math inline">\(AB\)</span>
+            is <span class="math inline">\(\abs{r-s}\)</span>.
+            Therefore, if <span class="math inline">\(r \neq s\)</span>,
+            <span
+            class="math inline">\(\expval{AB}=0=\expval{BA}\)</span>. If
+            <span class="math inline">\(r=s\)</span>, then <span
+            class="math inline">\(\expval{AB}=\expval{B^\dagger
+            A^\dagger}=(-1)^{r(r-1)}\expval{BA}=\expval{BA}\)</span>.
+            So, it holds in general that <span
+            class="math inline">\(\expval{AB}=\expval{BA}\)</span>.</p>
+            <p>Now, for any <span class="math inline">\(m\)</span>, we
+            can choose <span class="math inline">\(A=A_1 \ldots
+            A_m\)</span> and <span class="math inline">\(B=A_{m+1}
+            A_{m+2} \ldots A_k\)</span> to find <span
+            class="math inline">\(\expval{A_1 \ldots
+            A_k}=\expval{A_{m+1}A_{m+2} \ldots A_k A_1 \ldots
+            A_m}\)</span> for any <span class="math inline">\(m = 1,
+            \ldots, k\)</span>. This gives the desired result.</p>
+            </div>
+            <p>Another product is the commutator <span
+            class="math display">\[A \times B = \frac{1}{2}
+            (AB-BA).\]</span> Note that for a bivector <span
+            class="math inline">\(B\)</span> and a vector <span
+            class="math inline">\(a\)</span>, the commutator is equal to
+            the dot product: <span class="math display">\[
+            B \times a = \frac{1}{2} (Ba - aB) =-a \cdot B
+            =-\expval{aB}_1 =-\expval{B^\dagger a^\dagger}_1 =
+            \expval{Ba}_1 = B \cdot a
+            \]</span></p>
+            <p>It turns out that this is a specific case of a more
+            general property, which we state below.</p>
+            <div id="comm-grade" class="statement lemma plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Lemma 7</span>.</span><span
+            class="statement-spah"> </span>For any homogenous
+            multivector <span class="math inline">\(A_r\)</span>, <span
+            class="math inline">\(B \times A_r\)</span> is also a
+            homogenous multivector of grade <span
+            class="math inline">\(r\)</span>. Specifically, <span
+            class="math inline">\(B \times
+            A_r=\expval{BA_r}_r\)</span>.</p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span>We decompose <span
+            class="math inline">\(B A_r= \expval{BA_r}_{r-2} +
+            \expval{BA_r}_r + \expval{BA_r}_{r+2}\)</span>. Now, we
+            reverse both sides. <span
+            class="math display">\[\begin{align*}
+            -(-1)^{r(r-1)/2} A_r B &amp;= (-1)^{(r-2)(r-3)/2}
+            \expval{BA_r}_{r-2} + (-1)^{r(r-1)/2}\expval{BA_r}_r +
+            (-1)^{(r+1)(r+2)/2}\expval{BA_r}_{r+2} \\
+            -A_r B &amp;= (-1)^{-2r+3} \expval{BA_r}_{r-2} +
+            \expval{BA_r}_r + (-1)^{4r+1} \expval{BA_r}_{r+2} \\
+            A_r B &amp;= \expval{BA_r}_{r-2} - \expval{BA_r}_r +
+            \expval{BA_r}_{r+2}
+            \end{align*}\]</span> Therefore, it is simple to see that
+            <span class="math inline">\(\frac{1}{2} (B A_r - A_r B) =
+            \expval{BA_r}_r\)</span>.</p>
+            </div>
+            <p><a href="#comm-grade" title="Lemma 7">Lemma 7</a> gives a
+            useful identity: <span class="math display">\[
+            B A_r = B \cdot A_r + B \times A_r + B \wedge A_r
+            \]</span></p>
+            <p>Finally, in spaces of a finite dimension <span
+            class="math inline">\(n\)</span>, all multivectors with
+            grade <span class="math inline">\(n\)</span> are unique up
+            to a scalar multiplier. We define the pseudoscalar <span
+            class="math inline">\(I\)</span> to be the unique
+            multivector of grade <span class="math inline">\(n\)</span>
+            such that <span
+            class="math inline">\(\abs{I^2}=1\)</span>.<span
+            class="sidenote-wrapper"><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle"/><span
+            class="sidenote">The sign of <span
+            class="math inline">\(I^2\)</span> depends on the dimension
+            <span class="math inline">\(n\)</span> and the signature of
+            the space.<br />
+            <br />
+            </span></span> The pseudoscalar defines an orientation for
+            the space – that is, any blade will have either the same or
+            different sign as <span class="math inline">\(I\)</span>,
+            which corresponds to a positive or negative orientation,
+            respectively. The pseudoscalar is useful because it defines
+            a duality transformation mapping blades to their orthogonal
+            component <span class="math inline">\(A_r \rightarrow I
+            A_r\)</span>. Note that <span class="math inline">\(I
+            A_r\)</span> has grade <span
+            class="math inline">\(n-r\)</span> because the <span
+            class="math inline">\(r\)</span> basis vectors from <span
+            class="math inline">\(A_r\)</span> combine with <span
+            class="math inline">\(r\)</span> components of <span
+            class="math inline">\(I\)</span>, leaving <span
+            class="math inline">\(n-r\)</span> basis vectors. Because of
+            this duality transformation, as one might expect, it can
+            also be used to transform between the dot and wedge
+            product.</p>
+            <div id="duality" class="statement lemma plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Lemma 8</span>.</span><span
+            class="statement-spah"> </span>For any multivectors <span
+            class="math inline">\(A_r, B_s\)</span> such that <span
+            class="math inline">\(r+s \leq n\)</span>: <span
+            class="math display">\[
+            A_r \cdot (B_s I) = A_r \wedge B_s I.
+            \]</span></p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span><span
+            class="math display">\[\begin{align*}
+            A_r \cdot (B_s I) &amp;= \expval{A_r B_s I}_{\abs{r-(n-s)}}
+            \\
+            &amp;= \expval{A_r B_s I}_{n-(r+s)} \\
+            &amp;= \expval{A_r B_s}_{r+s} I \\
+            &amp;= A_r \wedge B_s I
+            \end{align*}\]</span></p>
+            </div>
+            <h2 data-number="1.3" id="rotations-and-reflections"><span
+            class="header-section-number">1.3</span> Rotations and
+            Reflections</h2>
+            <p>Vectors can be reflected with respect to some direction
+            (i.e. unit vector) <span class="math inline">\(n\)</span>.
+            This reflection ought to take <span class="math inline">\(n
+            \rightarrow -n\)</span>, and leave all vectors perpendicular
+            to <span class="math inline">\(n\)</span> unchanged.
+            Finally, it ought to be linear. The map <span
+            class="math display">\[f(a) = -nan\]</span> does exactly
+            this. We see that <span
+            class="math inline">\(f(n)=-nnn=-n\)</span>, and for vectors
+            <span class="math inline">\(n_\perp\)</span> orthogonal to
+            <span class="math inline">\(n\)</span>, <span
+            class="math inline">\(f(n_\perp)=-n n_\perp n = nn
+            n_\perp=n_\perp\)</span>. This also ensures that for any
+            vector <span class="math inline">\(a\)</span>, <span
+            class="math inline">\(f(a)\)</span> is still a vector.</p>
+            <p>Vectors can also be rotated with respect to some plane.
+            This plane is described by two unit basis vectors <span
+            class="math inline">\(n\)</span> and <span
+            class="math inline">\(m\)</span>, or by the bivector <span
+            class="math inline">\(n \wedge m\)</span>. Two successive
+            reflections about vectors <span
+            class="math inline">\(m\)</span> then <span
+            class="math inline">\(n\)</span> results in a rotation. That
+            is, <span class="math display">\[f(a)=nmamn\]</span> is a
+            rotation. It is trivial to see that this leaves vectors
+            perpendicular to both <span class="math inline">\(n\)</span>
+            and <span class="math inline">\(m\)</span> unchanged. We
+            also verify that <span class="math inline">\(f(a) \cdot f(b)
+            = a \cdot b\)</span>, as required by definition of a
+            rotation. <span class="math display">\[\begin{align*}
+            f(a) \cdot f(b) &amp;= \frac{1}{2} \qty(nmamn nmbmn + nmbmn
+            nmamn) \\
+            &amp;= \frac{1}{2} \qty(nm ab mn + nm ba mn) \\
+            &amp;= nm (a \cdot b) mn \\
+            &amp;= a \cdot b
+            \end{align*}\]</span> We call the product <span
+            class="math inline">\(R=nm\)</span> a rotor, and therefore
+            rotors generate rotations via <span class="math inline">\(R
+            a R^\dagger\)</span>. Since rotations form a group,
+            composing rotations <span class="math inline">\(a
+            \rightarrow R_1 R_2 a R_2 R_1\)</span> results in another
+            rotation. Therefore, we say that <span
+            class="math inline">\(R_1 R_2\)</span> is also a rotor. That
+            is, rotors also form a group. In general, rotors are simply
+            geometric products of an even number of vectors with the
+            normalization condition <span class="math inline">\(R
+            R^\dagger = 1\)</span>.</p>
+            <p>This description of rotation leads to interesting
+            behavior on multivectors. For instance, take some geometric
+            product <span class="math inline">\(a_1 \ldots a_k\)</span>.
+            If we rotate each of the component vectors, we get <span
+            class="math inline">\((Ra_1R^\dagger)(R a_2 R^\dagger)
+            \ldots (R a_k R^\dagger) = R a_1 \ldots a_k
+            R^\dagger\)</span>. We get similar behavior for a blade
+            (since the blade is just a linear combination of geometric
+            products). Therefore, the rotation transformation for
+            arbitrary multivectors <span
+            class="math inline">\(A\)</span> is still <span
+            class="math inline">\(R A R\)</span>.</p>
+            <h2 data-number="1.4" id="frames"><span
+            class="header-section-number">1.4</span> Frames</h2>
+            <p>A set of linearly independent vectors <span
+            class="math inline">\(\qty{\vb{e_1}, \ldots,
+            \vb{e_n}}\)</span> is called a frame in geometric algebra.
+            We do not necessarily assume these are orthonormal vectors,
+            so they do not (in general) commute. We define the volume
+            element <span class="math display">\[E_n=\vb{e}_1 \wedge
+            \ldots \wedge \vb{e}_n, \]</span> and the reciprocal frame
+            <span
+            class="math inline">\(\qty{\vb{e}^1,\ldots,\vb{e}^n}\)</span>
+            by <span id="eq:recip"><span class="math display">\[
+            \vb{e}_j \cdot \vb{e}^k = \delta_j^k.
+            \tag{4}\]</span></span> We can write an explicit form for
+            the reciprocal vectors: <span class="math display">\[
+            \vb{e}^k = (-1)^{k+1} (\vb{e}_1 \wedge \ldots \wedge
+            \check{\vb{e}}_k \wedge \ldots \vb{e}_n) E_n^{-1}.
+            \]</span> Recall the <span
+            class="math inline">\(\check{\vb{e}}_k\)</span> means that
+            this term is omitted. Intuitively, what this says is that
+            <span class="math inline">\(\vb{e}^k\)</span> is orthogonal
+            to each basis vector except <span
+            class="math inline">\(\vb{e}_k\)</span>, and we add the
+            inverse volume element <span
+            class="math inline">\(E_n^{-1}\)</span> at the end to
+            normalize. More rigorously, we can verify that this
+            definition satisfies <a href="#eq:recip">Equation 4</a> by
+            making use of the duality transformation in <a
+            href="#duality" title="Lemma 8">Lemma 8</a>. <span
+            class="math display">\[\begin{align*}
+            \vb{e}_j \cdot \vb{e}^k &amp;= \vb{e}_j \cdot
+            \qty((-1)^{k+1} (\vb{e}_1 \wedge \ldots \wedge
+            \check{\vb{e}}_k \wedge \ldots \vb{e}_n) E_n^{-1}) \\
+            &amp;= (-1)^{k+1} \vb{e_j} \wedge \vb{e}_1 \wedge \ldots
+            \wedge \check{\vb{e}}_k \wedge \ldots \vb{e}_n E_n^{-1}
+            \end{align*}\]</span> Note that if <span
+            class="math inline">\(j \neq k\)</span>, the wedge product
+            vanishes. Otherwise, <span class="math inline">\((-1)^{k+1}
+            \vb{e_j} \wedge \vb{e}_1 \wedge \ldots \wedge
+            \check{\vb{e}}_k \wedge \ldots \vb{e}_n = E_n\)</span>.
+            Therefore, we recover our desired result <span
+            class="math inline">\(\vb{e}_j \cdot \vb{e}^k =
+            \delta_j^k\)</span>.</p>
+            <p>Once we have chosen a frame for our space, we can write
+            vectors as linear combinations of the frame basis vectors:
+            <span class="math display">\[a = a^i \vb{e}_i = a_i
+            \vb{e}^i,\]</span> where we are using Einstein summation
+            notation. By the reciprocal property in <a
+            href="#eq:recip">Equation 4</a>, we can see that <span
+            class="math inline">\(a^i = a \cdot \vb{e}^i\)</span> and
+            <span class="math inline">\(a_i = a \cdot \vb{e}_i\)</span>.
+            Therefore, <span class="math inline">\(a \cdot \vb{e}_i
+            \vb{e}^i = a \cdot \vb{e}^i \vb{e}_i = a\)</span> (recall
+            that the order of operations is <span
+            class="math inline">\(\cdot\)</span> and <span
+            class="math inline">\(\wedge\)</span> before the geometric
+            product). This is an instance of a more general fact.</p>
+            <div class="statement lemma plain">
+            <p><span class="statement-heading"><span
+            class="statement-label">Lemma 9</span>.</span><span
+            class="statement-spah"> </span>For any frame <span
+            class="math inline">\(\qty{\vb{e}_i}\)</span> and any
+            homogenous multivector <span
+            class="math inline">\(A_r\)</span>, <span
+            class="math display">\[\vb{e}_i \vb{e}^i \cdot A_r = r
+            A_r.\]</span></p>
+            </div>
+            <div class="statement proof proof unnumbered">
+            <p><span class="statement-heading"><span
+            class="statement-label">Proof</span>.</span><span
+            class="statement-spah"> </span>We apply <a
+            href="#eq:dot-expansion">Equation 2</a>. We also assume
+            <span class="math inline">\(A_r\)</span> is a blade that can
+            be written as a product of orthogonal vectors <span
+            class="math inline">\(\vb{a}_1 \vb{a}_2 \ldots
+            \vb{a}_r\)</span> (the general case follows trivially
+            because the desired identity is linear in <span
+            class="math inline">\(A_r\)</span>). <span
+            class="math display">\[\begin{align*}
+            \vb{e}_i \vb{e}^i \cdot A_r &amp;= \vb{e}_i \sum_{k=1}^r
+            (-1)^{k+1} (\vb{e}^i \cdot \vb{a}_k) (\vb{a}_1 \ldots
+            \check{\vb{a}}_k \ldots \vb{a}_r) \\
+            &amp;= \sum_{k=1}^r (-1)^{k+1} \vb{a}_k \vb{a}_1 \ldots
+            \check{\vb{a}}_k \ldots \vb{a}_r \\
+            &amp;= \sum_{k=1}^r \vb{a}_1 \ldots \vb{a}_r \\
+            &amp;= r A_r
+            \end{align*}\]</span></p>
+            </div>
+            <p>Since <span class="math inline">\(\qty{\vb{e}_1, \ldots,
+            \vb{e}_n}\)</span> spans <span
+            class="math inline">\(\mathbb{R}^n\)</span>, any blade of
+            degree <span class="math inline">\(r\)</span> can be written
+            as a linear combination of wedge products <span
+            class="math inline">\(\vb{e}_i \wedge \ldots \wedge \vb{e}_j
+            \wedge \vb{e}_k\)</span>. This holds similarly for the
+            reciprocal frame <span class="math inline">\(\qty{\vb{e}^1,
+            \ldots, \vb{e}^n}\)</span>. Therefore, any homogenous
+            multivector <span class="math inline">\(A\)</span> of grade
+            <span class="math inline">\(r\)</span> can be expanded:
+            <span class="math display">\[
+            A = \sum_{i_1 &lt; i_2 &lt; \ldots &lt; i_r} A_{i_1 \ldots
+            i_r} \vb{e}^{i_1} \wedge \ldots \vb{e}^{i_2} \wedge
+            \vb{e}^{i_r}
+            \]</span> An explicit formula for the components <span
+            class="math inline">\(A_{i_1 \ldots i_r}\)</span> can be
+            given: <span class="math display">\[
+            A_{i_1 \ldots i_r} = \expval{(e_{i_r} \wedge \ldots \wedge
+            e_{i_1}) A}
+            \]</span></p>
             <h1 class="unnumbered" id="bibliography">References</h1>
             <div id="refs"
             class="references csl-bib-body hanging-indent"

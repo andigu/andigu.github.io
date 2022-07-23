@@ -54,5 +54,9 @@ statement:
       label: "Corollary"
       counter: "self"
       prefix: cor
+    remark:
+      label: "Remark"
+      counter: "self"
+      prefix: rem
     
 ---
